@@ -4,11 +4,11 @@ import { Pressable, Text, View } from 'react-native';
 // const router = useRouter();
 
 export default function HomeScreen() {
-   const callback = (k) => {
+   const callback = (k: any) => {
     console.log('=================k', k);
   }
   const [name, setName] = useState('fangyunjiang');
-  const onPress = (k) => {
+  const onPress = (k: any) => {
     // router.push({ pathname:'/pages/personal',  state: { fang: k, a: {a:1, b:2}, callback }});
     router.push('/pages/personal', { fang: k, a: {a:1, b:2}, setName });
   }
