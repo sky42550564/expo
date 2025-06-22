@@ -6,10 +6,17 @@ export default function HomeScreen() {
   const setName = router.passProps.setName;
   const dispatch = useDispatch(); // 生成一个dispatch的函数
 
-  const click = () => {
-    // setName('你好' + Math.random());
+  const click1 = async () => {
+    setName('你好' + Math.random());
     dispatch(setPersonal({ name: '你好' + Math.random() }));
     router.back();
+  }
+  const click = async () => {
+    const data = await utils.post('/test', { a: 1 });
+    if (!data.success) {
+      return $alert(data.message);
+    }
+    $success('操作成功');
   }
   return (
     <View>
