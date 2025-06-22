@@ -13,5 +13,8 @@ global.router = {
       resolve();
     });
   },
+  back() {
+    expoRouter.back();
+  },
 }
 
