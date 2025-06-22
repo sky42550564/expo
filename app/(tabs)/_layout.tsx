@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
@@ -27,28 +27,28 @@ export default function TabLayout() {
         name="index"
         options={{
           title: '首页',
-          tabBarIcon: ({ color }) => '123',
+          tabBarIcon: ({ color }) => <Text>123</Text>,
         }}
       />
       <Tabs.Screen
         name="cart"
         options={{
           title: '购物车',
-          tabBarIcon: ({ color }) => '123',
+          tabBarIcon: ({ color }) => <Text>123</Text>,
         }}
       />
       <Tabs.Screen
         name="order"
         options={{
           title: '订单',
-          tabBarIcon: ({ color }) => '123',
+          tabBarIcon: ({ color }) => <Text>123</Text>,
         }}
       />
       <Tabs.Screen
         name="personal"
         options={{
           title: '我的',
-          tabBarIcon: ({ color }) => '123',
+          tabBarIcon: ({ color }) => <Text>123</Text>,
         }}
       />
     </Tabs>
