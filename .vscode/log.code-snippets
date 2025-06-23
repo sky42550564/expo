@@ -240,7 +240,49 @@
 		],
 		"description": "for in的缩写"
 	},
-	"<View style={_u(`xx`)}></View>": {
+	"{$1 && <View>$2</View> || <View>$3</View>}": {
+		"prefix": "vif",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"{$1 && <View>$2</View> || <View>$3</View>}"
+		],
+		"description": "if的缩写"
+	},
+	"{$1 && (<View>$2</View>) || (<View>$3</View>})": {
+		"prefix": "vifn",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"{",
+			"\t$1 && (",
+			"\t\t<View>$2</View>",
+			"\t) || (",
+			"\t\t<View>$3</View>",
+			"\t)",
+			"}",
+		],
+		"description": "if的多行缩写"
+	},
+	"{_.map((o, k)=><View>$1</View>)}": {
+		"prefix": "vmap",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"{_.map($1, (o: any, k: any) => (<View key={k}>{${2:o}}</View>))}"
+		],
+		"description": "map的缩写"
+	},
+	"{_.map((o, k)=>(<View>$1</View>))}": {
+		"prefix": "vmapn",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"{",
+			"\t_.map($1, (o: any, k: any) => (",
+			"\t\t<View key={k}>{${2:o}}</View>",
+			"\t))",
+			"}",
+		],
+		"description": "map的多行缩写"
+	},
+	"<View style={_u(`$1`)}></View>": {
 		"prefix": "vv",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
@@ -248,12 +290,20 @@
 		],
 		"description": "View的缩写"
 	},
-	"<Image source={xx} style={_u(`xx`)}></Image>": {
+	"<Image source={$2} style={_u(`$1`)}></Image>": {
 		"prefix": "vi",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
-			"<Image source={_img('logo.png')} style={_u(`$1`)} resizeMode=\"cover\"></Image>"
+			"<Image source={_img('logo.png')} style={_u(`$2`)} resizeMode=\"${1|stretch,cover,contain,center,repeat|}\"></Image>"
 		],
 		"description": "image的缩写"
 	},
+	"<View style=\"_u(`_button`)\">确定</View>": {
+    "prefix": "vbutton",
+		"scope": "javascriptreact,typescriptreact",
+    "body": [
+			"<View style={_u(`_button_white_warning_error_335_42_r`)}><Text>确定</Text></View>"
+    ],
+    "description": "button的缩写"
+  },
 }
