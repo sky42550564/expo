@@ -79,7 +79,7 @@ const getRules = (sr) => {
     },
     // 绝对布局 _poa | _poa_b100_r100
     poa: ([s]) => {
-      const obj = { 'position': 'absolute !important' };
+      const obj = { 'position': 'absolute' };
       if (s) {
         const list = s.split('_');
         const bc = removeOne(list, o => isColor(o))[0];
@@ -107,7 +107,7 @@ const getRules = (sr) => {
     },
     // 绝对布局 _pof | _pof_b100_r100
     pof: ([s]) => {
-      const obj = { 'position': 'fixed !important' };
+      const obj = { 'position': 'fixed' };
       if (s) {
         const list = s.split('_').filter(o => o);
         const bc = removeOne(list, o => isColor(o))[0];
@@ -134,7 +134,7 @@ const getRules = (sr) => {
       return obj;
     },
     // 相对布局
-    por: () => ({ 'position': 'relative !important' }),
+    por: () => ({ 'position': 'relative' }),
     // 绝对铺面
     full: ([s]) => {
       const obj = { 'position': 'absolute', 'top': 0, 'right': 0, 'bottom': 0, 'left': 0 };
@@ -975,15 +975,14 @@ const getRules = (sr) => {
     },
   };
   rules = _.map(rules, (v, k) => {
-    const func = ([line, im, ...params], ...otherParams) => {
+    const func = ([line, ...params], ...otherParams) => {
       // console.log('【UNO】解析：', line);
       params = params.map(o => {
         return o && o.replace(/^_/, '');
       });
-      const obj = v(params, ...otherParams);
-      return _.isString(obj) ? obj : _.mapValues(obj, (v, k) => im ? `${v} !important` : v); // 是否添加!important
+      return v(params, ...otherParams);
     }
-    return [new RegExp(`^(!)?_${k}(_[^$]*)?$`), func]; // 生成匹配的正则表达式，其中在开头添加!表示important，如 !_w_100 => { width: 200rpx !important; }
+    return [new RegExp(`^_${k}(_[^$]*)?$`), func]; // 生成匹配的正则表达式
   });
   return rules;
 }

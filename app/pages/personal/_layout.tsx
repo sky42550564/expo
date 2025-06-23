@@ -17,7 +17,7 @@ export default function HomeScreen() {
     //   return $alert(data.message);
     // }
     // $success('操作成功');
-    const x = _u(`!_s_100_${200}_cmain`)
+    const x = _u(`_s_100_${200}_cmain`)
     console.log('=================_u', x);
   }
   return (
