@@ -990,7 +990,7 @@ const getRules = (sr) => {
 // _u('_w_100', '_h_100', '_s_100', 'width:100px;height:100px', {width:'100px'}, '...')
 //  [/^_w_(\d+)$/, ([, d]) => ({ 'width': `${d}px` })],
 // [/^_s_(\d+)_?(\d+)?$/, ([, d1, d2]) => `_w_${d1} _h_${d2 || d1}`],
-const rules = getRules({
+export const rules = getRules({
   cmain: '#FFFFFF', // 主题色
   csub: '#FFFFFF', // 主题次色，主要用来做渐变
   ctext: '#000000', // 主题文字色
