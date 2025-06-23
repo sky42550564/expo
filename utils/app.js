@@ -9,6 +9,8 @@ import _ from './libs/lodash.js';
 global._ = _; // 数据处理
 import moment from './libs/moment.js';
 global.moment = moment; // 时间处理
+import api from './api/index.js';
+global.api = api; // 接口定义
 const expoRouter = useRouter();
 global.router = {
   url: null, // 路由的url

@@ -4,6 +4,7 @@ declare global {
   const _url: any;
   const _img: any;
   const _imgc: any;
+  const api: any;
   const router: any;
   const utils: any;
   const $alert: any;
