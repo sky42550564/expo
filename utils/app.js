@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 import * as utils from './index';
+import uno from './uno';
 const expoRouter = useRouter();
 global.router = {
   url: null, // 路由的url
@@ -20,6 +21,7 @@ global.router = {
   },
 };
 global.utils = utils;
+global._u = uno; // uno处理css样式
 global.$alert = (msg) => { // 提示信息
   return new Promise(resolve => {
     Alert.alert('', msg);

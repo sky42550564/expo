@@ -12,11 +12,13 @@ export default function HomeScreen() {
     router.back();
   }
   const click = async () => {
-    const data = await utils.post('/test', { a: 1 });
-    if (!data.success) {
-      return $alert(data.message);
-    }
-    $success('操作成功');
+    // const data = await utils.post('/test', { a: 1 });
+    // if (!data.success) {
+    //   return $alert(data.message);
+    // }
+    // $success('操作成功');
+    const x = _u(`!_s_100_${200}_cmain`)
+    console.log('=================_u', x);
   }
   return (
     <View>
