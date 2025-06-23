@@ -302,7 +302,7 @@
     "prefix": "vbutton",
 		"scope": "javascriptreact,typescriptreact",
     "body": [
-			"<View style={_u(`_button_white_warning_error_335_42_r`)}><Text>确定</Text></View>"
+			"<TouchableOpacity style={_u(`_button_warning_error_335_42_r`)}><Text style={_u(`_c_white _fs_14_bold`)}>确定</Text></TouchableOpacity>"
     ],
     "description": "button的缩写"
   },

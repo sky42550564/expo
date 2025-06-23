@@ -367,8 +367,6 @@ const getRules = (sr) => {
         b = removeOne(list, o => /^b([.\d]+(px)?)?$/.test(o))[0]; // border
         fs = removeOne(list, o => /^fs([.\d]+(px)?)?$/.test(o))[0]; // fontSize
         obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center', 'cursor': 'pointer', 'whiteSpace': 'nowrap' };
-        c = list[0];
-        list.splice(0, 1);
         if (b) {
           if (b === 'b') b = 'b1px';
           obj['border'] = `${formatUnit(b?.slice(1))} solid ${formatColor(sr, c)}`;
@@ -377,14 +375,13 @@ const getRules = (sr) => {
         width && (obj['maxWidth'] = formatUnit(width));
         height && (obj['minHeight'] = formatUnit(height));
         height && (obj['maxHeight'] = formatUnit(height));
-        height && (obj['line-height'] = formatUnit(height));
+        height && (obj['lineHeight'] = formatUnit(height));
         fs && (obj['fontSize'] = formatUnit(fs?.slice(2)));
         if (r === 'r') {
           obj['borderRadius'] = formatUnit(Math.min(width, height)); // 圆形
         } else if (r) {
           obj['borderRadius'] = formatUnit(r?.slice(1));
         }
-        obj['color'] = formatColor(sr, c || 'ctext'); // 默认是主题文字色
         list = getDefaultBackColor(sr, list);
         if (list.length === 1) {
           obj['backgroundColor'] = formatColor(sr, list[0]);
