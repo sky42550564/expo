@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import { Dimensions } from 'react-native';
-const window = Dimensions.get('window');
+let windowWidth = 375;
 
 const removeOne = (list, iteratee) => { const index = _.findIndex(list, iteratee); if (index === -1) { return [] } const r = list[index]; list.splice(index, 1); return [r] }
-const formatUnit = s => /^-?\d+(\.\d+)?$/.test(s) ? `${Math.round(s / 375 * window.width)}px` : s; // 在没有设置单位的情况下，会以375的屏幕为基准进行屏幕适配
+const formatUnit = s => /^-?\d+(\.\d+)?$/.test(s) ? `${Math.round(s / 375 * windowWidth)}px` : s; // 在没有设置单位的情况下，会以375的屏幕为基准进行屏幕适配
 const colorDefineList = ['cmain', 'csub', 'ctext', 'chigh', 'primary', 'success', 'info', 'warning', 'error', 'danger', 'link', 'red', 'blue', 'green', 'orange', 'yellow', 'purple', 'black', 'white', 'gold', 'gray', 'magenta', 'cyan', 'pink', 'transparent']; // 颜色列表，可以跟一个透明度，如white80 = #FFFFFF80
 const isHexColor = s => /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$/.test(s) || /^#[a-fA-F0-9]{3}/.test(s); // 判断是否是16进制的颜色
 const isColor = s => isHexColor(s) || !!(_.find(colorDefineList, o => _.startsWith(s, o))); // 判断是否是16进制的颜色
@@ -990,7 +989,7 @@ const getRules = (sr) => {
 // _u('_w_100', '_h_100', '_s_100', 'width:100px;height:100px', {width:'100px'}, '...')
 //  [/^_w_(\d+)$/, ([, d]) => ({ 'width': `${d}px` })],
 // [/^_s_(\d+)_?(\d+)?$/, ([, d1, d2]) => `_w_${d1} _h_${d2 || d1}`],
-export const rules = getRules({
+const rules = getRules({
   cmain: '#FFFFFF', // 主题色
   csub: '#FFFFFF', // 主题次色，主要用来做渐变
   ctext: '#000000', // 主题文字色
@@ -1001,7 +1000,7 @@ export const rules = getRules({
   warning: '#E6A23C',
   error: '#F56C6C',
 });
-export default (...list) => {
+const _u = (...list) => {
   let style = {};
   list = list.filter(o => o && o !== true);
   for (const item of list) {
@@ -1033,5 +1032,10 @@ export default (...list) => {
     }
   }
   return style;
+}
+
+export default (width = 375) => { // 传入实际的屏幕宽度
+  windowWidth = width;
+  return { rules, _u };
 }
 

@@ -1,6 +1,6 @@
 import config from '@/config.js';
 import { useRouter } from 'expo-router';
-import { Alert, Image, Text, View, TouchableOpacity } from 'react-native';
+import { Dimensions, Alert, Image, Text, View, TouchableOpacity } from 'react-native';
 // 常用rn组件
 global.Image = Image;
 global.Text = Text;
@@ -11,7 +11,7 @@ global.TouchableOpacity = TouchableOpacity;
 import * as utils from './utils/index.js';
 global.utils = utils;
 import uno from './utils/libs/uno.js';
-global._u = uno; // uno处理css样式
+global._u = uno(Dimensions.get('window').width)._u; // uno处理css样式
 import _ from './utils/libs/lodash.js';
 global._ = _; // 数据处理
 import moment from './utils/libs/moment.js';
