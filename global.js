@@ -1,6 +1,13 @@
 import config from '@/config.js';
 import { useRouter } from 'expo-router';
-import { Alert } from 'react-native';
+import { Alert, Image, Text, View, TouchableOpacity } from 'react-native';
+// 常用rn组件
+global.Image = Image;
+global.Text = Text;
+global.View = View;
+global.TouchableOpacity = TouchableOpacity;
+
+// 常用方法
 import * as utils from './utils/index.js';
 global.utils = utils;
 import uno from './utils/libs/uno.js';
@@ -13,6 +20,8 @@ import api from './utils/api/index.js';
 global.api = api; // 接口定义
 import * as CO from './utils/constants/index.js';
 global.CO = CO; // 常量定义
+
+// 路由操作
 const expoRouter = useRouter();
 global.router = {
   url: null, // 路由的url

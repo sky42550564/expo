@@ -1,9 +1,8 @@
-import { Image, Text, View, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
 
 export default function HomeScreen() {
   const list = [1, 2, 3];
   const click = async () => {
-    console.log('============', CO);
     const data = await api.getSettingInfo({ a: 1 });
     if (!data.success) {
       return $alert(data.message);
@@ -19,7 +18,9 @@ export default function HomeScreen() {
   }
   return (
     <View style={_u(`_wf_100 _fx_ccc`)}>
-      <TouchableOpacity onPress={click} style={_u(`_button_warning_error_335_42_r`)}><Text style={_u(`_c_white _fs_14_bold`)}>确定</Text></TouchableOpacity>
+      <TouchableOpacity onPress={click} style={_u(`_button_warning_error_335_42_r`)}>
+        <Text style={_u(`_c_white _fs_14_bold`)}>确定</Text>
+      </TouchableOpacity>
     </View>
   );
 }

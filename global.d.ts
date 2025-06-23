@@ -10,7 +10,10 @@ declare global {
   const utils: any;
   const $alert: any;
   const $success: any;
+  // 常用rn组件
+  const View: any;
+  const Text: any;
+  const Image: any;
+  const TouchableOpacity: any;
 }
-
 export { };
-

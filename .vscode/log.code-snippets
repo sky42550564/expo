@@ -1,7 +1,7 @@
 {
 	"console.log('===', $1)": {
 		"prefix": "lx",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"console.log('=================$1', $1$2);"
 		],
@@ -9,7 +9,7 @@
 	},
 	"return console.log('===', $1)": {
 		"prefix": "lt",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"return console.log('=================$1', $1$2);"
 		],
@@ -17,7 +17,7 @@
 	},
 	"console.log('===', JSON.stringify($1, null, 2))": {
 		"prefix": "lj",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"console.log('=================$1', JSON.stringify($1$2, null, 2));"
 		],
@@ -25,7 +25,7 @@
 	},
 	"return console.log('params =', params)": {
 		"prefix": "lp",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"// return console.log('params$1 =', params$1)"
 		],
@@ -33,7 +33,7 @@
 	},
 	"const xx = () => {}": {
 		"prefix": "vfunc",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const $1 = ($2) => { // $3",
 			"\t$4",
@@ -43,7 +43,7 @@
 	},
 	"const xx = async () => {}": {
 		"prefix": "vsyncfunc",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const $1 = async ($2) => { // $3",
 			"\t$4",
@@ -53,7 +53,7 @@
 	},
 	"const data = await utils.post()": {
 		"prefix": "vpost",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const data = await utils.post('/$1', $2);",
 			"if (!data.success) {",
@@ -65,7 +65,7 @@
 	},
 	"const data = await utils.post('/many')": {
 		"prefix": "vmany",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const data = await utils.post('/many', {",
 			"\t$1: { url: '/detail/$1', params: {$2} },",
@@ -79,7 +79,7 @@
 	},
 	"const props = defineProps({})": {
 		"prefix": "vprops",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const props = defineProps({",
 			"\t$1: null, // $2",
@@ -90,7 +90,7 @@
 	},
 	"const state = reactive({})": {
 		"prefix": "vstate",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const state = reactive({",
 			"\t$1",
@@ -100,7 +100,7 @@
 	},
 	"const { xx, store: xxStore } = usePinia('xx')": {
 		"prefix": "vpinia",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const { $1, store: $1Store } = usePinia('$1');"
 		],
@@ -108,7 +108,7 @@
 	},
 	"const route = useRoute()": {
 		"prefix": "vroute",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const route = useRoute();"
 		],
@@ -116,7 +116,7 @@
 	},
 	"const xx = router.passProps.xx": {
 		"prefix": "vpassProps",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const $1 = router.passProps.$1;"
 		],
@@ -124,7 +124,7 @@
 	},
 	"import xx from './xx.vue'": {
 		"prefix": "vimport",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"import $1 from './$1.vue';"
 		],
@@ -132,7 +132,7 @@
 	},
 	"const xx = ref()": {
 		"prefix": "vref",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const $1 = ref();"
 		],
@@ -140,7 +140,7 @@
 	},
 	"const xx = computed(() => xx)": {
 		"prefix": "vcomputed",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"const $1 = computed(() => $2);"
 		],
@@ -148,7 +148,7 @@
 	},
 	"watch($xx, (cur, pre) => {})": {
 		"prefix": "vwatch",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"watch($1, (cur, pre) => {",
 			"\t$2",
@@ -158,7 +158,7 @@
 	},
 	"defineExpose({ xx })": {
 		"prefix": "vexpose",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"defineExpose({ $1 });"
 		],
@@ -166,7 +166,7 @@
 	},
 	"nextTick(() => {})": {
 		"prefix": "vnexttick",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"nextTick(() => {",
 			"\t$1",
@@ -176,7 +176,7 @@
 	},
 	"onMounted(() => {})": {
 		"prefix": "vmount",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"onMounted(() => {",
 			"\t$1",
@@ -186,7 +186,7 @@
 	},
 	"onUnmounted(() => {})": {
 		"prefix": "vunmounted",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"onUnmounted(() => {",
 			"\t$1",
@@ -196,7 +196,7 @@
 	},
 	"onLoad(() => {})": {
 		"prefix": "vonload",
-		"scope": "javascript,javascriptreact",
+		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
 			"onLoad(() => {",
 			"\t$1",
@@ -302,7 +302,9 @@
     "prefix": "vbutton",
 		"scope": "javascriptreact,typescriptreact",
     "body": [
-			"<TouchableOpacity style={_u(`_button_warning_error_335_42_r`)}><Text style={_u(`_c_white _fs_14_bold`)}>确定</Text></TouchableOpacity>"
+			"<TouchableOpacity onPress={click} style={_u(`_button_warning_error_335_42_r`)}>",
+      "\t<Text style={_u(`_c_white _fs_14_bold`)}>确定</Text>",
+      "</TouchableOpacity>"
     ],
     "description": "button的缩写"
   },
