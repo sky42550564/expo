@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { Provider } from 'react-redux';
 import store from '../store';
-import '../utils/app';
+import '../global';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 

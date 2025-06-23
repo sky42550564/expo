@@ -3,6 +3,7 @@ import { Image, Text, View, TouchableOpacity } from 'react-native';
 export default function HomeScreen() {
   const list = [1, 2, 3];
   const click = async () => {
+    console.log('============', CO);
     const data = await api.getSettingInfo({ a: 1 });
     if (!data.success) {
       return $alert(data.message);
