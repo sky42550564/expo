@@ -188,9 +188,11 @@ const getRules = (sr) => {
         const mowrap = removeOne(list, o => /^(nw|mowrap)$/.test(o))[0]; // 断行
         const dir = removeOne(list, o => /^(ccc|cc|c|rb|ra|rc|r|r0)$/.test(o))[0]; // 方向
         const gap = removeOne(list, o => /^g\d+(px)?$/.test(o))[0]; // 空格
-        if (dir === 'r') { // 默认垂直居中
-          obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center' };
+        if (dir === 'r') {
+          obj = { 'display': 'flex', 'flexDirection': 'row' };
         } else if (dir === 'rc') { // flex-row-center
+          obj = { 'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center' };
+        } else if (dir === 'rcc') { // flex-row-center
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center' };
         } else if (dir === 'ra') { // flex-row-space-around
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'space-around' };
