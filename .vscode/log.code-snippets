@@ -1,0 +1,259 @@
+{
+	"console.log('===', $1)": {
+		"prefix": "lx",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"console.log('=================$1', $1$2);"
+		],
+		"description": "console.log($1);"
+	},
+	"return console.log('===', $1)": {
+		"prefix": "lt",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"return console.log('=================$1', $1$2);"
+		],
+		"description": "return console.log($1);"
+	},
+	"console.log('===', JSON.stringify($1, null, 2))": {
+		"prefix": "lj",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"console.log('=================$1', JSON.stringify($1$2, null, 2));"
+		],
+		"description": "console.log(JSON.stringify($1, null, 2));"
+	},
+	"return console.log('params =', params)": {
+		"prefix": "lp",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"// return console.log('params$1 =', params$1)"
+		],
+		"description": "return console.log('params =', params)"
+	},
+	"const xx = () => {}": {
+		"prefix": "vfunc",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const $1 = ($2) => { // $3",
+			"\t$4",
+			"}"
+		],
+		"description": "箭头函数"
+	},
+	"const xx = async () => {}": {
+		"prefix": "vsyncfunc",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const $1 = async ($2) => { // $3",
+			"\t$4",
+			"}"
+		],
+		"description": "异步箭头函数"
+	},
+	"const data = await utils.post()": {
+		"prefix": "vpost",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const data = await utils.post('/$1', $2);",
+			"if (!data.success) {",
+			"\treturn \\$alert(data.message)",
+			"}",
+			"\\$success('操作成功');"
+		],
+		"description": "post网络请求"
+	},
+	"const data = await utils.post('/many')": {
+		"prefix": "vmany",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const data = await utils.post('/many', {",
+			"\t$1: { url: '/detail/$1', params: {$2} },",
+			"});",
+			"if (!data.success && !data.break) {",
+			"\treturn \\$alert(data.message)",
+			"}",
+			"\\$success('操作成功');"
+		],
+		"description": "many网络请求"
+	},
+	"const props = defineProps({})": {
+		"prefix": "vprops",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const props = defineProps({",
+			"\t$1: null, // $2",
+			"\t$1: { default: $3 }, // $2",
+			"});",
+		],
+		"description": "props缩写"
+	},
+	"const state = reactive({})": {
+		"prefix": "vstate",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const state = reactive({",
+			"\t$1",
+			"});",
+		],
+		"description": "state缩写"
+	},
+	"const { xx, store: xxStore } = usePinia('xx')": {
+		"prefix": "vpinia",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const { $1, store: $1Store } = usePinia('$1');"
+		],
+		"description": "pinia缩写"
+	},
+	"const route = useRoute()": {
+		"prefix": "vroute",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const route = useRoute();"
+		],
+		"description": "route缩写"
+	},
+	"const xx = router.passProps.xx": {
+		"prefix": "vpassProps",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const $1 = router.passProps.$1;"
+		],
+		"description": "passProps缩写"
+	},
+	"import xx from './xx.vue'": {
+		"prefix": "vimport",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"import $1 from './$1.vue';"
+		],
+		"description": "import缩写"
+	},
+	"const xx = ref()": {
+		"prefix": "vref",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const $1 = ref();"
+		],
+		"description": "ref缩写"
+	},
+	"const xx = computed(() => xx)": {
+		"prefix": "vcomputed",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"const $1 = computed(() => $2);"
+		],
+		"description": "computed缩写"
+	},
+	"watch($xx, (cur, pre) => {})": {
+		"prefix": "vwatch",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"watch($1, (cur, pre) => {",
+			"\t$2",
+			"}, { immediate: true, deep: true });",
+		],
+		"description": "watch缩写"
+	},
+	"defineExpose({ xx })": {
+		"prefix": "vexpose",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"defineExpose({ $1 });"
+		],
+		"description": "expose缩写"
+	},
+	"nextTick(() => {})": {
+		"prefix": "vnexttick",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"nextTick(() => {",
+			"\t$1",
+			"});"
+		],
+		"description": "nextTick缩写"
+	},
+	"onMounted(() => {})": {
+		"prefix": "vmount",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"onMounted(() => {",
+			"\t$1",
+			"});"
+		],
+		"description": "onMounted缩写"
+	},
+	"onUnmounted(() => {})": {
+		"prefix": "vunmounted",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"onUnmounted(() => {",
+			"\t$1",
+			"});"
+		],
+		"description": "onUnmounted缩写"
+	},
+	"onLoad(() => {})": {
+		"prefix": "vonload",
+		"scope": "javascript,javascriptreact",
+		"body": [
+			"onLoad(() => {",
+			"\t$1",
+			"});"
+		],
+		"description": "onLoad缩写"
+	},
+	"react useState()": {
+		"scope": "javascriptreact,typescriptreact",
+		"prefix": "vusestate",
+		"body": [
+			"const [${1/(.*)/${1:/camelcase}/}, set${1/(.*)/${1:/capitalize}/}] = useState($0);",
+		],
+		"description": "react useState"
+	},
+	"react style()": {
+		"scope": "javascriptreact,typescriptreact",
+		"prefix": ":s",
+		"body": [
+			"style={_u(`$1`)}"
+		],
+		"description": "react style"
+	},
+	"for (item of list) {}": {
+		"prefix": "vforof",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"for (item of $1) {",
+			"\t$2",
+			"}"
+		],
+		"description": "for of的缩写"
+	},
+	"for (i in list) {}": {
+		"prefix": "vforin",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"for (i in $1) {",
+			"\t$2",
+			"}"
+		],
+		"description": "for in的缩写"
+	},
+	"<View style={_u(`xx`)}></View>": {
+		"prefix": "vv",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"<View style={_u(`$1`)}></View>"
+		],
+		"description": "View的缩写"
+	},
+	"<Image source={xx} style={_u(`xx`)}></Image>": {
+		"prefix": "vi",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"<Image source={_img('logo.png')} style={_u(`$1`)} resizeMode=\"cover\"></Image>"
+		],
+		"description": "image的缩写"
+	},
+}
