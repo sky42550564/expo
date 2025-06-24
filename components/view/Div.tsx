@@ -12,9 +12,7 @@ function Cell({
   children, // 子组件
   s, // 样式
 }: Props) {
-  console.log('=================s', s);
   const style = _us(s);
-  console.log('=================style', style);
   if (style.colors?.length > 1) { // 如果是渐变，需要使用渐变进行渲染
     const colors = style.colors;
     delete style.dir;
