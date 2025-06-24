@@ -1,11 +1,8 @@
 import config from '@/config.js';
-import { useRouter } from 'expo-router';
-import { Dimensions, Alert, Image, Text, View, TouchableOpacity } from 'react-native';
+import { Dimensions, Alert } from 'react-native';
 // 常用rn组件
-global.Image = Image;
-global.Text = Text;
-global.View = View;
-global.TouchableOpacity = TouchableOpacity;
+import Div from '@/components/view/Div';
+global.Div = Div;
 
 // 常用方法
 import * as utils from './utils/index.js';
@@ -22,6 +19,7 @@ import * as CO from './utils/constants/index.js';
 global.CO = CO; // 常量定义
 
 // 路由操作
+import { useRouter } from 'expo-router';
 const expoRouter = useRouter();
 global.router = {
   url: null, // 路由的url

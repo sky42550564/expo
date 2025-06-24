@@ -11,9 +11,6 @@ declare global {
   const $alert: any;
   const $success: any;
   // 常用rn组件
-  const View: any;
-  const Text: any;
-  const Image: any;
-  const TouchableOpacity: any;
+  const Div: any;
 }
 export { };
