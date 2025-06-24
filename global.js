@@ -1,5 +1,5 @@
 import config from '@/config.js';
-import { Dimensions, Alert } from 'react-native';
+import { Dimensions, Alert, Platform } from 'react-native';
 // 常用rn组件
 import Div from '@/components/view/Div';
 global.Div = Div;
@@ -12,7 +12,7 @@ global.moment = moment; // 时间处理
 import * as utils from './utils/index.js';
 global.utils = utils;
 import uno from './utils/libs/uno.js';
-const u = uno(Dimensions.get('window').width);
+const u = uno(Dimensions.get('window').width, Platform.OS === 'web');
 global._u = u._u; // uno处理css样式
 global._us = u._us; // uno处理css样式
 import api from './utils/api/index.js';

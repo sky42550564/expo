@@ -13,13 +13,14 @@ function Cell({
   s, // 样式
 }: Props) {
   const style = _us(s);
-  if (style.colors?.length > 1) { // 如果是渐变，需要使用渐变进行渲染
-    const colors = style.colors;
+  console.log('=================style', s, style);
+  if (style.bcolors?.length > 1) { // 如果是渐变，需要使用渐变进行渲染
+    const bcolors = style.bcolors;
     delete style.dir;
-    delete style.colors;
+    delete style.bcolors;
     return (
       <LinearGradient
-        colors={colors} // 渐变颜色数组
+        colors={bcolors} // 渐变颜色数组
         start={{ x: 0, y: 0 }} // 起点坐标 (左上角)
         end={{ x: 1, y: 1 }}   // 终点坐标 (右下角)
         style={style}    // 填充整个屏幕

@@ -9,10 +9,11 @@ export default function Home() {
   return (
     // <Div s="_pt_50 _ph_10">
     <View>
-      <Div s="_s_100_green _m_50 _br_10 _fx_rcc _bob_red" onPress={onPress}>fangyunjiang</Div>
-      <View style={_u(`_s_100_green _m_50 _br_20`)}></View>
-      <View style={styles.circle}></View>
-      <MaskedView
+      {/* <Div s="_s_100_green _m_50 _br_10 _fx_rcc _bob_red" onPress={onPress}>fangyunjiang</Div>
+      <View style={_u(`_s_100_green _m_50 _br_20`)}></View> */}
+      {/* <View style={styles.circle}></View> */}
+      <Div s="_s_100 _bc_red_blue"></Div>
+      {/* <MaskedView
         maskElement={
           <Text style={styles.text}>水电费水电费</Text>
         }
@@ -23,8 +24,9 @@ export default function Home() {
           end={{ x: 1, y: 1 }}
           style={_u(`_wf_40`)}
         />
-      </MaskedView>
-      <View style={_u(`_s_100_red`)}></View>
+      </MaskedView> */}
+      {/* <View style={{width:'100px',height:'100px',backgroundImage:'radial-gradient(red,blue)'}}></View> */}
+      <Text style={_u(`_c_red_blue _w_100`)}>水电费水电费</Text>
     </View>
     // <Div s="_s_100 _bc_blue_green"></Div>
     // <TouchableOpacity onPress={onPress} style={_u(`_button_warning_335_42_r _mt_100`)}>
