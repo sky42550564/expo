@@ -1,6 +1,6 @@
 import _ from 'lodash';
 let windowWidth = 375;
-let isWeb = false;
+let isH5 = false;
 
 const removeOne = (list, iteratee) => { const index = _.findIndex(list, iteratee); if (index === -1) { return [] } const r = list[index]; list.splice(index, 1); return [r] }
 const formatUnit = s => /^-?\d+(\.\d+)?$/.test(s) ? Math.round(s / 375 * windowWidth) : s; // 在没有设置单位的情况下，会以375的屏幕为基准进行屏幕适配
@@ -575,7 +575,7 @@ const getRules = (sr) => {
       const list = (s || '').split('_').filter(o => o);
       let dir = removeOne(list, o => /^-?(v|h|c|ob|\d+deg)$/.test(o))[0]; // 渐变的方向,v从左到右，h从上到下，从左上到右下45deg,从右上到左下-45deg
       if (list.length > 1) {
-        if (isWeb) {
+        if (isH5) {
           const obj = { 'WebkitBackgroundClip': 'text', 'color': 'transparent' };
           !dir && (dir = 'h');
           if (dir === 'c') { // 径向渐变
@@ -590,6 +590,8 @@ const getRules = (sr) => {
           dir = { 'v': 'to bottom', '-v': 'to top', 'h': 'to right', '-h': 'to left' }[dir] || dir; // 线性渐变
           return { ...obj, 'backgroundImage': `linear-gradient(${dir}, ${list.map(o => formatColor(sr, o)).join(',')})` };
         }
+        // c: 径向渐变 ob: 斜向左上到右下 -ob 反斜向右上到左下 v: 向下 -v: 向上 h: 向右 -h: 向左 其他填写角度：30deg
+        return { 'color': formatColor(sr, list[0]), dir, colors: list.map(o => formatColor(sr, o)) };
       }
       const color = removeOne(list, o => isColor(o))[0] || 'ctext';
       return { 'color': formatColor(sr, color) };
@@ -601,7 +603,7 @@ const getRules = (sr) => {
       list = getDefaultBackColor(sr, list);
       if (list.length > 1) {
         !dir && (dir = 'h');
-        if (isWeb) {
+        if (isH5) {
           if (dir === 'c') { // 径向渐变
             return { 'background-image': `radial-gradient(${list.map(o => formatColor(sr, o)).join(',')})` };
           }
@@ -1099,13 +1101,14 @@ const _us = (...list) => {
 const _u = (...list) => { // 严格模式
   const style = _us(...list);
   delete style.dir;
+  delete style.colors;
   delete style.bcolors;
   return style;
 }
 
-export default (width = 375, web) => { // 传入实际的屏幕宽度
+export default (width = 375, h5) => { // 传入实际的屏幕宽度
   windowWidth = width;
-  isWeb = web;
+  isH5 = h5;
   return { rules, _u, _us };
 }
 

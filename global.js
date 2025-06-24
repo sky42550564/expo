@@ -1,9 +1,7 @@
 import config from '@/config.js';
 import { Dimensions, Alert, Platform } from 'react-native';
-// 常用rn组件
-import Div from '@/components/view/Div';
-global.Div = Div;
-
+import sr from './utils/libs/screen.js';
+global.sr = sr; // 窗口信息
 // 常用方法
 import _ from './utils/libs/lodash.js';
 global._ = _; // 数据处理
@@ -12,7 +10,7 @@ global.moment = moment; // 时间处理
 import * as utils from './utils/index.js';
 global.utils = utils;
 import uno from './utils/libs/uno.js';
-const u = uno(Dimensions.get('window').width, Platform.OS === 'web');
+const u = uno(sr.w, sr.h5);
 global._u = u._u; // uno处理css样式
 global._us = u._us; // uno处理css样式
 import api from './utils/api/index.js';
@@ -64,5 +62,9 @@ global._img = (url) => {
 global._imgc = (url) => {
   return !url || /^http/.test(url) ? url : `${config.server}/img/common/${url.replace(/^\//, '')}`;
 }
+
+// 常用rn组件
+import Div from '@/components/view/Div';
+global.Div = Div;
 
 
