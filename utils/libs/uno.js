@@ -186,7 +186,7 @@ const getRules = (sr) => {
         const a = removeOne(list, o => /^(as|ac|ae|a0)$/.test(o))[0]; // alignItems
         const wrap = removeOne(list, o => /^(w|wrap)$/.test(o))[0]; // 断行
         const mowrap = removeOne(list, o => /^(nw|mowrap)$/.test(o))[0]; // 断行
-        const dir = removeOne(list, o => /^(ccc|cc|c|rb|ra|rc|r|r0)$/.test(o))[0]; // 方向
+        const dir = removeOne(list, o => /^(ccc|cc|c|rb|ra|rcc|rc|r|r0)$/.test(o))[0]; // 方向
         const gap = removeOne(list, o => /^g\d+(px)?$/.test(o))[0]; // 空格
         if (dir === 'r') {
           obj = { 'display': 'flex', 'flexDirection': 'row' };
@@ -648,18 +648,28 @@ const getRules = (sr) => {
     bo: ([s]) => {
       let style = 'solid', color = 'e8e8e8', list = [];
       if (s) {
-        list = s.split('_').filter(o => o);
+        list = s.split('_').map(o => o || 0);
         style = removeOne(list, o => o === 'dashed' || o === 'solid')[0] || style;
         color = removeOne(list, o => isColor(o))[0] || color;
       }
       color = formatColor(sr, color);
+      const obj = { borderStyle: style, borderColor: color };
       if (list.length < 2) {
         if (list[0] == 0) {
-          return { 'border': 0 };
+          return { borderWidth: 0 };
         }
-        return { 'border': `${formatUnit(list[0] || 1)} ${style} ${color}` };
+        obj['borderWidth'] = formatUnit(list[0] || 1);
+        return obj;
       }
-      return { 'borderTop': `${formatUnit(list[0] || 0)} ${style} ${color}`, 'borderBottom': `${formatUnit(list[2] || list[0] || 0)} ${style} ${color}`, 'borderRight': `${formatUnit(list[1] || 0)} ${style} ${color}`, 'borderLeft': `${formatUnit(list[3] || list[1] || 0)} ${style} ${color}` };
+      const v0 = formatUnit(list[0]); // 上
+      const v1 = list[1] == null ? v0 : formatUnit(list[1]); // 右
+      const v2 = list[2] == null ? v0 : formatUnit(list[2]); // 下
+      const v3 = list[3] == null ? v1 : formatUnit(list[3]); // 左
+      obj['borderTopWidth'] = v0;
+      obj['borderRightWidth'] = v1;
+      obj['borderBottomWidth'] = v2;
+      obj['borderLeftWidth'] = v3;
+      return obj;
     },
     // 上下边框: _bov[_1_1_solid_red]
     bov: ([s]) => {
@@ -670,7 +680,14 @@ const getRules = (sr) => {
         color = removeOne(list, o => isColor(o))[0] || color;
       }
       color = formatColor(sr, color);
-      return { 'borderTop': `${formatUnit(list[0] || 1)} ${style} ${color}`, 'borderBottom': `${formatUnit(list[1] || list[0] || 1)} ${style} ${color}` };
+      return {
+        'borderTopWidth': formatUnit(list[0] || 1),
+        'borderTopStyle': style,
+        'borderTopColor': color,
+        'borderBottomWidth': formatUnit(list[1] || list[0] || 1),
+        'borderBottomStyle': style,
+        'borderBottomColor': color,
+      };
     },
     // 左右边框:_boh[_1_1_solid_red]
     boh: ([s]) => {
@@ -681,7 +698,14 @@ const getRules = (sr) => {
         color = removeOne(list, o => isColor(o))[0] || color;
       }
       color = formatColor(sr, color);
-      return { 'borderLeft': `${formatUnit(list[0] || 1)} ${style} ${color}`, 'borderRight': `${formatUnit(list[1] || list[0] || 1)} ${style} ${color}` };
+      return {
+        'borderLeftWidth': formatUnit(list[0] || 1),
+        'borderLeftStyle': style,
+        'borderLeftColor': color,
+        'borderRightWidth': formatUnit(list[1] || list[0] || 1),
+        'borderRightStyle': style,
+        'borderRightColor': color,
+      };
     },
     // 上边框 _bot[_1_solid_red]
     bot: ([s]) => {
@@ -692,7 +716,11 @@ const getRules = (sr) => {
         color = removeOne(list, o => isColor(o))[0] || color;
       }
       color = formatColor(sr, color);
-      return { 'borderTop': `${formatUnit(list[0] || 1)} ${style} ${color}` };
+      return {
+        'borderTopWidth': formatUnit(list[0] || 1),
+        'borderTopStyle': style,
+        'borderTopColor': color,
+      };
     },
     // 下边框 _bob[_1_solid_red]
     bob: ([s]) => {
@@ -703,7 +731,11 @@ const getRules = (sr) => {
         color = removeOne(list, o => isColor(o))[0] || color;
       }
       color = formatColor(sr, color);
-      return { 'borderBottom': `${formatUnit(list[0] || 1)} ${style} ${color}` };
+      return {
+        'borderBottomWidth': formatUnit(list[0] || 1),
+        'borderBottomStyle': style,
+        'borderBottomColor': color,
+      };
     },
     // 左边框 _bol[_1_solid_red]
     bol: ([s]) => {
@@ -714,7 +746,11 @@ const getRules = (sr) => {
         color = removeOne(list, o => isColor(o))[0] || color;
       }
       color = formatColor(sr, color);
-      return { 'borderLeft': `${formatUnit(list[0] || 1)} ${style} ${color}` };
+      return {
+        'borderLeftWidth': formatUnit(list[0] || 1),
+        'borderLeftStyle': style,
+        'borderLeftColor': color,
+      };
     },
     // 右边框 _bor[_1_solid_red]
     bor: ([s]) => {
@@ -725,7 +761,11 @@ const getRules = (sr) => {
         color = removeOne(list, o => isColor(o))[0] || color;
       }
       color = formatColor(sr, color);
-      return { 'borderRight': `${formatUnit(list[0] || 1)} ${style} ${color}` };
+      return {
+        'borderRightWidth': formatUnit(list[0] || 1),
+        'borderRightStyle': style,
+        'borderRightColor': color,
+      };
     },
     // 阴影: _shadow_color_blur_spread | _shadow_1_5_v0_h0_red | _shadow_in_1_5_red
     // 默认为四周外边框阴影，blur:模糊距离 spread阴影大小，添加上in为内边阴影

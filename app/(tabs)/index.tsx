@@ -10,9 +10,9 @@ export default function Home() {
   return (
     // <Div s="_pt_50 _ph_10">
     <View>
-      <Div s="_s_100_green _m_50 _br_10" >fangyunjiang</Div>
+      <Div s="_s_100_green _m_50 _br_10 _fx_rcc _bob_red" onPress={onPress}>fangyunjiang</Div>
       <View style={_u(`_s_100_green _m_50 _br_20`)}></View>
-       <View style={styles.circle}></View>
+      <View style={styles.circle}></View>
     </View>
     // <Div s="_s_100 _bc_blue_green"></Div>
     // <TouchableOpacity onPress={onPress} style={_u(`_button_warning_335_42_r _mt_100`)}>
@@ -39,5 +39,8 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50, // 等于宽度/2
     backgroundColor: 'red',
+    borderWidth: 10,
+    borderColor: 'green',
+    borderStyle: 'solid',
   },
 });
