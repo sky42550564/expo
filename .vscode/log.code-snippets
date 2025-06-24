@@ -290,6 +290,14 @@
 		],
 		"description": "View的缩写"
 	},
+	"<Div s=\"$1\"></Div>": {
+		"prefix": "vd",
+		"scope": "javascriptreact,typescriptreact",
+		"body": [
+			"<Div s=\"$1\">$2</Div>"
+		],
+		"description": "Div的缩写"
+	},
 	"<Image source={$2} style={_u(`$1`)}></Image>": {
 		"prefix": "vi",
 		"scope": "javascriptreact,typescriptreact",

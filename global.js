@@ -1,5 +1,5 @@
 import config from '@/config.js';
-import { Dimensions, Alert, Platform } from 'react-native';
+import { Alert } from 'react-native';
 import sr from './utils/libs/screen.js';
 global.sr = sr; // 窗口信息
 // 常用方法
@@ -66,5 +66,7 @@ global._imgc = (url) => {
 // 常用rn组件
 import Div from '@/components/view/Div';
 global.Div = Div;
+import Icon from '@/components/view/Icon';
+global.Icon = Icon;
 
 

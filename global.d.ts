@@ -20,5 +20,6 @@ declare global {
   const _imgc: any;
   // 常用rn组件
   const Div: any;
+  const Icon: any;
 }
 export { };

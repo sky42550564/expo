@@ -52,7 +52,7 @@ function Cell({
   }
   return (
     <View style={style}>
-      {_.isString(children) ? children : children}
+      {_.isString(children) ? <Text>{children}</Text> : children}
     </View>
   );
 }
