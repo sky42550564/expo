@@ -8,7 +8,9 @@ global.Div = Div;
 import * as utils from './utils/index.js';
 global.utils = utils;
 import uno from './utils/libs/uno.js';
-global._u = uno(Dimensions.get('window').width)._u; // uno处理css样式
+const u = uno(Dimensions.get('window').width);
+global._u = u._u; // uno处理css样式
+global._us = u._us; // uno处理css样式
 import _ from './utils/libs/lodash.js';
 global._ = _; // 数据处理
 import moment from './utils/libs/moment.js';

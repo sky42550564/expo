@@ -1,5 +1,6 @@
 import _ from 'lodash';
 let windowWidth = 375;
+let forDiv = false;
 
 const removeOne = (list, iteratee) => { const index = _.findIndex(list, iteratee); if (index === -1) { return [] } const r = list[index]; list.splice(index, 1); return [r] }
 const formatUnit = s => /^-?\d+(\.\d+)?$/.test(s) ? Math.round(s / 375 * windowWidth) : s; // 在没有设置单位的情况下，会以375的屏幕为基准进行屏幕适配
@@ -592,17 +593,8 @@ const getRules = (sr) => {
       list = getDefaultBackColor(sr, list);
       if (list.length > 1) {
         !dir && (dir = 'h');
-        if (dir === 'c') { // 径向渐变
-          return { 'backgroundImage': `radial-gradient(${list.map(o => formatColor(sr, o)).join(',')})` };
-        }
-        if (dir === 'ob') { // 斜向左上到右下
-          return { 'backgroundImage': `linear-gradient(to bottom right, ${list.map(o => formatColor(sr, o)).join(',')})` };
-        }
-        if (dir === '-ob') { // 反斜向右上到左下
-          return { 'backgroundImage': `linear-gradient(to bottom left, ${list.map(o => formatColor(sr, o)).join(',')})` };
-        }
-        dir = { 'v': 'to bottom', '-v': 'to top', 'h': 'to right', '-h': 'to left' }[dir] || dir; // 线性渐变
-        return { 'backgroundImage': `linear-gradient(${dir}, ${list.map(o => formatColor(sr, o)).join(',')})` };
+        // c: 径向渐变 ob: 斜向左上到右下 -ob 反斜向右上到左下 v: 向下 -v: 向上 h: 向右 -h: 向左 其他填写角度：30deg
+        return { 'backgroundColor': formatColor(sr, list[0]), dir, colors: list.map(o => formatColor(sr, o)) };
       }
       return { 'backgroundColor': formatColor(sr, list[0]) }; // 纯色背景
     },
@@ -1000,7 +992,7 @@ const rules = getRules({
   warning: '#E6A23C',
   error: '#F56C6C',
 });
-const _u = (...list) => {
+const _us = (...list) => {
   let style = {};
   list = list.filter(o => o && o !== true);
   for (const item of list) {
@@ -1034,8 +1026,15 @@ const _u = (...list) => {
   return style;
 }
 
+const _u = (...list) => { // 严格模式
+  const style = _us(...list);
+  delete style.dir;
+  delete style.colors;
+  return style;
+}
+
 export default (width = 375) => { // 传入实际的屏幕宽度
   windowWidth = width;
-  return { rules, _u };
+  return { rules, _u, _us };
 }
 
