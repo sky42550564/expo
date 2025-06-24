@@ -12,7 +12,9 @@ function Cell({
   children, // 子组件
   s, // 样式
 }: Props) {
+  console.log('=================s', s);
   const style = _us(s);
+  console.log('=================style', style);
   if (style.colors?.length > 1) { // 如果是渐变，需要使用渐变进行渲染
     const colors = style.colors;
     delete style.dir;
@@ -24,12 +26,13 @@ function Cell({
         end={{ x: 1, y: 1 }}   // 终点坐标 (右下角)
         style={style}    // 填充整个屏幕
       >
+        {_.isString(children) ? <Text>{children}</Text> : children}
       </LinearGradient>
     );
   }
   return (
     <View style={style}>
-      {children}
+      {/* {_.isString(children) ? <Text>{children}</Text> : children} */}
     </View>
   );
 }
@@ -40,9 +43,9 @@ export default function Div({
 }: Props) {
   if (onPress) {
     return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
+      // <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
         <Cell {...params}></Cell>
-      </TouchableOpacity>
+      // </TouchableOpacity>
     )
   }
   return <Cell {...params}></Cell>;

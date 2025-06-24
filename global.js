@@ -5,16 +5,16 @@ import Div from '@/components/view/Div';
 global.Div = Div;
 
 // 常用方法
+import _ from './utils/libs/lodash.js';
+global._ = _; // 数据处理
+import moment from './utils/libs/moment.js';
+global.moment = moment; // 时间处理
 import * as utils from './utils/index.js';
 global.utils = utils;
 import uno from './utils/libs/uno.js';
 const u = uno(Dimensions.get('window').width);
 global._u = u._u; // uno处理css样式
 global._us = u._us; // uno处理css样式
-import _ from './utils/libs/lodash.js';
-global._ = _; // 数据处理
-import moment from './utils/libs/moment.js';
-global.moment = moment; // 时间处理
 import api from './utils/api/index.js';
 global.api = api; // 接口定义
 import * as CO from './utils/constants/index.js';

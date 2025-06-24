@@ -417,7 +417,14 @@ const getRules = (sr) => {
           obj['marginBottom'] = formatUnit(v?.slice(1));
         }
         if (!_.size(obj)) {
-          obj['margin'] = _.dropRightWhile(list, o => o === undefined).map(o => formatUnit(!o ? 0 : o)).join(' ');
+          const v0 = formatUnit(list[0]); // 上
+          const v1 = list[1] == null ? v0 : formatUnit(list[1]); // 右
+          const v2 = list[2] == null ? v0 : formatUnit(list[2]); // 下
+          const v3 = list[3] == null ? v1 : formatUnit(list[3]); // 左
+          obj['marginTop'] = v0;
+          obj['marginRight'] = v1;
+          obj['marginBottom'] = v2;
+          obj['marginLeft'] = v3;
         }
         bc && (obj['backgroundColor'] = formatColor(sr, bc));
       }
@@ -613,12 +620,21 @@ const getRules = (sr) => {
       return obj;
     },
     // -----------------------------------> 边框
-    // 圆角 _br_1_2 _br_1_2_3
+    // 圆角 _br_1 _br_1_2
     br: ([s]) => {
+      const obj = {};
       if (s) {
-        const list = s.split('_');
-        return { 'borderRadius': _.dropRightWhile(list, o => o === '').map(o => formatUnit(!o ? 0 : +o)).join(' ') }
+        const list = s.split('_').map(o => o || 0);
+        const v0 = formatUnit(list[0]); // 上
+        const v1 = list[1] == null ? v0 : formatUnit(list[1]); // 右
+        const v2 = list[2] == null ? v0 : formatUnit(list[2]); // 下
+        const v3 = list[3] == null ? v1 : formatUnit(list[3]); // 左
+        obj['borderTopLeftRadius'] = v0;
+        obj['borderTopRightRadius'] = v1;
+        obj['borderBottomRightRadius'] = v2;
+        obj['borderBottomLeftRadius'] = v3;
       }
+      return obj;
     },
     // 上圆角
     brt: ([s]) => ({ 'borderTopLeftRadius': formatUnit(s), 'borderTopRightRadius': formatUnit(s) }),
