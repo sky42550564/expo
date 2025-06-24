@@ -2,7 +2,7 @@ import _ from 'lodash';
 let windowWidth = 375;
 
 const removeOne = (list, iteratee) => { const index = _.findIndex(list, iteratee); if (index === -1) { return [] } const r = list[index]; list.splice(index, 1); return [r] }
-const formatUnit = s => /^-?\d+(\.\d+)?$/.test(s) ? `${Math.round(s / 375 * windowWidth)}px` : s; // 在没有设置单位的情况下，会以375的屏幕为基准进行屏幕适配
+const formatUnit = s => /^-?\d+(\.\d+)?$/.test(s) ? Math.round(s / 375 * windowWidth) : s; // 在没有设置单位的情况下，会以375的屏幕为基准进行屏幕适配
 const colorDefineList = ['cmain', 'csub', 'ctext', 'chigh', 'primary', 'success', 'info', 'warning', 'error', 'danger', 'link', 'red', 'blue', 'green', 'orange', 'yellow', 'purple', 'black', 'white', 'gold', 'gray', 'magenta', 'cyan', 'pink', 'transparent']; // 颜色列表，可以跟一个透明度，如white80 = #FFFFFF80
 const isHexColor = s => /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$/.test(s) || /^#[a-fA-F0-9]{3}/.test(s); // 判断是否是16进制的颜色
 const isColor = s => isHexColor(s) || !!(_.find(colorDefineList, o => _.startsWith(s, o))); // 判断是否是16进制的颜色
