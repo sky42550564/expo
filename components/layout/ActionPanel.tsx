@@ -18,7 +18,7 @@ export default forwardRef(({
   children, // 子组件
   title, // 标题
   width = 375, // 宽度
-  height, // 高度
+  height = 300, // 高度
   position = 'bottom', // 位置： bottom|middle|top
   radius = 6, // 曲半径
   noTitle = false, // 不显示标题栏
@@ -44,7 +44,7 @@ export default forwardRef(({
     params?.noTitle !== undefined && (option.noTitle = params.noTitle);
     params?.noClose !== undefined && (option.noClose = params.noClose);
     params?.content && (option.content = params.content);
-    setOption({ ...option });
+    setOption(option);
     setVisible(true);
   }
   const close = () => {
@@ -58,7 +58,7 @@ export default forwardRef(({
     <Modal animationType="fade" transparent statusBarTranslucent visible={visible}>
       <View style={_u(`_full _bc_#00000050`, option.position === 'middle' && `_fx_rcc`)}>
         {/* 边框 */}
-        <View style={_u(`_fx_c _of_hidden _por _p_10 _w_${option.width} _bc_white`, option.height && `_h_${option.height}`, option.position === 'bottom' ? `_pof_b0_l0 _brt_${option.radius}` : option.position === 'top' ? `_poa_t0_l0 _brb_${option.radius}` : `_br_${option.radius}`)}>
+        <View style={_u(`_fx_c _of_hidden _por _p_10 _s_${option.width}_${option.height}_white`, option.position === 'bottom' ? `_pof_b0_l0 _brt_${option.radius}` : option.position === 'top' ? `_poa_t0_l0 _brb_${option.radius}` : `_br_${option.radius}`)}>
           {/* 标题栏 */}
           {
             !option.noTitle &&

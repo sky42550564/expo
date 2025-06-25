@@ -4,17 +4,21 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalPanel from '@/components/layout/ModalPanel';
+import MessagePanel from '@/components/layout/MessagePanel';
 
 
 export default function Home() {
   const modalPanelRef = useRef(null);
   const show = () => { // 
     // modalPanelRef.current && (modalPanelRef.current as any).show({ title: '提示xx', position: 'middle' });
-    router.refs.modal.show({ title: '提示xx', position: 'middle', content: <View><Text>方运江</Text></View>});
+    // (modalPanelRef.current as any).show({  onCancel: true });
+    // router.refs.messageBox.show({ content: <View><Text>方运江</Text></View>});
+    router.refs.messageBox.show({ content: '方运江'});
   }
   return (
     <View style={_u(`_mt_50`)}>
       {/* <ModalPanel ref={modalPanelRef}><Text>dhfskdfh</Text></ModalPanel> */}
+      <MessagePanel ref={modalPanelRef}><Text>深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口深刻的借口</Text></MessagePanel>
       <View style={_u(`_wf_150 _fx_rcc`)}>
         <Div onPress={show} s="_button_white_warning_error_v_335_42_fs21_r _of_hidden">显示</Div>
       </View>

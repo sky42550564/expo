@@ -6,7 +6,7 @@ import 'react-native-reanimated';
 import { Provider } from 'react-redux';
 import store from '../store';
 import '../global';
-import ModalPanel from '@/components/layout/ModalPanel';
+import MessagePanel from '@/components/layout/MessagePanel';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -27,7 +27,7 @@ export default function RootLayout() {
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
-        <ModalPanel globalRefName="modal"></ModalPanel>
+        <MessagePanel globalRefName="messageBox"></MessagePanel>
       </Provider>
     </ThemeProvider>
   );
