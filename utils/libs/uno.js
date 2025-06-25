@@ -34,7 +34,7 @@ const getDefaultBackColor = (sr, list) => { // 获取默认的背景色
 }
 
 const getRules = (sr) => {
-  let rules = {
+  const methods = {
     // 只有设置为border-box后才能正常使用padding, 默认所有的view已经在App.vue中设置了，这个主要是设置其他如scroll-view等组件
     border_box: () => ({ 'boxSizing': 'border-box' }),
     // overflow: _of_y_auto _of_hidden_x _of_scroll
@@ -358,36 +358,35 @@ const getRules = (sr) => {
     // 按钮 _button_20_20_c_bc_r20_b2_fs14 ，color在前，backgroundColor在后 如果有border，则为空心的按钮
     button: ([s]) => {
       let width, height, fs, r, c, b;
-      let obj = { 'cursor': 'pointer' };
+      let obj = {};
       if (s) {
         let list = s.split('_').filter(o => o);
         width = removeOne(list, o => /^[.\d]+(px|p)?$/.test(o) && !isColor(o))[0];
         height = removeOne(list, o => /^[.\d]+(px|p)?$/.test(o) && !isColor(o))[0] || width;
         r = removeOne(list, o => /^r([.\d]+(px)?)?$/.test(o))[0]; // borderRadius
         b = removeOne(list, o => /^b([.\d]+(px)?)?$/.test(o))[0]; // border
-        fs = removeOne(list, o => /^fs([.\d]+(px)?)?$/.test(o))[0]; // fontSize
+        fs = removeOne(list, o => /^fs([.\d]+(px)?)?$/.test(o))[0]; // font-size
         obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center', 'cursor': 'pointer', 'whiteSpace': 'nowrap' };
+         c = list[0];
+        list.splice(0, 1);
         if (b) {
           if (b === 'b') b = 'b1px';
-          obj['border'] = `${formatUnit(b?.slice(1))} solid ${formatColor(sr, c)}`;
+          obj['border'] = `${formatUnit(b?.slice(1))} solid ${formatColor(sr, list[0])}`;
         }
         width && (obj['minWidth'] = formatUnit(width));
         width && (obj['maxWidth'] = formatUnit(width));
         height && (obj['minHeight'] = formatUnit(height));
         height && (obj['maxHeight'] = formatUnit(height));
         height && (obj['lineHeight'] = formatUnit(height));
-        fs && (obj['fontSize'] = formatUnit(fs?.slice(2)));
+        fs && (obj['font-size'] = formatUnit(fs?.slice(2)));
         if (r === 'r') {
           obj['borderRadius'] = formatUnit(Math.min(width, height)); // 圆形
         } else if (r) {
           obj['borderRadius'] = formatUnit(r?.slice(1));
         }
+        obj['color'] = formatColor(sr, c || 'ctext'); // 默认是主题文字色
         list = getDefaultBackColor(sr, list);
-        if (list.length === 1) {
-          obj['backgroundColor'] = formatColor(sr, list[0]);
-        } else {
-          obj['backgroundImage'] = `linear-gradient(to bottom, ${list.map(o => formatColor(sr, o)).join(',')})`;
-        }
+        Object.assign(obj, methods.bc([list.join('_')]));
       }
       return obj;
     },
@@ -1036,7 +1035,7 @@ const getRules = (sr) => {
       return obj;
     },
   };
-  rules = _.map(rules, (v, k) => {
+  const rules = _.map(methods, (v, k) => {
     const func = ([line, ...params], ...otherParams) => {
       // console.log('【UNO】解析：', line);
       params = params.map(o => {

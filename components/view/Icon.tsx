@@ -31,7 +31,7 @@ function Cell({
   return <Ionicons name={icon} size={+size} color={color} />
 }
 
-export default function Div({
+export default function Icon({
   onPress, // 点击事件
   ...params // 剩余参数
 }: Props) {

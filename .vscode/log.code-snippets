@@ -88,16 +88,6 @@
 		],
 		"description": "props缩写"
 	},
-	"const state = reactive({})": {
-		"prefix": "vstate",
-		"scope": "javascript,javascriptreact,typescriptreact",
-		"body": [
-			"const state = reactive({",
-			"\t$1",
-			"});",
-		],
-		"description": "state缩写"
-	},
 	"const { xx, store: xxStore } = usePinia('xx')": {
 		"prefix": "vpinia",
 		"scope": "javascript,javascriptreact,typescriptreact",
@@ -206,9 +196,9 @@
 	},
 	"react useState()": {
 		"scope": "javascriptreact,typescriptreact",
-		"prefix": "vusestate",
+		"prefix": "vstate",
 		"body": [
-			"const [${1/(.*)/${1:/camelcase}/}, set${1/(.*)/${1:/capitalize}/}] = useState($0);",
+			"const [${1/(.*)/${1:/camelcase}/}, set${1/(.*)/${1:/capitalize}/}] = useState($2);",
 		],
 		"description": "react useState"
 	},
@@ -310,8 +300,8 @@
     "prefix": "vbutton",
 		"scope": "javascriptreact,typescriptreact",
     "body": [
-			"<TouchableOpacity onPress={click} style={_u(`_button_warning_error_335_42_r`)}>",
-      "\t<Text style={_u(`_c_white _fs_14_bold`)}>确定</Text>",
+			"<TouchableOpacity onPress={$1} style={_u(`_button_warning_error_335_42_r`)}>",
+      "\t<Text style={_u(`_fs_14_bold_white`)}>确定</Text>",
       "</TouchableOpacity>"
     ],
     "description": "button的缩写"
