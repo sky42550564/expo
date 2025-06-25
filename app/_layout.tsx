@@ -6,14 +6,13 @@ import 'react-native-reanimated';
 import { Provider } from 'react-redux';
 import store from '../store';
 import '../global';
+import ModalPanel from '@/components/layout/ModalPanel';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  const [loaded] = useFonts({ SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf') });
 
   if (!loaded) {
     // Async font loading only occurs in development.
@@ -28,6 +27,7 @@ export default function RootLayout() {
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
+        <ModalPanel globalRefName="modal"></ModalPanel>
       </Provider>
     </ThemeProvider>
   );

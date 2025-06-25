@@ -24,6 +24,8 @@ const expoRouter = useRouter();
 global.router = {
   url: null, // 路由的url
   passProps: {}, // 传递的页面参数
+  refs: {}, // 用来保存全局的组件的ref
+  api: {}, // 全局的方法
   push(url, passProps) {
     console.log('router:', url, passProps);
     this.isActive = true;
