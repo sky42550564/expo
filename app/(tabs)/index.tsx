@@ -6,16 +6,16 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalPanel from '@/components/layout/ModalPanel';
 import ActionPanel from '@/components/layout/ActionPanel';
 
-
 export default function Home() {
   const modalPanelRef = useRef(null);
   const show = async () => { // 
     // modalPanelRef.current && (modalPanelRef.current as any).show({ title: '提示xx', position: 'middle' });
     // (modalPanelRef.current as any).show({  onCancel: true });
-    // router.refs.messageBox.show({ content: <View><Text>方运江</Text></View>});
-    // router.refs.messageBox.show({ content: '方运江'});
-    const applyReason = await $prompt('留言');
-    console.log('=================123', applyReason);
+    // router.refs.message.show({ content: <View><Text>方运江</Text></View>});
+    // router.refs.message.show({ content: '方运江'});
+    router.refs.toast.show({ message: '方运江'});
+    // const applyReason = await $prompt('留言');
+    // console.log('=================123', applyReason);
   }
   return (
     <View style={_u(`_mt_50`)}>

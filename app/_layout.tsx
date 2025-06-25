@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from '../store';
 import '../global';
 import MessagePanel from '@/components/layout/MessagePanel';
+import ToastPanel from '@/components/layout/ToastPanel';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -27,7 +28,8 @@ export default function RootLayout() {
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
-        <MessagePanel globalRefName="messageBox"></MessagePanel>
+        <MessagePanel globalRefName="message"></MessagePanel>
+        <ToastPanel globalRefName="toast"></ToastPanel>
       </Provider>
     </ThemeProvider>
   );
