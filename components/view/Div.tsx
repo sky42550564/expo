@@ -43,8 +43,8 @@ function Cell({
   delete st.angle;
   delete st.colors;
   delete st.bcolors;
-  const { color, fontSize, fontWeight, ...otherStyle } = st;
-  const fontStyle = { color, fontSize, fontWeight }; // 字体样式
+  const { color, fontSize, fontWeight, lineHeight, ...otherStyle } = st;
+  const fontStyle = { color, fontSize, lineHeight: lineHeight * 0.7, fontWeight }; // 字体样式
   if (colors?.length > 1 || bcolors?.length > 1) { // 有渐变
     const { start, end } = angleToCoordinates(angle);
     // 如果是文字渐变，需要使用渐变进行渲染

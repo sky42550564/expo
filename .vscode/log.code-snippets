@@ -296,13 +296,11 @@
 		],
 		"description": "image的缩写"
 	},
-	"<View style=\"_u(`_button`)\">确定</View>": {
+	"<Div s=\"_button\">确定</View>": {
     "prefix": "vbutton",
 		"scope": "javascriptreact,typescriptreact",
     "body": [
-			"<TouchableOpacity onPress={$1} style={_u(`_button_warning_error_335_42_r`)}>",
-      "\t<Text style={_u(`_fs_14_bold_white`)}>确定</Text>",
-      "</TouchableOpacity>"
+			"<Div onPress={$2} s=\"_button_white_warning_error_v_335_42_fs14_r _of_hidden\">$1</Div>"
     ],
     "description": "button的缩写"
   },

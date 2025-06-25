@@ -14,7 +14,7 @@ export default function Home() {
       <View style={_u(`_wf_150 _fx_rcc`)}>
         <Div onPress={() => {
           modalPanelRef.current && (modalPanelRef.current as any).show();
-        }} s="_button_white_warning_error_v_335_42_r">显示</Div>
+        }} s="_button_white_warning_error_v_335_42_fs21_r _of_hidden">显示</Div>
       </View>
     </View>
   );

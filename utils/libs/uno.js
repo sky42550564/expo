@@ -365,7 +365,7 @@ const getRules = (sr) => {
         height = removeOne(list, o => /^[.\d]+(px|p)?$/.test(o) && !isColor(o))[0] || width;
         r = removeOne(list, o => /^r([.\d]+(px)?)?$/.test(o))[0]; // borderRadius
         b = removeOne(list, o => /^b([.\d]+(px)?)?$/.test(o))[0]; // border
-        fs = removeOne(list, o => /^fs([.\d]+(px)?)?$/.test(o))[0]; // font-size
+        fs = removeOne(list, o => /^fs([.\d]+(px)?)?$/.test(o))[0]; // fontSize
         obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center', 'cursor': 'pointer', 'whiteSpace': 'nowrap' };
         c = list[0];
         list.splice(0, 1);
@@ -378,7 +378,7 @@ const getRules = (sr) => {
         height && (obj['minHeight'] = formatUnit(height));
         height && (obj['maxHeight'] = formatUnit(height));
         height && (obj['lineHeight'] = formatUnit(height));
-        fs && (obj['font-size'] = formatUnit(fs?.slice(2)));
+        fs && (obj['fontSize'] = formatUnit(fs?.slice(2)));
         if (r === 'r') {
           obj['borderRadius'] = formatUnit(Math.min(width, height)); // 圆形
         } else if (r) {

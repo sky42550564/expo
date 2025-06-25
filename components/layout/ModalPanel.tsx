@@ -21,8 +21,8 @@ export default forwardRef(({
 
   useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法
   return (
-    <Modal animationType="none" transparent={true} visible={visible}>
-      <View style={_u(`_fx_1_#00000088`)}>
+    <Modal animationType="fade" transparent statusBarTranslucent visible={visible}>
+      <View style={_u(`_full _bc_#00000088`)}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Hello World!</Text>
 
