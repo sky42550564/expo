@@ -509,7 +509,14 @@ const getRules = (sr) => {
           obj['paddingBottom'] = formatUnit(v?.slice(1));
         }
         if (!_.size(obj)) {
-          obj['padding'] = _.dropRightWhile(list, o => o === undefined).map(o => formatUnit(!o ? 0 : o)).join(' ');
+          const v0 = formatUnit(list[0]); // 上
+          const v1 = list[1] == null ? v0 : formatUnit(list[1]); // 右
+          const v2 = list[2] == null ? v0 : formatUnit(list[2]); // 下
+          const v3 = list[3] == null ? v1 : formatUnit(list[3]); // 左
+          obj['paddingTop'] = v0;
+          obj['paddingRight'] = v1;
+          obj['paddingBottom'] = v2;
+          obj['paddingLeft'] = v3;
         }
         bc && (obj['backgroundColor'] = formatColor(sr, bc));
       }

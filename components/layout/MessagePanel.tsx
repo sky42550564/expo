@@ -29,6 +29,7 @@ export default forwardRef(({
     params?.title && (option.title = params.title);
     params?.content && (option.content = params.content);
     params?.width && (option.width = params.width);
+    params?.onConfirm && (option.onConfirm = params.onConfirm);
     params?.onCancel && (option.onCancel = params.onCancel);
     params?.cancelText && (option.cancelText = params.cancelText);
     params?.confirmText && (option.confirmText = params.confirmText);

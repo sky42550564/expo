@@ -9,6 +9,11 @@ import moment from './utils/libs/moment.js';
 global.moment = moment; // 时间处理
 import * as utils from './utils/index.js';
 global.utils = utils;
+global.$alert = utils.$alert;
+global.$confirm = utils.$confirm;
+global.$prompt = utils.$prompt;
+global.$success = utils.$success;
+global.$error = utils.$error;
 import uno from './utils/libs/uno.js';
 const u = uno(sr.w, sr.h5);
 global._u = u._u; // uno处理css样式
@@ -40,17 +45,6 @@ global.router = {
     expoRouter.back();
   },
 };
-// 交互
-global.$alert = (msg) => { // 提示信息
-  return new Promise(resolve => {
-    Alert.alert('', msg);
-  });
-}
-global.$success = (msg) => { // 显示成功的消息
-  return new Promise(resolve => {
-    Alert.alert('', msg);
-  });
-}
 // 图片路径
 // 获取静态文件的地址，protocal/user.html -> http://localhost:5188/protocal/user.html
 global._url = (url) => {

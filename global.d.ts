@@ -13,7 +13,10 @@ declare global {
   const router: any;
   // 交互
   const $alert: any;
+  const $confirm: any;
+  const $prompt: any;
   const $success: any;
+  const $error: any;
   // 图片路径
   const _url: any;
   const _img: any;

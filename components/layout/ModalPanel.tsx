@@ -58,7 +58,7 @@ export default forwardRef(({
     <Modal animationType="fade" transparent statusBarTranslucent visible={visible}>
       <View style={_u(`_full _bc_#00000050`, option.position === 'middle' && `_fx_rcc`)}>
         {/* 边框 */}
-        <View style={_u(`_fx_c _of_hidden _por _p_10 _w_${option.width} _bc_white`, option.height && `_h_${option.height}`, option.position === 'bottom' ? `_pof_b0_l0 _brt_${option.radius}` : option.position === 'top' ? `_poa_t0_l0 _brb_${option.radius}` : `_br_${option.radius}`)}>
+        <View style={_u(`_fx_c _of_hidden _por _w_${option.width} _bc_white`, option.height && `_h_${option.height}`, option.position === 'bottom' ? `_pof_b0_l0 _brt_${option.radius}` : option.position === 'top' ? `_poa_t0_l0 _brb_${option.radius}` : `_br_${option.radius}`)}>
           {/* 标题栏 */}
           {
             !option.noTitle &&
