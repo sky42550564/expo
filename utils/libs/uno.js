@@ -367,7 +367,7 @@ const getRules = (sr) => {
         b = removeOne(list, o => /^b([.\d]+(px)?)?$/.test(o))[0]; // border
         fs = removeOne(list, o => /^fs([.\d]+(px)?)?$/.test(o))[0]; // font-size
         obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center', 'cursor': 'pointer', 'whiteSpace': 'nowrap' };
-         c = list[0];
+        c = list[0];
         list.splice(0, 1);
         if (b) {
           if (b === 'b') b = 'b1px';
@@ -590,7 +590,8 @@ const getRules = (sr) => {
           return { ...obj, 'backgroundImage': `linear-gradient(${dir}, ${list.map(o => formatColor(sr, o)).join(',')})` };
         }
         // c: 径向渐变 ob: 斜向左上到右下 -ob 反斜向右上到左下 v: 向下 -v: 向上 h: 向右 -h: 向左 其他填写角度：30deg
-        return { 'color': formatColor(sr, list[0]), dir, colors: list.map(o => formatColor(sr, o)) };
+        const angle = { 'c': 0, 'ob': 45, '-ob': 135, 'v': 90, '-v': -90, 'h': 0, '-h': -180 }[dir] || (+(dir.replace('deg', '')) || 0);
+        return { 'color': formatColor(sr, list[0]), angle, colors: list.map(o => formatColor(sr, o)) };
       }
       const color = removeOne(list, o => isColor(o))[0] || 'ctext';
       return { 'color': formatColor(sr, color) };
@@ -604,19 +605,20 @@ const getRules = (sr) => {
         !dir && (dir = 'h');
         if (isH5) {
           if (dir === 'c') { // 径向渐变
-            return { 'background-image': `radial-gradient(${list.map(o => formatColor(sr, o)).join(',')})` };
+            return { 'backgroundImage': `radial-gradient(${list.map(o => formatColor(sr, o)).join(',')})` };
           }
           if (dir === 'ob') { // 斜向左上到右下
-            return { 'background-image': `linear-gradient(to bottom right, ${list.map(o => formatColor(sr, o)).join(',')})` };
+            return { 'backgroundImage': `linear-gradient(to bottom right, ${list.map(o => formatColor(sr, o)).join(',')})` };
           }
           if (dir === '-ob') { // 反斜向右上到左下
-            return { 'background-image': `linear-gradient(to bottom left, ${list.map(o => formatColor(sr, o)).join(',')})` };
+            return { 'backgroundImage': `linear-gradient(to bottom left, ${list.map(o => formatColor(sr, o)).join(',')})` };
           }
           dir = { 'v': 'to bottom', '-v': 'to top', 'h': 'to right', '-h': 'to left' }[dir] || dir; // 线性渐变
-          return { 'background-image': `linear-gradient(${dir}, ${list.map(o => formatColor(sr, o)).join(',')})` };
+          return { 'backgroundImage': `linear-gradient(${dir}, ${list.map(o => formatColor(sr, o)).join(',')})` };
         }
         // c: 径向渐变 ob: 斜向左上到右下 -ob 反斜向右上到左下 v: 向下 -v: 向上 h: 向右 -h: 向左 其他填写角度：30deg
-        return { 'backgroundColor': formatColor(sr, list[0]), dir, bcolors: list.map(o => formatColor(sr, o)) };
+        const angle = { 'c': 0, 'ob': 45, '-ob': 135, 'v': 90, '-v': -90, 'h': 0, '-h': -180 }[dir] || (+(dir.replace('deg', '')) || 0);
+        return { 'backgroundColor': formatColor(sr, list[0]), angle, bcolors: list.map(o => formatColor(sr, o)) };
       }
       return { 'backgroundColor': formatColor(sr, list[0]) }; // 纯色背景
     },
