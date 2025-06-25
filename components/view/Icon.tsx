@@ -13,9 +13,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 type Props = PropsWithChildren<{
   onPress?: (event: GestureResponderEvent) => void; // 点击事件
   icon: any; // icon
-  size: string | number; // icon
-  color: string | undefined; // icon
-  bc: string | undefined; // icon
+  size?: string | number; // icon
+  color?: string; // icon
 }>;
 
 // 图标名称：https://icons.expo.fyi/Index
@@ -23,7 +22,6 @@ function Cell({
   icon, // 如果http:或data:开头 或有uri属性，为图片
   size = 28, // 大小
   color = '#000000', // 颜色
-  bc, // 背景色
 }: Props) {
   if (icon.uri || (_.isString(icon) && (icon.startsWith('http://') || icon.startsWith('https://') || icon.startsWith('data:')))) { // 图片模式
     return <Image source={icon} style={_u(`_s_${size}`)} resizeMode="stretch"></Image>

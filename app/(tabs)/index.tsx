@@ -10,10 +10,10 @@ export default function Home() {
   const modalPanelRef = useRef(null);
   return (
     <View style={_u(`_mt_50`)}>
-      <ModalPanel ref={modalPanelRef}></ModalPanel>
+      <ModalPanel ref={modalPanelRef}><Text>dhfskdfh</Text></ModalPanel>
       <View style={_u(`_wf_150 _fx_rcc`)}>
         <Div onPress={() => {
-          modalPanelRef.current && (modalPanelRef.current as any).show();
+          modalPanelRef.current && (modalPanelRef.current as any).show({ title: '提示' });
         }} s="_button_white_warning_error_v_335_42_fs21_r _of_hidden">显示</Div>
       </View>
     </View>

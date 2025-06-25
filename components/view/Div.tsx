@@ -7,8 +7,8 @@ import MaskedView from '@react-native-masked-view/masked-view';
 // 背景渐变： <Div s="_bc_red_blue"></Div>
 // 字体渐变： <Div s="_c_red_blue"></Div>
 type Props = PropsWithChildren<{
-  s: string | object | undefined; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
-  style: object | undefined, // 样式
+  s?: string; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
+  style?: object, // 样式
   onPress?: (event: GestureResponderEvent) => void; // 点击事件
 }>;
 
