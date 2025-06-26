@@ -5,7 +5,6 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { Provider } from 'react-redux';
 import { store } from '../store';
-import '../global';
 import MessagePanel from '@/components/layout/MessagePanel';
 import ToastPanel from '@/components/layout/ToastPanel';
 

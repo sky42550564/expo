@@ -1,5 +1,4 @@
 import config from '@/config.js';
-import { Alert } from 'react-native';
 import sr from './utils/libs/screen.js';
 global.sr = sr; // 窗口信息
 // 常用方法

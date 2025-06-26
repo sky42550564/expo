@@ -6,8 +6,8 @@ const asyncActions = {
   refreshPersonal: createAsyncThunk(
     'personal/refreshPersonal',
     async (params) => {
-      await utils.sleep(3000);
-      return { name: '方运江' + Math.random(), age: 10 }
+      // await utils.sleep(3000);
+      // return { name: '方运江' + Math.random(), age: 10 };
       const checkPlatform = params ? undefined : sr.platform; // 如果没有传递参数，则检查这个平台个人中心的信息是否改变，如果改变，则重新拉去个人心中的信息
       const data = await api.getPersonalInfo({
         checkPlatform,
@@ -44,4 +44,33 @@ const slice = createSlice({ // 参数是一个对象
   },
 });
 
-export default { asyncActions, slice };
+// 模块全局函数
+const datas = {
+  token: null, // 登录的token
+};
+
+// 普通方法，
+const methods = {
+  // 参数是store, state
+  // 初始化
+  async init(store, state) {
+    datas.token = await lc.getString('token');
+  },
+  // 设置登录的token
+  setToken: (store, state, tk) => {
+    store.setPersonal({ name: state.personal.name + tk });
+    // datas.token = tk;
+    // lc.setString('token', tk);
+  },
+  // 退出登录
+  logout: (store, state) => {
+    if (datas.token) {
+      utils.post('/modify/tb_member', { id: state.personal.id, onlineState: 'offline' });
+      store.setToken('');
+      store.setPersonal({});
+      // uni.redirectTo({ url: '/pages/splash/index' });
+    }
+  }
+};
+
+export default { asyncActions, slice, datas, methods };
