@@ -10,7 +10,8 @@ export default function HomeScreen() {
   const click1 = async () => {
     // setName('你好' + Math.random());
     // dispatch(setPersonal({ name: '你好' + Math.random() }));
-    personalStore.setPersonal({ name: '你好' + Math.random() });
+    // personalStore.setPersonal({ name: '你好' + Math.random() });
+    personalStore.updatePersonal({ name: '你好' + Math.random() });
     // router.back();
   }
   const click = async () => {
@@ -26,6 +27,7 @@ export default function HomeScreen() {
     <View>
       <Pressable onPress={click1}><Text>点击执行</Text></Pressable>
       <View><Text>名字: {personal.name} </Text></View>
+      <View><Text>年龄: {personal.age} </Text></View>
       <Text>个人中心页面xx</Text>
     </View>
   );

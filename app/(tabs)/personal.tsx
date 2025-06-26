@@ -12,6 +12,7 @@ export default function HomeScreen() {
   const onPress = (k: any) => {
     // router.push({ pathname:'/pages/personal',  state: { fang: k, a: {a:1, b:2}, callback }});
     router.push('/pages/personal', { fang: k, a: { a: 1, b: 2 }, setName });
+    // personalStore.setFang('123');
   }
   return (
     <>
