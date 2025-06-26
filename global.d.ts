@@ -5,6 +5,7 @@ declare global {
   const _: any;
   const moment: any;
   const utils: any;
+  const lc: any;
   const _u: any;
   const _us: any;
   const api: any;

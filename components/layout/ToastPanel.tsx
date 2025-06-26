@@ -12,7 +12,7 @@ export default forwardRef(({
     backgroundColor: '#2bdc70', // 背景色
     duration: 3000, // 显示时长
     message: '', // 显示的消息
-    onClose: undefined, // 关闭的回调函数
+    onClose: null, // 关闭的回调函数
   };
   const [visible, setVisible] = useState(false);
   const [option, setOption] = useState(DEFAULT_OPTION);

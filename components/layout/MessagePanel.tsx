@@ -15,8 +15,7 @@ export default forwardRef(({
   title, // 标题
   width = 320, // 宽度
 }: Props, ref) => {
-  const modalPanelRef = useRef(null);
-  const [option, setOption] = useState({
+  const DEFAULT_OPTION = {
     title, // 标题
     content: null, // 文本内容
     width, // 宽度
@@ -24,16 +23,11 @@ export default forwardRef(({
     confirmText: '确定',
     onCancel: null, // 取消按钮的回调，可以设置为true
     onConfirm: null, // 确定按钮的回调
-  });
+  };
+  const modalPanelRef = useRef(null);
+  const [option, setOption] = useState(DEFAULT_OPTION);
   const show = (params?: any) => {
-    params?.title && (option.title = params.title);
-    params?.content && (option.content = params.content);
-    params?.width && (option.width = params.width);
-    params?.onConfirm && (option.onConfirm = params.onConfirm);
-    params?.onCancel && (option.onCancel = params.onCancel);
-    params?.cancelText && (option.cancelText = params.cancelText);
-    params?.confirmText && (option.confirmText = params.confirmText);
-    setOption({ ...option });
+    setOption({ ...DEFAULT_OPTION, ...params });
     (modalPanelRef.current as any).show();
   }
   const doConfirm = () => {

@@ -9,6 +9,7 @@ import moment from './utils/libs/moment.js';
 global.moment = moment; // 时间处理
 import * as utils from './utils/index.js';
 global.utils = utils;
+global.lc = utils.lc; // 本地存储
 global.$alert = utils.$alert;
 global.$confirm = utils.$confirm;
 global.$prompt = utils.$prompt;
