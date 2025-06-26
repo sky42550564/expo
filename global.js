@@ -23,6 +23,8 @@ import api from './utils/api/index.js';
 global.api = api; // 接口定义
 import * as CO from './utils/constants/index.js';
 global.CO = CO; // 常量定义
+import useRedux from './utils/libs/useRedux.js';
+global.useRedux = useRedux; // 常量定义
 
 // 路由操作
 import { useRouter } from 'expo-router';

@@ -10,6 +10,7 @@ declare global {
   const _us: any;
   const api: any;
   const CO: any;
+  const useRedux: any;
   // 路由操作
   const router: any;
   // 交互

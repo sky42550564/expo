@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'; // 引入创建函数
-import personal from './personal'; // 引入个人信息的slice
+import personal from './personal'; // 个人信息
+// import option from './option'; // 全局配置
 
-const store = configureStore({ // 创建一个store
+export const store = configureStore({
   reducer: {
-    personal, // 个人信息
+    personal: personal.reducer, // 个人信息
+    // option, // 全局配置
   }
 });
-
-export default store;
+export const actions = {
+  personal: personal.actions,
+};

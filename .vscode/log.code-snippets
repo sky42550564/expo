@@ -88,13 +88,13 @@
 		],
 		"description": "props缩写"
 	},
-	"const { xx, store: xxStore } = usePinia('xx')": {
-		"prefix": "vpinia",
+	"const { xx, store: xxStore } = useRedux('xx')": {
+		"prefix": "vredux",
 		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
-			"const { $1, store: $1Store } = usePinia('$1');"
+			"const { $1, store: $1Store } = useRedux('$1');"
 		],
-		"description": "pinia缩写"
+		"description": "redux缩写"
 	},
 	"const route = useRoute()": {
 		"prefix": "vroute",
