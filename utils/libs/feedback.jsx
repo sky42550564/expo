@@ -40,9 +40,9 @@ export function $prompt(msg, value = '') { // 输入信息
 		});
 	});
 }
-export function $success(msg) { // 显示成功的消息
-	console.log('=================msg', msg);
+export function $success(message) { // 显示成功的消息
+	router.refs.toast.show({ message, backgroundColor: '#52c41a' });
 }
-export function $error(msg) { // 显示错误的消息
-	console.log('=================msg', msg);
+export function $error(message) { // 显示错误的消息
+	router.refs.toast.show({ message, backgroundColor: '#ff4d4f' });
 }
