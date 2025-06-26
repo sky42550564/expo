@@ -12,7 +12,7 @@ export default function HomeScreen() {
     // dispatch(setPersonal({ name: '你好' + Math.random() }));
     // personalStore.setPersonal({ name: '你好' + Math.random() });
     // personalStore.updatePersonal({ name: '你好' + Math.random() });
-    personalStore.getPersonalInfo({ name: '你好' + Math.random() });
+    personalStore.refreshPersonal({ name: '你好' + Math.random() });
     // router.back();
   }
   const click = async () => {
