@@ -61,10 +61,12 @@ global._imgc = (url) => {
   return !url || /^http/.test(url) ? url : `${config.server}/img/common/${url.replace(/^\//, '')}`;
 }
 
-// 常用rn组件
+// 自定义rn组件
 import Div from '@/components/view/Div';
 global.Div = Div;
 import Icon from '@/components/view/Icon';
 global.Icon = Icon;
+import MenuGrid from '@/components/menu/MenuGrid';
+global.MenuGrid = MenuGrid;
 
 

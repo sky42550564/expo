@@ -26,7 +26,7 @@ const slice = createSlice({ // 参数是一个对象
   initialState: { // 初始状态
     personal: { name: '方运江', age: 10 },
   },
-  reducers: { // 改变状态的函数
+  reducers: { // 注册同步改变状态的函数
     // 设置个人信息的方法
     setPersonal(state, action) {
       state.personal = action.payload;
@@ -36,7 +36,7 @@ const slice = createSlice({ // 参数是一个对象
       state.personal = { ...state.personal, ...action.payload };
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: (builder) => { // 注册异步改变状态的函数
     // 强制更新个人信息
     builder.addCase(asyncActions.refreshPersonal.fulfilled, (state, action) => {
       state.personal = action.payload;
@@ -49,7 +49,7 @@ const datas = {
   token: null, // 登录的token
 };
 
-// 普通方法，
+// 普通方法
 const methods = {
   // 参数是store, state
   // 初始化
@@ -58,9 +58,8 @@ const methods = {
   },
   // 设置登录的token
   setToken: (store, state, tk) => {
-    store.setPersonal({ name: state.personal.name + tk });
-    // datas.token = tk;
-    // lc.setString('token', tk);
+    datas.token = tk;
+    lc.setString('token', tk);
   },
   // 退出登录
   logout: (store, state) => {

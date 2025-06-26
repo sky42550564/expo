@@ -23,8 +23,9 @@ declare global {
   const _url: any;
   const _img: any;
   const _imgc: any;
-  // 常用rn组件
+  // 自定义rn组件
   const Div: any;
   const Icon: any;
+  const MenuGrid: any;
 }
 export { };
