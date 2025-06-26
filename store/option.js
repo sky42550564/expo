@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'; // 引入创建片段的函数
 
-export default createSlice({ // 参数是一个对象
+const slice = createSlice({ // 参数是一个对象
   name: 'option', // 必须是所有的Slice中的name唯一
   initialState: { // 初始状态
     option: {},
@@ -11,3 +11,5 @@ export default createSlice({ // 参数是一个对象
     }
   }
 });
+
+export default { slice };
