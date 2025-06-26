@@ -74,7 +74,6 @@ export default forwardRef(({
         {/* 边框 */}
         <Animated.View style={_u(`_fx_c _of_hidden _por _p_10 _w_${width} _bc_white _pof_b0_l0 _brt_${radius}`, { transform: [{ translateY }] })}>
           <View style={_u(`_fx_ccc`)}>
-            <Text style={_u(`_s_${width}_1_#d3d3d3`)} />
             {
               buttons.map((o: any, k: number) => (
                 <TouchableHighlight key={k} underlayColor='rgba(0, 0, 0, 0)' onPress={() => doConfirm(o)} style={_u(`_fx_rcc_1 _sm_${width * 0.9}_40 _bob_#e3e3e3`)}>
