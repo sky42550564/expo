@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { Provider } from 'react-redux';
+import '../global'; // 注册全局变量
 import { store } from '../store';
 import MessagePanel from '@/components/layout/MessagePanel';
 import ToastPanel from '@/components/layout/ToastPanel';

@@ -30,14 +30,17 @@ export default forwardRef(({
     setOption({ ...DEFAULT_OPTION, ...params });
     (modalPanelRef.current as any).show();
   }
+  const close = () => {
+    (modalPanelRef.current as any).close();
+  }
   const doConfirm = () => {
     if (!option.onConfirm || !(option.onConfirm as any)()) {
-      (modalPanelRef.current as any).close();
+      close();
     }
   }
   const doCancel = () => {
     if (option.onCancel === true || !option.onCancel || !(option.onCancel as any)()) {
-      (modalPanelRef.current as any).close();
+      close();
     }
   }
   useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法

@@ -54,6 +54,9 @@ export default forwardRef(({
     setVisible(true);
     slideUp();
   }
+  const close = () => {
+    setVisible(false);
+  }
   const doConfirm = (o: any) => {
     if (!o.callback || !(o.callback as any)()) {
       slideDown();
