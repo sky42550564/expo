@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform, View, Text, TouchableOpacity } from 'react-native';
-import CustomTabBar from '@/components/CustomTabBar';
+import CustomTabBar from '@/components/navigate/CustomTabBar';
 
 export default function TabLayout() {
   return (
@@ -39,13 +39,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Icon icon="checkmark-circle" color={color}></Icon>,
         }}
       />
-      {/* <Tabs.Screen
-        name="camera"
-        options={{
-          title: '相机',
-          tabBarIcon: ({ color }) => <Icon icon="scan-circle-outline" color={color}></Icon>,
-        }}
-      /> */}
       <Tabs.Screen
         name="camera"
         options={{
