@@ -39,7 +39,7 @@ global.router = {
     this.url = url;
     this.passProps = passProps || {};
     return new Promise(resolve => {
-      expoRouter.push(url);
+      expoRouter.push(url, { title: 'xxx' });
       resolve();
     });
   },

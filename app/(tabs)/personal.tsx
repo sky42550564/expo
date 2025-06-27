@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 // import { useSelector } from 'react-redux'; // 引入redux的函数
-
+import { useNavigation } from 'expo-router';
 export default function HomeScreen() {
+const navigation = useNavigation();
   const { personal, store: personalStore } = useRedux('personal');
   const [name, setName] = useState('fangyunjiang');
   const callback = (k: any) => {
@@ -12,6 +13,7 @@ export default function HomeScreen() {
   const onPress = (k: any) => {
     // router.push({ pathname:'/pages/personal',  state: { fang: k, a: {a:1, b:2}, callback }});
     router.push('/pages/personal', { fang: k, a: { a: 1, b: 2 }, setName });
+    // navigation.navigate('pages/personal/index');
     // personalStore.setFang('123');
   }
   return (

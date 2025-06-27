@@ -6,7 +6,7 @@ import CustomTabBar from '@/components/navigate/CustomTabBar';
 export default function TabLayout() {
   return (
     <Tabs
-      // tabBar={(props) => <CustomTabBar {...props} />} // 自定义的组件
+      tabBar={(props) => <CustomTabBar {...props} />} // 自定义的组件
       // https://reactnavigation.org/docs/bottom-tab-navigator/
       screenOptions={{
         tabBarButton: (props) => <TouchableOpacity {..._.omit(props, (o: any) => o == null)} />, // 禁用所有反馈,
