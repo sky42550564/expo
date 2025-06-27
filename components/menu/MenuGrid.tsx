@@ -1,5 +1,3 @@
-import { View } from 'react-native';
-
 type Props = {
   list?: any;      // 列表
   column?: number; // 横向的个数
@@ -27,7 +25,7 @@ export default ({
   }
 
   return (
-    <View style={_u(`_w_${width} _fx_r_wrap  _bc_${backgroundColor} _pv_20`)}>
+    <Div style={_u(`_w_${width} _fx_r_wrap  _bc_${backgroundColor} _pv_20`)}>
       {
         list.map((item: any, i: number) => (
           <Div style={_u(`_fx_ccc _mh_${Math.floor(hgap / 2)} _w_${Math.floor(width / column - hgap)}`, i >= column && `_mt_${vgap}`)} key={i} onPress={() => showPage(item)}>
@@ -36,6 +34,6 @@ export default ({
           </Div>
         ))
       }
-    </View>
+    </Div>
   );
 }

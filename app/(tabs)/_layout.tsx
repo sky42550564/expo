@@ -15,9 +15,9 @@ export default function TabLayout() {
         tabBarInactiveTintColor: 'gray', // 失活颜色
         tabBarActiveBackgroundColor: 'white', // 失活背景颜色
         tabBarInactiveBackgroundColor: 'white', // 失活背景颜色
-        headerShown: false,
-        headerStyle: _u(`_bc_red`),
-        tabBarStyle: _u(`_hm_64 _por`),
+        headerShown: true, // 是否显示顶部导航
+        headerStyle: _u(`_bc_red`), // 顶部导航的样式
+        tabBarStyle: _u(`_hm_64 _por`), // 底部导航的样式
         tabBarItemStyle: _u('_bo_0'), // item的样式
         tabBarLabelPosition: 'below-icon', // 标签的位置
         tabBarLabelStyle: _u(`_fs_16`), // 标签的样式

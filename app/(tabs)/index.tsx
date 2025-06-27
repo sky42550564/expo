@@ -40,8 +40,9 @@ export default function Home() {
   return (
     <View style={_u(`_pt_50 _ph_10`)}>
       <View style={_u(`_s_100_red`)}></View>
-      {/* <MenuTitle title="我的订单" subTitle="全部订单" arrowCount={2} onClick={show1} />
-      <MenuItem list={orderMenus} column={4} /> */}
+      <MenuTitle title="我的订单" subTitle="全部订单" arrowCount={2} onClick={show1} />
+      <MenuGrid list={orderMenus} column={4} />
+      <MenuItem list={orderMenus} />
     </View>
   );
 }

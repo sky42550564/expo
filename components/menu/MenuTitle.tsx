@@ -1,5 +1,3 @@
-import { View } from 'react-native';
-
 type Props = {
   title: string, // 标题
   titleStyle: string, // 标题样式
@@ -27,16 +25,16 @@ export default ({
   }
 
   return (
-    <View style={_u(`_fx_rb`)}>
-      <View style={_u(titleStyle || `_fs_16_bold`)}>{title}</View>
+    <Div style={_u(`_fx_rb`)}>
+      <Div style={_u(titleStyle || `_fs_16_bold`)}>{title}</Div>
       <Div style={_u(`_fx_rc`)} onPress={() => showPage()}>
-        {subTitle && <View style={_u(subStyle || `_fs_14_#bcbcbc`)}>{subTitle}</View>}
+        {subTitle && <Div style={_u(subStyle || `_fs_14_#bcbcbc`)}>{subTitle}</Div>}
         {
           _.times(arrowCount).map((o: any, i: number) => (
-            <View key={i} style={_u(`_arrow_3_#bcbcbc`)} />
+            <Div key={i} style={_u(`_arrow_3_#bcbcbc`)} />
           ))
         }
       </Div>
-    </View>
+    </Div>
   );
 }
