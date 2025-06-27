@@ -10,12 +10,12 @@ export default function TabLayout() {
         tabBarPosition: 'bottom', // tabbar的位置
         tabBarActiveTintColor: 'blue', // 高亮颜色
         tabBarInactiveTintColor: 'gray', // 失活颜色
-        tabBarActiveBackgroundColor: '#d0d0d0', // 失活背景颜色
-        tabBarInactiveBackgroundColor: '#d0d0d0', // 失活背景颜色
+        tabBarActiveBackgroundColor: 'white', // 失活背景颜色
+        tabBarInactiveBackgroundColor: 'white', // 失活背景颜色
         headerShown: false,
         headerStyle: _u(`_bc_red`),
-        tabBarStyle: _u(`_hm_64`),
-        // tabBarItemStyle: _u('_bo'), // item的样式
+        tabBarStyle: _u(`_hm_64 _por`),
+        tabBarItemStyle: _u('_bo_0'), // item的样式
         tabBarLabelPosition: 'below-icon', // 标签的位置
         tabBarLabelStyle: _u(`_fs_16`), // 标签的样式
         tabBarIconStyle: _u(`_mb_4`), // icon的样式
@@ -34,6 +34,15 @@ export default function TabLayout() {
         options={{
           title: '购物车',
           tabBarIcon: ({ color }) => <Icon icon="checkmark-circle" color={color}></Icon>,
+        }}
+      />
+      <Tabs.Screen
+        name="camera"
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => <Icon icon="scan-circle-outline" size={80} color={color}></Icon>,
+          tabBarItemStyle: _u('_por'), // item的样式
+          tabBarIconStyle: _u(`_poa_t-20 _r_80_white _bo`), // icon的样式
         }}
       />
       <Tabs.Screen
