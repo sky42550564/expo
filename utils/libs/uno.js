@@ -191,7 +191,7 @@ const getRules = (sr) => {
         if (dir === 'r') {
           obj = { 'display': 'flex', 'flexDirection': 'row' };
         } else if (dir === 'rc') { // flex-row-center
-          obj = { 'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center' };
+          obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center' };
         } else if (dir === 'rcc') { // flex-row-center
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center' };
         } else if (dir === 'ra') { // flex-row-space-around

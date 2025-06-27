@@ -28,5 +28,6 @@ declare global {
   const Icon: any;
   const MenuGrid: any;
   const MenuItem: any;
+  const MenuTitle: any;
 }
 export { };

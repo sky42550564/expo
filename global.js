@@ -70,5 +70,7 @@ import MenuGrid from '@/components/menu/MenuGrid';
 global.MenuGrid = MenuGrid;
 import MenuItem from '@/components/menu/MenuItem';
 global.MenuItem = MenuItem;
+import MenuTitle from '@/components/menu/MenuTitle';
+global.MenuTitle = MenuTitle;
 
 

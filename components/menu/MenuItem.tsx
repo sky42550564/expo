@@ -21,9 +21,9 @@ export default ({
   }
 
   return (
-    <View>
+    <>
       {list.map((item: any, i: number) => (
-        <Div key={i} style={_u(`_fx_rb _ph_10_14 _pv_${gap}`, line && `_bob`)} onPress={() => showPage(item)}>
+        <Div key={i} style={_u(`_fx_rb _pv_${gap}`, line && `_bob`)} onPress={() => showPage(item)}>
           <View style={_u(`_fx_r`)}>
             {item.icon && <Icon icon={item.icon} size={24} />}
             {/* 标题 */}
@@ -36,6 +36,6 @@ export default ({
           </View>
         </Div>
       ))}
-    </View>
+    </>
   );
 }
