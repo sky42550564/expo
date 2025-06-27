@@ -210,8 +210,8 @@ const getRules = (sr) => {
         d && (obj['flex'] = d);
         j && (obj['justifyContent'] = { ja: 'space-around', jb: 'space-between', jc: 'center', js: 'flex-start', je: 'flex-end' }[j]);
         a && (obj['alignItems'] = { as: 'flex-start', ac: 'center', ae: 'flex-end' }[a]);
-        wrap && (obj['flex-wrap'] = 'wrap');
-        mowrap && (obj['flex-wrap'] = 'nowrap');
+        wrap && (obj['flexWrap'] = 'wrap');
+        mowrap && (obj['flexWrap'] = 'nowrap');
         gap && (obj['gap'] = formatUnit(gap?.slice(1)));
         bc && (obj['backgroundColor'] = formatColor(sr, bc));
       }
@@ -976,72 +976,6 @@ const getRules = (sr) => {
       }
       color = formatColor(sr, color);
       return { 'width': formatUnit(size), 'height': formatUnit(size), 'borderRight': `${formatUnit(thick)} solid ${color}`, 'borderBottom': `${formatUnit(thick)} solid ${color}`, 'transform': `rotate(${rotate})`, padding: formatUnit(size) };
-    },
-    // grid布局 _grid_v3_g10 _grid_h3_g10 _grid_h3_hg10_vg20
-    // v 表示竖着排满3个，h表示横着排满3个，hg为横向空白，vg为纵向空白
-    grid: ([s]) => {
-      let vcount, hcount, gap = 0, hgap = 0, vgap = 0;
-      if (s) {
-        const list = s.split('_').filter(o => o);
-        vcount = removeOne(list, o => /^v\d+$/.test(o))[0];
-        hcount = removeOne(list, o => /^h\d+$/.test(o))[0];
-        gap = removeOne(list, o => /^g\d+$/.test(o))[0];
-        hgap = removeOne(list, o => /^hg\d+$/.test(o))[0];
-        vgap = removeOne(list, o => /^vg\d+$/.test(o))[0];
-        !hgap && (hgap = gap ? 'h' + gap : 0);
-        !vgap && (vgap = gap ? 'v' + gap : 0);
-        hgap && (hgap = hgap?.slice(2));
-        vgap && (vgap = vgap?.slice(2));
-      }
-      if (vcount) {
-        return {
-          "display": "grid",
-          "gridAutoFlow": "column",
-          "gridTemplateRows": `repeat(${vcount?.slice(1)}, 1fr)`,
-          "gridRowGap": formatUnit(vgap),
-          "gridColumnGap": formatUnit(hgap),
-        };
-      }
-      if (hcount) {
-        return {
-          "display": "grid",
-          "gridTemplateColumns": `repeat(${hcount?.slice(1)}, 1fr)`,
-          "gridTemplateRows": "auto",
-          "gridRowGap": formatUnit(vgap),
-          "gridColumnGap": formatUnit(hgap),
-        };
-      }
-    },
-    // column布局 _col_3 _col_3_w200 _col_3_wauto_g10_s_f_r2solid_red _col_rsolid2
-    // 3 表示3列，w表示每列的宽度可以是auto，g为空白，s为column-span的all表示贯穿所有列，f为column-fill的auto表示按顺序对每个列进行填充列的高度会各有不同，r为column-rule定义列与列间边框的宽度和样式，剩下的颜色为边框的颜色
-    col: ([s]) => {
-      let count = 2, width = 'auto', gap = 'g0', span = 'none', fill = 'blance', rule, color;
-      if (s) {
-        const list = s.split('_').filter(o => o);
-        count = removeOne(list, o => /^\d+$/.test(o))[0] || count;
-        width = removeOne(list, o => /^w\d+(px|p)?$/.test(o))[0] || width;
-        gap = removeOne(list, o => /^g\d+$/.test(o))[0] || gap;
-        span = removeOne(list, o => o === 's')[0] ? 'all' : span;
-        fill = removeOne(list, o => o === 'f')[0] ? 'auto' : fill;
-        rule = removeOne(list, o => /^r(\d+)?(solid|dotted|dashed|double|groove|ridge|inset|outset)?(\d+)?$/.test(o))[0];
-        color = list[0];
-      }
-      const obj = {
-        'columnCount': count,
-        'columnWidth': formatUnit(width),
-        'columnGap': formatUnit(gap?.slice(1)),
-        'columnSpan': span,
-        'columnFill': fill,
-      };
-      color && (obj['columnRuleColor'] = formatColor(sr, color));
-      if (rule) {
-        const match = rule.match(/^r(\d+)?(solid|dotted|dashed|double|groove|ridge|inset|outset)?(\d+)?$/);
-        const w = match[1] || match[3];
-        w && (obj['columnRuleWidth'] = formatUnit(w));
-        match[2] && (obj['columnRuleStyle'] = match[2]);
-      }
-
-      return obj;
     },
   };
   const rules = _.map(methods, (v, k) => {

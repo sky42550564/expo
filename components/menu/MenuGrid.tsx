@@ -27,10 +27,10 @@ export default ({
   }
 
   return (
-    <View style={_u(`_grid_h${column}_hg${hgap}_vg${vgap} _bc_${backgroundColor} _pv_20`, width && `_w_${width}`)}>
+    <View style={_u(`_w_${width} _fx_r_wrap  _bc_${backgroundColor} _pv_20`)}>
       {
         list.map((item: any, i: number) => (
-          <Div style={_u(`_fx_ccc`)} key={i} onPress={() => showPage(item)}>
+          <Div style={_u(`_fx_ccc _mh_${Math.floor(hgap / 2)} _w_${Math.floor(width / column - hgap)}`, i >= column && `_mt_${vgap}`)} key={i} onPress={() => showPage(item)}>
             <Icon icon={item.icon} size={item.size || 24} />
             <Div style={_u(`_fs_14_gray`)}>{item.label}</Div>
           </Div>

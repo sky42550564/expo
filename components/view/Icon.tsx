@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import type { GestureResponderEvent } from 'react-native';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, Text, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 /*
@@ -23,7 +23,10 @@ function Cell({
   size = 28, // 大小
   color = '#000000', // 颜色
 }: Props) {
-  if (icon.uri || (_.isString(icon) && (icon.startsWith('http://') || icon.startsWith('https://') || icon.startsWith('data:')))) { // 图片模式
+  if ((_.startsWith(icon, 'http://') || _.startsWith(icon, 'https://') || _.startsWith(icon, 'data:'))) {  // 网络图片模式
+    return <Image source={{ uri: icon }} style={_u(`_s_${size}`)} resizeMode="stretch"></Image>
+  }
+  if (icon.uri || _.isNumber(icon)) { // require的本地图片
     return <Image source={icon} style={_u(`_s_${size}`)} resizeMode="stretch"></Image>
   }
   return <Ionicons name={icon} size={+size} color={color} />

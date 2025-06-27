@@ -39,12 +39,7 @@ export default function Home() {
   }
   return (
     <View style={_u(`_p_0`)}>
-      <View style={_u(`_s_100_red`)}></View>
-      <Div onPress={show1} s="_button_white_warning_error_v_335_42_fs21_r _of_hidden">显示</Div>
-      {/* <MenuGrid list={orderMenus} column={4} />
-      <Icon icon="checkmark-circle"></Icon>
-      <Icon icon={require('@/assets/images/react-logo.png')} onPress={show}></Icon>
-      <Image source={require('@/assets/images/react-logo.png')} style={_u(`_s_100`)}></Image> */}
+      <MenuGrid list={orderMenus} column={4} />
     </View>
   );
 }

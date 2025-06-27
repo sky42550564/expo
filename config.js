@@ -5,7 +5,7 @@ const qrcode = `${domain}/weixinQRCode`; // 小程序的普通二维码访问地
 
 const setting = test ? {
   // server: 'http://192.168.1.4:5188',  // 服务器
-  server: 'http://localhost:5188', // 通过代理服务
+  server: 'http://192.168.45.124:5188', // 通过代理服务
   // server: 'http://121.40.240.191:5188', // 接口服务器地址
   // server: 'https://somiit.com', // 接口服务器地址
   testPath: '/pages/test/index', // 不需要登录跳转到某一个页面
