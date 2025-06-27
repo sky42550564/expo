@@ -11,6 +11,7 @@ declare global {
   const api: any;
   const CO: any;
   const useRedux: any;
+  const Page: any;
   // 路由操作
   const router: any;
   // 交互

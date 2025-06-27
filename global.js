@@ -22,24 +22,32 @@ import api from './utils/api/index.js';
 global.api = api; // 接口定义
 import * as CO from './utils/constants/index.js';
 global.CO = CO; // 常量定义
-import useRedux from './utils/libs/useRedux.js';
+import useRedux from './utils/react-native/useRedux.js';
 global.useRedux = useRedux; // 常量定义
+import Page from './utils/react-native/Page.tsx';
+global.Page = Page; // 页面封装
 
 // 路由操作
 import { useRouter } from 'expo-router';
 const expoRouter = useRouter();
 global.router = {
+  title: null, // 标题
+  headerLeft: null, // 导航栏左边
+  headerRight: null, // 导航栏右边
   url: null, // 路由的url
   passProps: {}, // 传递的页面参数
   refs: {}, // 用来保存全局的组件的ref
   api: {}, // 全局的方法
-  push(url, passProps) {
-    console.log('router:', url, passProps);
-    this.isActive = true;
+  push(url, params) {
+    console.log('router:', url, params);
+    const { title, headerLeft, headerRight, ...passProps } = params || {};
+    this.title = title;
+    this.headerLeft = headerLeft;
+    this.headerRight = headerRight;
     this.url = url;
-    this.passProps = passProps || {};
+    this.passProps = passProps;
     return new Promise(resolve => {
-      expoRouter.push(url, { title: 'xxx' });
+      expoRouter.push(url);
       resolve();
     });
   },

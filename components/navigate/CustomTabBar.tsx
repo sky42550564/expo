@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-export default ({ state, navigation }: any) => {
+export default ({ state, descriptors, navigation }: any) => {
   const handlePress = (route: any) => {
     navigation.navigate(route.name);
   };

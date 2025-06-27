@@ -41,7 +41,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
-          <Stack.Screen name="pages/personal/index" options={{}} />
+          <Stack.Screen name="pages/personal/index" options={{ title: '个人中心' }} />
         </Stack>
         <StatusBar style="auto" />
         <MessagePanel globalRefName="message"></MessagePanel>
