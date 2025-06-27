@@ -975,7 +975,14 @@ const getRules = (sr) => {
         thick = list[1] || thick;
       }
       color = formatColor(sr, color);
-      return { 'width': formatUnit(size), 'height': formatUnit(size), 'borderRight': `${formatUnit(thick)} solid ${color}`, 'borderBottom': `${formatUnit(thick)} solid ${color}`, 'transform': `rotate(${rotate})`, padding: formatUnit(size) };
+      return {
+        'width': formatUnit(size),
+        'height': formatUnit(size),
+        ...methods.bor([`_${thick}_solid_${color}`]),
+        ...methods.bob([`_${thick}_solid_${color}`]),
+        'transform': `rotate(${rotate})`,
+        'padding': formatUnit(size)
+      };
     },
   };
   const rules = _.map(methods, (v, k) => {

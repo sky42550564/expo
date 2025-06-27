@@ -39,7 +39,7 @@ export default function Home() {
   }
   return (
     <View style={_u(`_p_0`)}>
-      <MenuGrid list={orderMenus} column={4} />
+      <MenuItem list={orderMenus} column={4} />
     </View>
   );
 }

@@ -68,5 +68,7 @@ import Icon from '@/components/view/Icon';
 global.Icon = Icon;
 import MenuGrid from '@/components/menu/MenuGrid';
 global.MenuGrid = MenuGrid;
+import MenuItem from '@/components/menu/MenuItem';
+global.MenuItem = MenuItem;
 
 

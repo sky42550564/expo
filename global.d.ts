@@ -27,5 +27,6 @@ declare global {
   const Div: any;
   const Icon: any;
   const MenuGrid: any;
+  const MenuItem: any;
 }
 export { };
