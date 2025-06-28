@@ -11,10 +11,7 @@ import MessagePanel from '@/components/layout/MessagePanel';
 import ToastPanel from '@/components/layout/ToastPanel';
 import CustomHeader from '@/components/navigate/CustomHeader';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({ SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf') });
 
   if (!loaded) {
@@ -23,7 +20,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={DefaultTheme}>
       <Provider store={store}>
         <Stack
           screenOptions={{
