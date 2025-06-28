@@ -1,7 +1,11 @@
+import { useState, useEffect } from 'react';
 import config from '@/config.js';
+// react 常用方法
+global.useState = useState;
+global.useEffect = useEffect;
+// 常用方法
 import sr from './utils/libs/screen.js';
 global.sr = sr; // 窗口信息
-// 常用方法
 import _ from './utils/libs/lodash.js';
 global._ = _; // 数据处理
 import moment from './utils/libs/moment.js';
@@ -72,6 +76,8 @@ global._imgc = (url) => {
 // 自定义rn组件
 import Div from '@/components/view/Div';
 global.Div = Div;
+import Img from '@/components/view/Img';
+global.Img = Img;
 import Icon from '@/components/view/Icon';
 global.Icon = Icon;
 import MenuGrid from '@/components/menu/MenuGrid';

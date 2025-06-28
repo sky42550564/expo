@@ -1,5 +1,8 @@
 // 声明全面变量，防止vscode报错
 declare global {
+  // react 常用方法
+  const useState: any;
+  const useEffect: any;
   // 常用方法
   const sr: any;
   const _: any;
@@ -26,6 +29,7 @@ declare global {
   const _imgc: any;
   // 自定义rn组件
   const Div: any;
+  const Img: any;
   const Icon: any;
   const MenuGrid: any;
   const MenuItem: any;
