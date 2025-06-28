@@ -27,6 +27,8 @@ export default function Img({
   const [imageStyle, setImageStyle] = useState(null);
   const [fontStyle, setFontStyle] = useState(null);
   const [childStyle, setChildStyle] = useState(null);
+  const [source, setSource] = useState(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const st = style || _u(s);
@@ -34,35 +36,40 @@ export default function Img({
     const { flexDirection, justifyContent, alignItems, flexWrap, gap, ...otherStyle } = _otherStyle;
     setFontStyle({ color, fontSize, lineHeight, fontWeight }); // 字体样式
     setChildStyle({ flexDirection, justifyContent, alignItems, flexWrap, gap }); // child样式
+    const src = (_.startsWith(url, 'http://') || _.startsWith(url, 'https://') || _.startsWith(url, 'data:')) ? { uri: url } : url;
+    setSource(src);
     if (mode === 'width' || mode === 'height') { // 如果是限制宽或者高，则需要计算图片的大小
       setResizeMode('stretch');
-      Image.getSize(url.uri, (w, h) => {
+      const resolvedSource = _.isNumber(src) ? Image.resolveAssetSource(src) : src;
+      Image.getSize(resolvedSource.uri, (w, h) => {
         if (mode === 'width') {
           setImageStyle({ height: (otherStyle.width * h / w) || undefined, ...otherStyle });
         } else {
           setImageStyle({ width: (otherStyle.height * w / h) || undefined, ...otherStyle });
         }
+        setVisible(true);
       });
     } else {
       setResizeMode(mode);
       setImageStyle(otherStyle);
+      setVisible(true);
     }
   }, [s, style, url, mode]);
 
   if (onPress) {
     return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[_u(`_bc_#000000 _por`), imageStyle]}>
-        <ImageBackground source={url} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+      <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[_u(`_bc_white _por`), imageStyle]}>
+        <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
           {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
         </ImageBackground>
       </TouchableOpacity>
     )
   }
   return (
-    <View style={[_u(`_bc_#000000 _por`), imageStyle]}>
-      <ImageBackground source={url} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+    <View style={[_u(`_bc_white _por`), imageStyle]}>
+      { visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
         {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
-      </ImageBackground>
+      </ImageBackground> }
     </View>
   )
 }
