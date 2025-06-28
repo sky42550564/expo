@@ -4,11 +4,11 @@ import { View, Image, ImageBackground, Text, TouchableOpacity } from 'react-nati
 
 /*
 例子：
- <Img style={_u(`_w_200`)} src={require('@/assets/images/goods.png')} mode="width"></Img>
+ <Img style={_u(`_w_200`)} url={require('@/assets/images/goods.png')} mode="width"></Img>
 */
 type Props = PropsWithChildren<{
   onPress?: (event: GestureResponderEvent) => void; // 点击事件
-  src: any; // icon
+  url: any; // icon
   s?: string; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
   mode?: string; // 填充类型：stretch, cover, contain, width, height，如果是width的时候，style一定要指定width, 如果是height的时候，style一定要指定height
   style?: object, // 样式
@@ -18,7 +18,7 @@ type Props = PropsWithChildren<{
 export default function Img({
   children, // 子组件
   onPress, // 点击事件
-  src, // 如果http:或data:开头 或有uri属性
+  url, // 如果http:或data:开头 或有uri属性
   s, // 样式，类格式
   style, // 样式
   mode,
@@ -36,7 +36,7 @@ export default function Img({
     setChildStyle({ flexDirection, justifyContent, alignItems, flex, flexWrap, gap }); // child样式
     if (mode === 'width' || mode === 'height') { // 如果是限制宽或者高，则需要计算图片的大小
       setResizeMode('stretch');
-      Image.getSize(src.uri, (w, h) => {
+      Image.getSize(url.uri, (w, h) => {
         if (mode === 'width') {
           setImageStyle({ height: (otherStyle.width * h / w) || undefined, ...otherStyle });
         } else {
@@ -47,12 +47,12 @@ export default function Img({
       setResizeMode(mode);
       setImageStyle(otherStyle);
     }
-  }, [s, style, src, mode]);
+  }, [s, style, url, mode]);
 
   if (onPress) {
     return (
       <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[_u(`_bc_#000000 _por`), imageStyle]}>
-        <ImageBackground source={src} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+        <ImageBackground source={url} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
           {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
         </ImageBackground>
       </TouchableOpacity>
@@ -60,7 +60,7 @@ export default function Img({
   }
   return (
     <View style={[_u(`_bc_#000000 _por`), imageStyle]}>
-      <ImageBackground source={src} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+      <ImageBackground source={url} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
         {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
       </ImageBackground>
     </View>

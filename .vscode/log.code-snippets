@@ -288,13 +288,13 @@
 		],
 		"description": "Div的缩写"
 	},
-	"<Image source={$2} style={_u(`$1`)}></Image>": {
+	"<Img source={$2} style={_u(`$1`)}></Img>": {
 		"prefix": "vi",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
-			"<Image source={_img('logo.png')} style={_u(`$2`)} resizeMode=\"${1|stretch,cover,contain,center,repeat|}\"></Image>"
+			"<Img url={_img('logo.png')} style={_u(`$2`)} mode=\"${1|stretch,cover,contain,width,height|}\"></Img>"
 		],
-		"description": "image的缩写"
+		"description": "Img的缩写"
 	},
 	"<Div s=\"_button\">确定</View>": {
     "prefix": "vbutton",

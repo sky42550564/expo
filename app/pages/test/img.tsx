@@ -8,8 +8,9 @@ export default function Home() {
   return (
     <View style={_u(`_pt_50`)}>
       {/* <Image style={_u(`_w_175`)} source={require('@/assets/images/goods.png')} resizeMode="stretch"></Image> */}
-      <View style={_u(`_s_375_500_red _fx_r`)}>
-        <Div onPress={show1} s="_fx_1_blue _m_20 "></Div>
+      <View style={_u(`_s_375_500_red`)}>
+        <Img onPress={show} style={_u(`_s_100_200 _fs_38_bold_red _fx_rcc`)} url={require('@/assets/images/goods.png')} mode="width">
+        fang</Img>
       </View>
     </View>
   );
