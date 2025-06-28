@@ -3,7 +3,7 @@ const nanoid = customAlphabet('1234567890abcdef', 24);
 import _ from './lodash';
 
 export function log(...params) {
-  console.log("debug[================]:", ...params);
+  $alert(JSON.stringify(...params));
 }
 export function show(...params) { // 在vue中打印
   return params.map(o => o + '').join(' ');

@@ -30,32 +30,35 @@ const angleToCoordinates = (angle: number = 0) => {
 
 function Cell({
   children, // 子组件
-  s, // 样式，类格式
-  style, // 样式
-}: Props) {
-  const st = style || _us(s);
-  if (sr.h5) { // h5直接返回div
-    return <div style={st}>{children}</div>
-  }
-  const angle = st.angle;
-  const colors = st.colors;
-  const bcolors = st.bcolors;
-  delete st.angle;
-  delete st.colors;
-  delete st.bcolors;
-  const { color, fontSize, fontWeight, lineHeight, ...otherStyle } = st;
-  const fontStyle = { color, fontSize, lineHeight: lineHeight * 0.7, fontWeight }; // 字体样式
+  fontStyle, // 字体样式
+  childStyle, // 子元素样式
+  angle, // 渐变的角度
+  colors, // 渐变的字体颜色, 必须指定宽度和高度
+  bcolors, // 渐变的背景色
+}: any) {
+  // if (sr.h5) { // h5直接返回div
+  //   return <div style={st}>{children}</div>
+  //   // <div style="width: 200px; height: 40px; display: flex; flex-direction: row; align-items: center; font-size: 30px; background-clip: text; color: transparent; background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(0, 128, 0));">方运江</div>
+  // }
   if (colors?.length > 1 || bcolors?.length > 1) { // 有渐变
     const { start, end } = angleToCoordinates(angle);
     // 如果是文字渐变，需要使用渐变进行渲染
     if (colors?.length > 1) {
+      if (sr.h5) { // h5的颜色渐变处理
+        return <LinearGradient
+          colors={colors} // 渐变颜色数组
+          start={start} // 起点坐标 (左上角)
+          end={end}   // 终点坐标 (右下角)
+          style={[_u(`_w_100% _h_100%`), fontStyle, childStyle, { 'WebkitBackgroundClip': 'text', 'color': 'transparent' }]}
+        ><>{children}</></LinearGradient>
+      }
       return (
         <MaskedView maskElement={<Text style={fontStyle}>{children}</Text>}>
           <LinearGradient
             colors={colors} // 渐变颜色数组
             start={start} // 起点坐标 (左上角)
             end={end}   // 终点坐标 (右下角)
-            style={otherStyle}
+            style={[_u(`_w_100% _h_100%`), childStyle]}
           />
         </MaskedView>
       );
@@ -66,29 +69,44 @@ function Cell({
         colors={bcolors} // 渐变颜色数组
         start={start} // 起点坐标 (左上角)
         end={end}   // 终点坐标 (右下角)
-        style={st}
+        style={[_u(`_w_100% _h_100%`), childStyle]}
       >
         {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
       </LinearGradient>
     );
   }
-  return (
-    <View style={st}>
-      {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
-    </View>
-  );
+  return _.isString(children) ? <Text style={fontStyle}>{children}</Text> : children;
 }
 
 export default function Div({
   onPress, // 点击事件
-  ...params // 剩余参数
+  children, // 子组件
+  s, // 样式，类格式
+  style, // 样式
 }: Props) {
+  const st = style || _us(s);
+  const angle = st.angle;
+  const colors = st.colors;
+  const bcolors = st.bcolors;
+  delete st.angle;
+  delete st.colors;
+  delete st.bcolors;
+  const { color, fontSize, fontWeight, lineHeight, ..._otherStyle } = st;
+  const fontStyle = { color, fontSize, lineHeight: lineHeight * 0.7, fontWeight }; // 字体样式
+  const { flexDirection, justifyContent, alignItems, flexWrap, gap, ...otherStyle } = _otherStyle;
+  const childStyle = { flexDirection, justifyContent, alignItems, flexWrap, gap };
+  const containerStyle = (colors?.length > 1 || bcolors?.length > 1) ? otherStyle : _otherStyle;
+
   if (onPress) {
     return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
-        <Cell {...params}></Cell>
+      <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={containerStyle}>
+        <Cell {...{ fontStyle, childStyle, angle, colors, bcolors, children }}></Cell>
       </TouchableOpacity>
     )
   }
-  return <Cell {...params}></Cell>;
+  return (
+    <View style={containerStyle}>
+      <Cell {...{ fontStyle, childStyle, angle, colors, bcolors, children }}></Cell>
+    </View>
+  )
 }

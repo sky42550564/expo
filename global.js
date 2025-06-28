@@ -19,7 +19,7 @@ global.$prompt = utils.$prompt;
 global.$success = utils.$success;
 global.$error = utils.$error;
 import uno from './utils/libs/uno.js';
-const u = uno(sr.w, sr.h5);
+const u = uno(sr.w);
 global._u = u._u; // uno处理css样式
 global._us = u._us; // uno处理css样式
 import api from './utils/api/index.js';

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 let windowWidth = 375;
-let isH5 = false;
 
 const removeOne = (list, iteratee) => { const index = _.findIndex(list, iteratee); if (index === -1) { return [] } const r = list[index]; list.splice(index, 1); return [r] }
 const formatUnit = s => /^-?\d+(\.\d+)?$/.test(s) ? Math.round(s / 375 * windowWidth) : s; // 在没有设置单位的情况下，会以375的屏幕为基准进行屏幕适配
@@ -581,21 +580,7 @@ const getRules = (sr) => {
       const list = (s || '').split('_').filter(o => o);
       let dir = removeOne(list, o => /^-?(v|h|c|ob|\d+deg)$/.test(o))[0]; // 渐变的方向,v从左到右，h从上到下，从左上到右下45deg,从右上到左下-45deg
       if (list.length > 1) {
-        if (isH5) {
-          const obj = { 'WebkitBackgroundClip': 'text', 'color': 'transparent' };
-          !dir && (dir = 'h');
-          if (dir === 'c') { // 径向渐变
-            return { ...obj, 'backgroundImage': `radial-gradient(${list.map(o => formatColor(sr, o)).join(',')})` };
-          }
-          if (dir === 'ob') { // 斜向左上到右下
-            return { ...obj, 'backgroundImage': `linear-gradient(to bottom right, ${list.map(o => formatColor(sr, o)).join(',')})` };
-          }
-          if (dir === '-ob') { // 反斜向右上到左下
-            return { ...obj, 'backgroundImage': `linear-gradient(to bottom left, ${list.map(o => formatColor(sr, o)).join(',')})` };
-          }
-          dir = { 'v': 'to bottom', '-v': 'to top', 'h': 'to right', '-h': 'to left' }[dir] || dir; // 线性渐变
-          return { ...obj, 'backgroundImage': `linear-gradient(${dir}, ${list.map(o => formatColor(sr, o)).join(',')})` };
-        }
+        !dir && (dir = 'h');
         // c: 径向渐变 ob: 斜向左上到右下 -ob 反斜向右上到左下 v: 向下 -v: 向上 h: 向右 -h: 向左 其他填写角度：30deg
         const angle = { 'c': 0, 'ob': 45, '-ob': 135, 'v': 90, '-v': -90, 'h': 0, '-h': -180 }[dir] || (+(dir.replace('deg', '')) || 0);
         return { 'color': formatColor(sr, list[0]), angle, colors: list.map(o => formatColor(sr, o)) };
@@ -610,19 +595,6 @@ const getRules = (sr) => {
       list = getDefaultBackColor(sr, list);
       if (list.length > 1) {
         !dir && (dir = 'h');
-        if (isH5) {
-          if (dir === 'c') { // 径向渐变
-            return { 'backgroundImage': `radial-gradient(${list.map(o => formatColor(sr, o)).join(',')})` };
-          }
-          if (dir === 'ob') { // 斜向左上到右下
-            return { 'backgroundImage': `linear-gradient(to bottom right, ${list.map(o => formatColor(sr, o)).join(',')})` };
-          }
-          if (dir === '-ob') { // 反斜向右上到左下
-            return { 'backgroundImage': `linear-gradient(to bottom left, ${list.map(o => formatColor(sr, o)).join(',')})` };
-          }
-          dir = { 'v': 'to bottom', '-v': 'to top', 'h': 'to right', '-h': 'to left' }[dir] || dir; // 线性渐变
-          return { 'backgroundImage': `linear-gradient(${dir}, ${list.map(o => formatColor(sr, o)).join(',')})` };
-        }
         // c: 径向渐变 ob: 斜向左上到右下 -ob 反斜向右上到左下 v: 向下 -v: 向上 h: 向右 -h: 向左 其他填写角度：30deg
         const angle = { 'c': 0, 'ob': 45, '-ob': 135, 'v': 90, '-v': -90, 'h': 0, '-h': -180 }[dir] || (+(dir.replace('deg', '')) || 0);
         return { 'backgroundColor': formatColor(sr, list[0]), angle, bcolors: list.map(o => formatColor(sr, o)) };
@@ -1055,9 +1027,8 @@ const _u = (...list) => { // 严格模式
   return style;
 }
 
-export default (width = 375, h5) => { // 传入实际的屏幕宽度
+export default (width = 375) => { // 传入实际的屏幕宽度
   windowWidth = width;
-  isH5 = h5;
   return { rules, _u, _us };
 }
 

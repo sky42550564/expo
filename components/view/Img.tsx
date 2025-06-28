@@ -31,9 +31,9 @@ export default function Img({
   useEffect(() => {
     const st = style || _u(s);
     const { color, fontSize, fontWeight, lineHeight, ..._otherStyle } = st;
-    const { flexDirection, justifyContent, alignItems, flex, flexWrap, gap, ...otherStyle } = _otherStyle;
+    const { flexDirection, justifyContent, alignItems, flexWrap, gap, ...otherStyle } = _otherStyle;
     setFontStyle({ color, fontSize, lineHeight, fontWeight }); // 字体样式
-    setChildStyle({ flexDirection, justifyContent, alignItems, flex, flexWrap, gap }); // child样式
+    setChildStyle({ flexDirection, justifyContent, alignItems, flexWrap, gap }); // child样式
     if (mode === 'width' || mode === 'height') { // 如果是限制宽或者高，则需要计算图片的大小
       setResizeMode('stretch');
       Image.getSize(url.uri, (w, h) => {

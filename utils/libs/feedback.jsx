@@ -2,7 +2,7 @@ import { View, TextInput } from 'react-native';
 
 export function $alert(msg, options) { // 提示信息
 	return new Promise(resolve => {
-		router.refs.message.show({
+		router.refs.message && router.refs.message.show({
 			confirmText: _.get(options, 'confirmText', '确定'),
 			content: msg,
 			onConfirm: () => resolve(),
@@ -11,7 +11,7 @@ export function $alert(msg, options) { // 提示信息
 }
 export function $confirm(msg, options) { // 确认信息
 	return new Promise(resolve => {
-		router.refs.message.show({
+		router.refs.message && router.refs.message.show({
 			confirmText: _.get(options, 'confirmText', '确定'),
 			cancelText: _.get(options, 'cancelText', '取消'),
 			content: msg,
@@ -22,7 +22,7 @@ export function $confirm(msg, options) { // 确认信息
 }
 export function $prompt(msg, value = '') { // 输入信息
 	return new Promise(resolve => {
-		router.refs.message.show({
+		router.refs.message && router.refs.message.show({
 			content: (
 				<View>
 					<TextInput
@@ -41,8 +41,8 @@ export function $prompt(msg, value = '') { // 输入信息
 	});
 }
 export function $success(message) { // 显示成功的消息
-	router.refs.toast.show({ message, backgroundColor: '#52c41a' });
+	router.refs.toast && router.refs.toast.show({ message, backgroundColor: '#52c41a' });
 }
 export function $error(message) { // 显示错误的消息
-	router.refs.toast.show({ message, backgroundColor: '#ff4d4f' });
+	router.refs.toast && router.refs.toast.show({ message, backgroundColor: '#ff4d4f' });
 }
