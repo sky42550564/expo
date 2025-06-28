@@ -75,16 +75,18 @@ global._imgc = (url) => {
 
 // 自定义rn组件
 import Div from '@/components/view/Div';
-global.Div = Div;
+global.Div = Div; // 代替View和Text
 import Img from '@/components/view/Img';
-global.Img = Img;
+global.Img = Img; // 代替Image
 import Icon from '@/components/view/Icon';
-global.Icon = Icon;
+global.Icon = Icon; // 图标
 import MenuGrid from '@/components/menu/MenuGrid';
-global.MenuGrid = MenuGrid;
+global.MenuGrid = MenuGrid; // 网格菜单
 import MenuItem from '@/components/menu/MenuItem';
-global.MenuItem = MenuItem;
+global.MenuItem = MenuItem; // 列表菜单
 import MenuTitle from '@/components/menu/MenuTitle';
-global.MenuTitle = MenuTitle;
+global.MenuTitle = MenuTitle; // 菜单标题
+import List from '@/components/page/list/List';
+global.List = List; // 列表
 
 

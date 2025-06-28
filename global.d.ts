@@ -28,11 +28,12 @@ declare global {
   const _img: any;
   const _imgc: any;
   // 自定义rn组件
-  const Div: any;
-  const Img: any;
-  const Icon: any;
-  const MenuGrid: any;
-  const MenuItem: any;
-  const MenuTitle: any;
+  const Div: any; // 代替View和Text
+  const Img: any; // 代替Image
+  const Icon: any; // 图标
+  const MenuGrid: any; // 网格菜单
+  const MenuItem: any; // 列表菜单
+  const MenuTitle: any; // 菜单标题
+  const List: any; // 列表
 }
 export { };
