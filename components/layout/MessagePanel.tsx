@@ -54,7 +54,7 @@ export default forwardRef(({
           {_.isString(option.content) ? <Text style={_u(`_w_100%`)}>{option.content}</Text> : (option.content || children)}
         </View>
         <Text style={_u(`_s_${option.width}_1_#d3d3d3`)} />
-        <View style={_u(`_fx_rcc _sm_${option.width}_50`)}>
+        <View style={_u(`_fx_rc _sm_${option.width}_50`)}>
           {
             !!option.onCancel &&
             <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doCancel} style={_u(`_fx_rcc_1`)}>

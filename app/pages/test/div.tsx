@@ -14,7 +14,7 @@ export default function Home() {
           <Div onPress={show}  s="_fs_30_white">方运江</Div>
           <Div s="_fs_30_white">方运江</Div>
         </Div> */}
-        <Div  onPress={show} s="_s_250_50_white _fx_rcc">
+        <Div  onPress={show} s="_s_250_50_white _fx_rc">
           <Div s="_s_120_50 _fs_30 _c_red_green">方运江</Div>
         </Div>
         <Div s="_s_100_blue"></Div>

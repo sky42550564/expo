@@ -31,6 +31,7 @@ declare global {
   const Div: any; // 代替View和Text
   const Img: any; // 代替Image
   const Icon: any; // 图标
+  const Checkbox: any; // 选择框
   const MenuGrid: any; // 网格菜单
   const MenuItem: any; // 列表菜单
   const MenuTitle: any; // 菜单标题

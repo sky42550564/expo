@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import { FlatList, View, Text, TouchableHighlight } from 'react-native';
 
 type Props = PropsWithChildren<{
   title?: any, // 标题
@@ -32,6 +32,7 @@ type Props = PropsWithChildren<{
   callback?: any, // 详情页面的回调函数，会返回参数
   other?: any, // 附加属性
   initSearchKeyword?: any, // 初始搜索关键字
+  renderItem?: any, // 显示每一行数据
 }>;
 
 export default forwardRef((props: Props, ref) => {
@@ -152,15 +153,44 @@ export default forwardRef((props: Props, ref) => {
     getList();
   }
 
-  useEffect(() => {
-    refreshList();
-  }, []);
+  const renderItem = ({ item, index, separators }: any) => {
+    if (pageData.renderItem) {
+      return pageData.renderItem({ item, index, separators });
+    }
+    if (props.renderItem) {
+      return props.renderItem({ item, index, separators });
+    }
+    return (
+      <View style={[_u(`_fx_r`), pageData.rowStyle, props.rowStyle]}>
 
-  // useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法
+        <View style={_u(`_fx_r_1 _por`)}>
+          {isMultiSelect && <Checkbox></Checkbox>}
+          <radio v-if="isMultiSelect" @click.stop="onRadioClick(item)" :value="item.id" activeBackgroundColor="#06BE62" class="_ml_10 _scale_0.6" :checked="item.selected" />
+          <!-- 默认插槽 -->
+          <slot v-if="$slots.default" :item="item" :i="i" :pageData="pageData" :page="page"></slot>
+        <!-- 行数据 -->
+        <Row v-else class="_w_100%" :item="item" :pageData="pageData" :readonly="readonly" :page="page"></Row>
+          </View >
+        <View v-if="hasArrow" class="_wm_20">
+          <View class="_arrow"></View>
+        </View> 
+      </View >
+    );
+  }
 
-  return (
-    <View style={_u(`_fx_ccc`)}>
-      <Text style={_u(`_w_375`)}>{JSON.stringify(dataList)}</Text>
-    </View>
-  );
+useEffect(() => {
+  refreshList();
+}, []);
+
+// useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法
+
+return (
+  <View style={_u(`_fx_ccc`)}>
+    <Text style={_u(`_w_375`)}>{JSON.stringify(dataList)}</Text>
+    <FlatList
+      data={dataList}
+      renderItem={renderItem}
+    />
+  </View>
+);
 });

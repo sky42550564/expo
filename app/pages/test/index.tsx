@@ -26,7 +26,7 @@ export default function Home() {
     <View style={_u(`_mt_50`)}>
       {/* <ModalPanel ref={modalPanelRef}><Text>dhfskdfh</Text></ModalPanel> */}
       <ActionPanel ref={modalPanelRef} buttons={[{ label: '打开相机' }, { label: '开始拍照' }]}></ActionPanel>
-      <View style={_u(`_wf_150 _fx_rcc`)}>
+      <View style={_u(`_wf_150 _fx_rc`)}>
         <Div onPress={show} s="_button_white_warning_error_v_335_42_fs21_r _of_hidden">显示</Div>
       </View>
     </View>

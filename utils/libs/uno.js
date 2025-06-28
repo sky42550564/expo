@@ -185,14 +185,16 @@ const getRules = (sr) => {
         const a = removeOne(list, o => /^(as|ac|ae|a0)$/.test(o))[0]; // alignItems
         const wrap = removeOne(list, o => /^(w|wrap)$/.test(o))[0]; // 断行
         const mowrap = removeOne(list, o => /^(nw|mowrap)$/.test(o))[0]; // 断行
-        const dir = removeOne(list, o => /^(ccc|cc|c|rb|ra|rcc|rc|r|r0)$/.test(o))[0]; // 方向
+        const dir = removeOne(list, o => /^(ccc|cc|c|rjc|jac|rb|ra|rc|r|r0)$/.test(o))[0]; // 方向
         const gap = removeOne(list, o => /^g\d+(px)?$/.test(o))[0]; // 空格
         if (dir === 'r') {
-          obj = { 'display': 'flex', 'flexDirection': 'row' };
-        } else if (dir === 'rc') { // flex-row-center
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center' };
-        } else if (dir === 'rcc') { // flex-row-center
+        } else if (dir === 'rc') { // flex-row-center
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center' };
+        } else if (dir === 'rjc') { // flex-row-center
+          obj = { 'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center' };
+        } else if (dir === 'rac') { // flex-row-center
+          obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center' };
         } else if (dir === 'ra') { // flex-row-space-around
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'space-around' };
         } else if (dir === 'rb') { // flex-row-space-between

@@ -27,7 +27,7 @@ export default ({
   return (
     <Div style={_u(`_fx_rb`)}>
       <Div style={_u(titleStyle || `_fs_16_bold`)}>{title}</Div>
-      <Div style={_u(`_fx_rcc`)} onPress={() => showPage()}>
+      <Div style={_u(`_fx_rc`)} onPress={() => showPage()}>
         {subTitle && <Div style={_u(subStyle || `_fs_14_#bcbcbc`)}>{subTitle}</Div>}
         {
           _.times(arrowCount).map((o: any, i: number) => (

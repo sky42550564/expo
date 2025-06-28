@@ -56,13 +56,13 @@ export default forwardRef(({
   }
   return (
     <Modal animationType="fade" transparent statusBarTranslucent visible={visible}>
-      <View style={_u(`_full _bc_#00000050`, option.position === 'middle' && `_fx_rcc`)}>
+      <View style={_u(`_full _bc_#00000050`, option.position === 'middle' && `_fx_rc`)}>
         {/* 边框 */}
         <View style={_u(`_fx_c _of_hidden _por _w_${option.width} _bc_white`, option.height && `_h_${option.height}`, option.position === 'bottom' ? `_pof_b0_l0 _brt_${option.radius}` : option.position === 'top' ? `_poa_t0_l0 _brb_${option.radius}` : `_br_${option.radius}`)}>
           {/* 标题栏 */}
           {
             !option.noTitle &&
-            <View style={_u(`_wf_30 _fx_rcc _pb_4 _bob_f8f8f8`)}>
+            <View style={_u(`_wf_30 _fx_rc _pb_4 _bob_f8f8f8`)}>
               {/* 标题 */}
               {option.title && <Text style={_u(`_fs_14_#a3a3a3_bold`)}>{option.title}</Text> || <View></View>}
               {/* 关闭按钮 */}

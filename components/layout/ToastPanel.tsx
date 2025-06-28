@@ -45,7 +45,7 @@ export default forwardRef(({
 
   return (
     visible &&
-    <Animated.View style={[_u(`_wf _poa_t0_l0 _fx_rcc`), { opacity, transform: [{ translateY }] }]} >
+    <Animated.View style={[_u(`_wf _poa_t0_l0 _fx_rc`), { opacity, transform: [{ translateY }] }]} >
       <Text style={_u(`_fs_14_${option.color}_tc _bc_${option.backgroundColor} _p_6_20 _br_4`)}>{option.message}</Text>
     </Animated.View>
   );

@@ -80,6 +80,8 @@ import Img from '@/components/view/Img';
 global.Img = Img; // 代替Image
 import Icon from '@/components/view/Icon';
 global.Icon = Icon; // 图标
+import Checkbox from '@/components/view/Checkbox';
+global.Checkbox = Checkbox; // 选择框
 import MenuGrid from '@/components/menu/MenuGrid';
 global.MenuGrid = MenuGrid; // 网格菜单
 import MenuItem from '@/components/menu/MenuItem';
