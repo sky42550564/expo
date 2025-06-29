@@ -1,6 +1,8 @@
 import type { PropsWithChildren } from 'react';
+import React from 'react';
 import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { FlatList, View, Text, TouchableHighlight } from 'react-native';
+import { FlatList, View, Text, ActivityIndicator, TouchableHighlight } from 'react-native';
+import { Button } from '@ant-design/react-native';
 
 type Props = PropsWithChildren<{
   title?: any, // 标题
@@ -33,6 +35,7 @@ type Props = PropsWithChildren<{
   other?: any, // 附加属性
   initSearchKeyword?: any, // 初始搜索关键字
   renderItem?: any, // 显示每一行数据
+  renderSeparator?: any, // 显示分割线
 }>;
 
 export default forwardRef((props: Props, ref) => {
@@ -65,6 +68,7 @@ export default forwardRef((props: Props, ref) => {
   const pageData = getPageData();
   const sortOptions = pageData.sort; // 排序的参数
   const pageSize = pageData.pageSize || 20; // 页距
+  const hasInitialList = false;
 
 
   const formatStringLookup = (lookup: any) => {
@@ -153,44 +157,64 @@ export default forwardRef((props: Props, ref) => {
     getList();
   }
 
-  const renderItem = ({ item, index, separators }: any) => {
-    if (pageData.renderItem) {
-      return pageData.renderItem({ item, index, separators });
-    }
-    if (props.renderItem) {
-      return props.renderItem({ item, index, separators });
-    }
+  const Row = ({ item, index, separators }: any) => {
     return (
-      <View style={[_u(`_fx_r`), pageData.rowStyle, props.rowStyle]}>
+      <View style={_u(`_fx_r _w_100% _mv_10 _por`)}>
+        <Text>{item.name}xx</Text>
+      </View>
+    )
+  }
 
-        <View style={_u(`_fx_r_1 _por`)}>
+  const renderItem = ({ item, index, separators }: any) => {
+    const _renderItem = pageData.renderItem || props.renderItem;
+    let isMultiSelect = true, children, page, hasArrow = false, hasOper = false;
+    return (
+      <View style={[_u(`_fx_r_ac_1 _w_100% _h_100% _p_10`), pageData.rowStyle, props.rowStyle]}>
+        <View style={_u(`_fx_r_ac_1 _por`)}>
           {isMultiSelect && <Checkbox></Checkbox>}
-          <radio v-if="isMultiSelect" @click.stop="onRadioClick(item)" :value="item.id" activeBackgroundColor="#06BE62" class="_ml_10 _scale_0.6" :checked="item.selected" />
-          <!-- 默认插槽 -->
-          <slot v-if="$slots.default" :item="item" :i="i" :pageData="pageData" :page="page"></slot>
-        <!-- 行数据 -->
-        <Row v-else class="_w_100%" :item="item" :pageData="pageData" :readonly="readonly" :page="page"></Row>
-          </View >
-        <View v-if="hasArrow" class="_wm_20">
-          <View class="_arrow"></View>
-        </View> 
+          {_renderItem ? _renderItem({ item, index, pageData, page }) : <Row {...{ item, index, pageData, page }}></Row>}
+        </View >
+        {hasArrow && <View style={_u(`_arrow`)}></View>}
+        {
+          hasOper &&
+          <View style={_u(`_fx_c`)}>
+            <Icon icon='AntDesign:delete' size='10'></Icon>
+            <Icon icon='FontAwesome6:edit' size='10' style={_u(`_mt_6`)}></Icon>
+          </View>
+        }
       </View >
     );
   }
+  // 显示分割线
+  const renderSeparator = (scope: any) => {
+    const _renderSeparator = pageData.renderSeparator || props.renderSeparator;
+    return _renderSeparator ? _renderSeparator(scope) : <View style={_u(`_s_100%_1_#e3e3e3`)} />;
+  }
 
-useEffect(() => {
-  refreshList();
-}, []);
+  useEffect(() => {
+    refreshList();
+  }, []);
 
-// useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法
+  // useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法
 
-return (
-  <View style={_u(`_fx_ccc`)}>
-    <Text style={_u(`_w_375`)}>{JSON.stringify(dataList)}</Text>
-    <FlatList
-      data={dataList}
-      renderItem={renderItem}
-    />
-  </View>
-);
+  return (
+    <View>
+      <FlatList
+        data={dataList}
+        renderItem={renderItem}
+        ItemSeparatorComponent={renderSeparator}
+      />
+      {
+        // 加载更多
+        (pageSize < 1000 && !hasInitialList) &&
+        <View style={_u(`_mv_10_20 _fx_rc _w_100%`)}>
+          {
+            finished ? <Div v-if="state.finished" style={_u(`_fs_12_gray`)}>我是有底线的~</Div> : loading ?
+              <ActivityIndicator size="large" color="#0000ff" /> :
+              <Div style={_u(`_bo_dashed _br_4 _fs_12_gray _p_4_10`)}>加载更多</Div>
+          }
+        </View>
+      }
+    </View>
+  );
 });

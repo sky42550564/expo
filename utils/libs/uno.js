@@ -185,22 +185,16 @@ const getRules = (sr) => {
         const a = removeOne(list, o => /^(as|ac|ae|a0)$/.test(o))[0]; // alignItems
         const wrap = removeOne(list, o => /^(w|wrap)$/.test(o))[0]; // 断行
         const mowrap = removeOne(list, o => /^(nw|mowrap)$/.test(o))[0]; // 断行
-        const dir = removeOne(list, o => /^(ccc|cc|c|rjc|jac|rb|ra|rc|r|r0)$/.test(o))[0]; // 方向
+        const dir = removeOne(list, o => /^(ccc|cc|c|rb|ra|rc|r)$/.test(o))[0]; // 方向
         const gap = removeOne(list, o => /^g\d+(px)?$/.test(o))[0]; // 空格
         if (dir === 'r') {
-          obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center' };
+          obj = { 'display': 'flex', 'flexDirection': 'row' };
         } else if (dir === 'rc') { // flex-row-center
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'center' };
-        } else if (dir === 'rjc') { // flex-row-center
-          obj = { 'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center' };
-        } else if (dir === 'rac') { // flex-row-center
-          obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center' };
         } else if (dir === 'ra') { // flex-row-space-around
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'space-around' };
         } else if (dir === 'rb') { // flex-row-space-between
           obj = { 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'justifyContent': 'space-between' };
-        } else if (dir === 'r0') { // 只是 flex-row
-          obj = { 'display': 'flex', 'flexDirection': 'row' };
         } else if (dir === 'c') { // flex-column，默认水平居中
           obj = { 'display': 'flex', 'flexDirection': 'column' };
         } else if (dir === 'cc') { // flex-column 水平居中
@@ -342,8 +336,8 @@ const getRules = (sr) => {
       let width, height, bc;
       const list = s.split('_').filter(o => o);
       bc = removeOne(list, o => isColor(o))[0];
-      width = removeOne(list, o => /^[.\d]+(px|p)?$/.test(o) && !isColor(o))[0];
-      height = removeOne(list, o => /^[.\d]+(px|p)?$/.test(o) && !isColor(o))[0] || width;
+      width = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0];
+      height = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0] || width;
       const obj = {};
 
       (!st || st === 'm') && width && (obj['width'] = formatUnit(width));
@@ -362,8 +356,8 @@ const getRules = (sr) => {
       let obj = {};
       if (s) {
         let list = s.split('_').filter(o => o);
-        width = removeOne(list, o => /^[.\d]+(px|p)?$/.test(o) && !isColor(o))[0];
-        height = removeOne(list, o => /^[.\d]+(px|p)?$/.test(o) && !isColor(o))[0] || width;
+        width = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0];
+        height = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0] || width;
         r = removeOne(list, o => /^r([.\d]+(px)?)?$/.test(o))[0]; // borderRadius
         b = removeOne(list, o => /^b([.\d]+(px)?)?$/.test(o))[0]; // border
         fs = removeOne(list, o => /^fs([.\d]+(px)?)?$/.test(o))[0]; // fontSize

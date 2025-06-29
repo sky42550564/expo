@@ -16,7 +16,7 @@ const Checkbox = ({
   const onPress = () => {
     const newValue = !checked;
     setChecked(newValue);
-    model && model[1](newValue);
+    model[1] && model[1](newValue);
     onChange && onChange(newValue);
   };
   const st = style || _u(s);

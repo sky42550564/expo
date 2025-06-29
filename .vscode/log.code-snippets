@@ -296,11 +296,11 @@
 		],
 		"description": "Img的缩写"
 	},
-	"<Text>{$1 + ''}</Text>": {
+	"<Text>{$1}</Text>": {
 		"prefix": "vtext",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
-			"<Text>{$1 + ''}</Text>"
+			"<Text>{JSON.stringify($1)}</Text>"
 		],
 		"description": "Text的缩写"
 	},
