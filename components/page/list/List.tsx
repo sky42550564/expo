@@ -36,6 +36,9 @@ type Props = PropsWithChildren<{
   initSearchKeyword?: any, // 初始搜索关键字
   renderItem?: any, // 显示每一行数据
   renderSeparator?: any, // 显示分割线
+  renderEmpty?: any, // 显示空列表
+  renderHeader?: any, // 显示头部
+  renderFooter?: any, // 显示尾部
 }>;
 
 export default forwardRef((props: Props, ref) => {
@@ -165,6 +168,7 @@ export default forwardRef((props: Props, ref) => {
     )
   }
 
+  // 显示行内容
   const renderItem = ({ item, index, separators }: any) => {
     const _renderItem = pageData.renderItem || props.renderItem;
     let isMultiSelect = true, children, page, hasArrow = false, hasOper = false;
@@ -190,6 +194,44 @@ export default forwardRef((props: Props, ref) => {
     const _renderSeparator = pageData.renderSeparator || props.renderSeparator;
     return _renderSeparator ? _renderSeparator(scope) : <View style={_u(`_s_100%_1_#e3e3e3`)} />;
   }
+  // 显示空列表
+  const renderEmpty = (scope: any) => {
+    const _renderEmpty = pageData.renderEmpty || props.renderEmpty;
+    return _renderEmpty ? _renderEmpty(scope) : (
+      <View style={_u(`_fx_ccc`)}>
+        <Icon icon='FontAwesome5:box-open' color='#d3d3d3'></Icon>
+        <Div class="_fs_12_aaaaaa _mt_10">没有相关数据~</Div>
+      </View>
+    );
+  }
+  // 显示头部
+  const renderHeader = (scope: any) => {
+    const _renderHeader = pageData.renderHeader || props.renderHeader;
+    return _renderHeader ? _renderHeader(scope) : (
+      (pageSize < 1000 && !hasInitialList) &&
+      <View style={_u(`_mv_10_20 _fx_rc _w_100%`)}>
+        {
+          finished ? <Div v-if="state.finished" style={_u(`_fs_12_gray`)}>我是有底线的~</Div> : loading ?
+            <ActivityIndicator size="large" color="#0000ff" /> :
+            <Div style={_u(`_bo_dashed _br_4 _fs_12_gray _p_4_10`)}>加载更多</Div>
+        }
+      </View>
+    );
+  }
+  // 显示尾部
+  const renderFooter = (scope: any) => {
+    const _renderFooter = pageData.renderFooter || props.renderFooter;
+    return _renderFooter ? _renderFooter(scope) : (
+      (pageSize < 1000 && !hasInitialList) &&
+      <View style={_u(`_mv_10_20 _fx_rc _w_100%`)}>
+        {
+          finished ? <Div v-if="state.finished" style={_u(`_fs_12_gray`)}>我是有底线的~</Div> : loading ?
+            <ActivityIndicator size="large" color="#0000ff" /> :
+            <Div style={_u(`_bo_dashed _br_4 _fs_12_gray _p_4_10`)}>加载更多</Div>
+        }
+      </View>
+    );
+  }
 
   useEffect(() => {
     refreshList();
@@ -203,18 +245,10 @@ export default forwardRef((props: Props, ref) => {
         data={dataList}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
+        ListEmptyComponent={renderEmpty}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={renderFooter}
       />
-      {
-        // 加载更多
-        (pageSize < 1000 && !hasInitialList) &&
-        <View style={_u(`_mv_10_20 _fx_rc _w_100%`)}>
-          {
-            finished ? <Div v-if="state.finished" style={_u(`_fs_12_gray`)}>我是有底线的~</Div> : loading ?
-              <ActivityIndicator size="large" color="#0000ff" /> :
-              <Div style={_u(`_bo_dashed _br_4 _fs_12_gray _p_4_10`)}>加载更多</Div>
-          }
-        </View>
-      }
     </View>
   );
 });
