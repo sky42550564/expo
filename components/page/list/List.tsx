@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { FlatList, View, Text, ActivityIndicator, TouchableHighlight } from 'react-native';
-import { Button } from '@ant-design/react-native';
+import { FlatList, View, Text, ActivityIndicator, TextInput } from 'react-native';
+import { SearchBar } from '@ant-design/react-native';
 
 type Props = PropsWithChildren<{
   title?: any, // 标题
@@ -208,14 +208,7 @@ export default forwardRef((props: Props, ref) => {
   const renderHeader = (scope: any) => {
     const _renderHeader = pageData.renderHeader || props.renderHeader;
     return _renderHeader ? _renderHeader(scope) : (
-      (pageSize < 1000 && !hasInitialList) &&
-      <View style={_u(`_mv_10_20 _fx_rc _w_100%`)}>
-        {
-          finished ? <Div v-if="state.finished" style={_u(`_fs_12_gray`)}>我是有底线的~</Div> : loading ?
-            <ActivityIndicator size="large" color="#0000ff" /> :
-            <Div style={_u(`_bo_dashed _br_4 _fs_12_gray _p_4_10`)}>加载更多</Div>
-        }
-      </View>
+      <SearchBar cancelText="搜索"></SearchBar>
     );
   }
   // 显示尾部
