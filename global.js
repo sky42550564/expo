@@ -90,5 +90,7 @@ import MenuTitle from '@/components/menu/MenuTitle';
 global.MenuTitle = MenuTitle; // 菜单标题
 import List from '@/components/page/list/List';
 global.List = List; // 列表
+import FormTextItem from '@/components/form/FormTextItem';
+global.FormTextItem = FormTextItem; // 列表
 
 

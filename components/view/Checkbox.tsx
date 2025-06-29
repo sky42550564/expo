@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const Checkbox = ({
+export default ({
   children,
   onChange,
   model = [false], // 双向绑定， [value, setValue]
@@ -30,4 +30,3 @@ const Checkbox = ({
   );
 };
 
-export default Checkbox;

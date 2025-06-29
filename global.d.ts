@@ -36,5 +36,6 @@ declare global {
   const MenuItem: any; // 列表菜单
   const MenuTitle: any; // 菜单标题
   const List: any; // 列表
+  const FormTextItem: any; // 文本输入
 }
 export { };
