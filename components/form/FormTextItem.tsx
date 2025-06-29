@@ -1,8 +1,4 @@
-import React, { useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-
-import { Button, Form, Input } from '@ant-design/react-native';
+import { Form, Input } from '@ant-design/react-native';
 
 export default ({
   form, // 整个form
@@ -12,8 +8,7 @@ export default ({
   placeholder, // 默认显示
   required, // 必选
   rule, // 附加的规则，可以正则，函数或者数组
-  editting = true, // 是否可以编辑
-  readonly = false, // 是否是只读模式
+  disabled = false, // 是否禁用
   type, // 类型：name|phone|email|password
   rows, // 如果大于1为多行编辑器
   autoSize, // 自适应内容高度，可设置为 true | false 或对象：{ minRows: 2, maxRows: 6 }
@@ -26,6 +21,7 @@ export default ({
   suffix, // 带有后缀图标的 input
   inputStyle, // TextInput style
   onChange, // 输入框内容变化时的回调
+  model, // 双向绑定， [value, setValue]
 }: any) => {
   // 验证规则
   const rules = (rule ? (_.isArray(rule) ? rule : [rule]) : []).map((o: any) => ({ // 验证规则
@@ -61,7 +57,7 @@ export default ({
     rules.push({
       validator: (rule: any, value: any) => {
         // 以1开头的11位数字
-        if (!/^1\d{10}$/.test(value)) {
+        if (value && !/^1\d{10}$/.test(value)) {
           return Promise.reject(new Error(`请输入正确的${label}`)); // 验证失败
         }
         // 验证成功
@@ -71,7 +67,7 @@ export default ({
   } else if (type === 'email') { // 验证邮箱
     rules.push({
       validator: (rule: any, value: any) => {
-        if (!/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(value)) {
+        if (value && !/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(value)) {
           return Promise.reject(new Error(`请输入正确的${label}`)); // 验证失败
         }
         // 验证成功
@@ -81,10 +77,10 @@ export default ({
   } else if (type === 'password') { // 验证密码
     rules.push({
       validator: (rule: any, value: any) => {
-        // if (!/[a-zA-Z]/.test(value)) {
+        // if (value && !/[a-zA-Z]/.test(value)) {
         //   return Promise.reject(new Error(`${label}必须包含一个字母`); // 没有包含字母
         // }
-        if (value.length < 6) { // 密码小于了6位
+        if (value && value.length < 6) { // 密码小于了6位
           return Promise.reject(new Error(`${label}必须大于等于6位`));
         }
         // 验证成功
@@ -129,32 +125,45 @@ export default ({
       }
     });
   }
+
+  const initialValue = model?.[0];
+
+  const onInputChange = (e: any) => {
+    const value = e.target.value;
+    onChange && onChange(value)
+    model?.[1] && model[1](value);
+  }
   return (
     <Form.Item
-      label={label}
+      label={noLabel ? null : label}
       name={name}
       rules={rules}
+      initialValue={initialValue}
     >
       {
-        rows > 1 ?
+        !rows ?
           <Input
             placeholder={placeholder || `请填写${label}`}
+            disabled={disabled}
             allowClear={allowClear}
             maxLength={maxLength}
             showCount={showCount}
             prefix={prefix}
             suffix={suffix}
             inputStyle={inputStyle}
+            onChange={onInputChange}
           />
           :
           <Input.TextArea
             placeholder={placeholder || `请填写${label}`}
+            disabled={disabled}
             allowClear={allowClear}
             maxLength={maxLength}
             showCount={showCount}
             inputStyle={inputStyle}
             rows={rows}
             autoSize={autoSize}
+            // onChange={onInputChange}
           />
       }
     </Form.Item>
