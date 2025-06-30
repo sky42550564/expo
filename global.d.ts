@@ -4,6 +4,7 @@ declare global {
   const useState: any;
   const useEffect: any;
   const useRef: any;
+  const useMemo: any;
   const forwardRef: any;
   const useImperativeHandle: any;
   // 常用方法
@@ -16,7 +17,8 @@ declare global {
   const _us: any;
   const api: any;
   const CO: any;
-  const useRedux: any;
+  const useRedux: any;  // 全局属性
+  const useComputed: any; // 计算属性
   const Page: any;
   // 路由操作
   const router: any;
@@ -47,5 +49,7 @@ declare global {
   const FormImageItem: any; // 图片输入框
   const FormRadioItem: any; // 单选输入框
   const FormCheckboxItem: any; // 多选输入框
+  const FormPlainItem: any; // 值显示
+  const FormItem: any; // 表单项
 }
 export { };

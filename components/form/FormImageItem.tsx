@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { Form } from '@ant-design/react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-const FormItem = ({
+const FormCell = ({
   count = 1, // 最多上传图片数量
   disabled = false, // 是否禁用
   width, // 宽度
@@ -106,7 +106,7 @@ export default ({
       name={name}
       rules={rules}
     >
-      <FormItem {...{ count, disabled, width, height, value: model[0], onChange: model[1] || onChange }} />
+      <FormCell {...{ count, disabled, width, height, value: model[0], onChange: model[1] || onChange }} />
     </Form.Item>
   );
 };

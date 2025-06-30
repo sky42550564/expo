@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useState, useEffect, useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
 import config from '@/config.js';
 // react 常用方法
 global.useState = useState;
 global.useEffect = useEffect;
 global.useRef = useRef;
+global.useMemo = useMemo;
 global.forwardRef = forwardRef;
 global.useImperativeHandle = useImperativeHandle;
 // 常用方法
@@ -30,7 +31,9 @@ global.api = api; // 接口定义
 import * as CO from './utils/constants/index.js';
 global.CO = CO; // 常量定义
 import useRedux from './utils/react-native/useRedux.js';
-global.useRedux = useRedux; // 常量定义
+global.useRedux = useRedux; // 全局属性
+import useComputed from './utils/react-native/useComputed.js';
+global.useComputed = useComputed; // 计算属性
 import Page from './utils/react-native/Page.tsx';
 global.Page = Page; // 页面封装
 
@@ -91,7 +94,7 @@ import MenuItem from '@/components/menu/MenuItem';
 global.MenuItem = MenuItem; // 列表菜单
 import MenuTitle from '@/components/menu/MenuTitle';
 global.MenuTitle = MenuTitle; // 菜单标题
-import List from '@/components/page/list/List';
+import List from '@/components/page/List';
 global.List = List; // 列表
 import ModalPanel  from '@/components/layout/ModalPanel';
 global.ModalPanel  = ModalPanel ; // 弹出框
@@ -108,5 +111,9 @@ import FormRadioItem from '@/components/form/FormRadioItem';
 global.FormRadioItem = FormRadioItem; // 单选输入框
 import FormCheckboxItem from '@/components/form/FormCheckboxItem';
 global.FormCheckboxItem = FormCheckboxItem; // 多选输入框
+import FormPlainItem from '@/components/form/FormPlainItem';
+global.FormPlainItem = FormPlainItem; // 值显示
+import FormItem from '@/components/form/FormItem';
+global.FormItem = FormItem; // 表单项
 
 

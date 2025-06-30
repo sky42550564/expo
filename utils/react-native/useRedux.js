@@ -2,7 +2,7 @@ import { actions, asyncActions, datas, methods } from '@/store';
 import { useSelector, useDispatch } from 'react-redux'; // 引入修改全局状态的方法
 
 // 用法： const { personal, store: personalStore } = useRedux("personal");
-export default function useRedux(moduleName) { // 导出全局的快速方法
+export default (moduleName) => {
   const state = useSelector(reducer => reducer[moduleName]); // 取状态值
   const dispatch = useDispatch(); // 生成一个dispatch的函数
   const store = {};

@@ -1,6 +1,6 @@
 import { Form, Radio } from '@ant-design/react-native';
 
-const FormItem = ({
+const FormCell = ({
   disabled = false, // 是否禁用
   options, // 默认是数组，如: ['汉族', '苗族']：值为：0，1；也可以为集合：[{ id: 1, name: '汉族' }]
   valueKey, // 获取的字段，默认为数字下标 ([0,1])，$s: 字符串下标(['0','1'])，$: 直接使用label为值 如: ['汉族', '苗族']：值为：汉族，苗族，'，如果[{ id: 1, name: '汉族' }]，可设置为id
@@ -59,7 +59,7 @@ export default ({
       name={name}
       rules={rules}
     >
-      <FormItem {...{ disabled, options, valueKey, labelKey, row, style, value: model[0], onChange: model[1] || onChange }} />
+      <FormCell {...{ disabled, options, valueKey, labelKey, row, style, value: model[0], onChange: model[1] || onChange }} />
     </Form.Item>
   );
 };
