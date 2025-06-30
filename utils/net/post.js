@@ -16,7 +16,7 @@ export function post(url, { $wait, $noLog, ...params } = {}) {
         !$noLog && console.log('[' + url + '] recv:', JSON.parse(JSON.stringify(data)));
       })
       .catch((error) => {
-        console.log('[error]:', res);
+        console.log('[error]:', error);
         resolve({ message: '网络错误' }); // 如果返回空，就说明是错误的
       });
   });

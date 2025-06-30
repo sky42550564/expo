@@ -8,11 +8,11 @@ export default function Home() {
     table: 'student',
     label: '人员',
     fields: [
-      // {
-      //   label: '头像',
-      //   name: 'head',
-      //   value: { type: 'image' },
-      // },
+      {
+        label: '头像',
+        name: 'head',
+        value: { type: 'image' },
+      },
       {
         label: '姓名',
         name: 'name',

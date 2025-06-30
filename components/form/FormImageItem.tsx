@@ -27,7 +27,7 @@ const FormCell = ({
       quality: 0.8,
     });
     if (!result.canceled) {
-      onImagesChange([...images, ...result.assets.map(o => o.uri)]);
+      uploadImages(result.assets);
     }
   };
 
@@ -45,11 +45,19 @@ const FormCell = ({
       quality: 0.8,
     });
     if (!result.canceled) {
-      onImagesChange([...images, ...result.assets.map(o => o.uri)]);
+      uploadImages(result.assets);
     }
   };
 
-  const onImagesChange = (images: any) => {
+  const uploadImages = async (assets: any) => {
+    const list = sr.h5 ? await Promise.all(assets.map((o: any) => utils.upload({ file: o.file }))) : await Promise.all(assets.map((o: any) => utils.upload({ filePath: o.uri })));
+    if (_.some(list, (o: any) => !o.success)) {
+      return $alert('上传图片失败');
+    }
+    const newImages = list.map((o: any) => 'http://localhost:5188' + o.result.url);
+    onImagesChange([...images, ...newImages]);
+  }
+  const onImagesChange = async (images: any) => {
     setImages(images);
     onChange && onChange(count == 1 ? images[0] : images);
   }
