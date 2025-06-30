@@ -36,10 +36,6 @@ function Cell({
   colors, // 渐变的字体颜色, 必须指定宽度和高度
   bcolors, // 渐变的背景色
 }: any) {
-  // if (sr.h5) { // h5直接返回div
-  //   return <div style={st}>{children}</div>
-  //   // <div style="width: 200px; height: 40px; display: flex; flex-direction: row; align-items: center; font-size: 30px; background-clip: text; color: transparent; background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(0, 128, 0));">方运江</div>
-  // }
   if (colors?.length > 1 || bcolors?.length > 1) { // 有渐变
     const { start, end } = angleToCoordinates(angle);
     // 如果是文字渐变，需要使用渐变进行渲染
@@ -71,11 +67,11 @@ function Cell({
         end={end}   // 终点坐标 (右下角)
         style={[_u(`_w_100% _h_100%`), childStyle]}
       >
-        {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
+        <Children fontStyle={fontStyle} children={children}></Children>
       </LinearGradient>
     );
   }
-  return _.isString(children) ? <Text style={fontStyle}>{children}</Text> : children;
+  return <Children fontStyle={fontStyle} children={children}></Children>;
 }
 
 export default function Div({

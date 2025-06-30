@@ -23,6 +23,14 @@
 		],
 		"description": "console.log(JSON.stringify($1, null, 2));"
 	},
+	"return utils.log($1)": {
+		"prefix": "lv",
+		"scope": "javascript,javascriptreact,typescriptreact",
+		"body": [
+			"utils.log($1)"
+		],
+		"description": "打印弹框日志"
+	},
 	"return console.log('params =', params)": {
 		"prefix": "lp",
 		"scope": "javascript,javascriptreact,typescriptreact",

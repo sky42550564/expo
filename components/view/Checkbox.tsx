@@ -25,7 +25,7 @@ export default ({
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[_u(`_fx_r`), otherStyle]}>
       <MaterialCommunityIcons name={checked ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'} size={size} color={checked ? activeColor : inactiveColor} style={_u(`_mr_6`)} />
-      {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
+      <Children fontStyle={fontStyle} children={children}></Children>
     </TouchableOpacity>
   );
 };

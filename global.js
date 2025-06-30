@@ -54,6 +54,8 @@ global._imgc = (url) => {
 }
 
 // 自定义rn组件
+import Children from '@/components/view/Children';
+global.Children = Children; // 子组件
 import Div from '@/components/view/Div';
 global.Div = Div; // 代替View和Text
 import Img from '@/components/view/Img';

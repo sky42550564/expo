@@ -33,6 +33,7 @@ declare global {
   const _img: any;
   const _imgc: any;
   // 自定义rn组件
+  const Children: any; // 子组件
   const Div: any; // 代替View和Text
   const Img: any; // 代替Image
   const Icon: any; // 图标

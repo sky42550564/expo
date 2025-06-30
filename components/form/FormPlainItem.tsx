@@ -10,7 +10,7 @@ const FormCell = ({
 }: any) => {
   return (
     <View style={_u(`_fx_r`)}>
-      {children ? (_.isString(children) ? <Text style={_u(`_fs_17`, style)}>{children}</Text> : children) : <Div style={_u(`_fs_17`, style)}>{value || placeholder}</Div>}
+      {children ? <Children fontStyle={_u(`_fs_17`, style)} children={children}></Children> : <Div style={_u(`_fs_17`, style)}>{value || placeholder}</Div>}
       {unit !== undefined && <Div s='_fs_red'>{unit}</Div>}
     </View>
   );
