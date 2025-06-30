@@ -1,7 +1,8 @@
 export default ({
   value = {},
-  ...props
+  ...attrs
 }: any) => {
+  const props = { ..._.omit(attrs, 'value'), ...value };
   if (['text', 'name', 'phone', 'email', 'password', 'idNo', 'textPlate'].includes(value.type)) return <FormTextItem  {...props} />;
   if (['number'].includes(value.type)) return <FormNumberItem  {...props} />;
   if (['number'].includes(value.type)) return <FormNumberItem  {...props} precision={2} ratio={100} unit='元' />;

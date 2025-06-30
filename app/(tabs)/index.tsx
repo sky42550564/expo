@@ -5,6 +5,7 @@ import { FloatingAction } from "react-native-floating-action";
 
 export default function Home() {
   const pageData = {
+    table: 'student',
     label: '人员',
     apis: { list: '/list/tb_member' },
     fields: [

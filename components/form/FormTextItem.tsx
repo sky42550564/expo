@@ -4,7 +4,6 @@ const FormCell = (props: any) => {
   const {
     placeholder, // 默认显示
     disabled = false, // 是否禁用
-    type, // 类型：name|phone|email|password
     rows, // 如果大于1为多行编辑器
     autoSize, // 自适应内容高度，可设置为 true | false 或对象：{ minRows: 2, maxRows: 6 }
     maxLength, // 最大长度
@@ -13,6 +12,7 @@ const FormCell = (props: any) => {
     prefix, // 带有前缀图标的 input
     suffix, // 带有后缀图标的 input
     inputStyle, // FormCell style
+    keyboardType, // 键盘类型
     value, // antd的Form.Item自动传下来的值
     onChange, // antd的Form.Item自动传下来的回调
   } = props;
@@ -29,6 +29,7 @@ const FormCell = (props: any) => {
       prefix={prefix}
       suffix={suffix}
       inputStyle={inputStyle}
+      type={keyboardType}
       value={value}
       onChange={onInputChange}
     />
@@ -71,6 +72,8 @@ export default ({
   model = [], // 双向绑定， [value, setValue] 例如：<FormNumberItem label='年龄' model={[age, setAge]} />
 }: any) => {
   // 验证规则
+  let _maxLength = maxLength;
+  let keyboardType = 'default';
   const rules = (rule ? (_.isArray(rule) ? rule : [rule]) : []).map((o: any) => ({ // 验证规则
     validator: (rule: any, value: any) => {
       if (_.isRegExp(o)) {
@@ -101,6 +104,8 @@ export default ({
       }
     });
   } else if (type === 'phone') { // 验证手机号码
+    _maxLength = 11;
+    keyboardType = 'phone-pad';
     rules.push({
       validator: (rule: any, value: any) => {
         // 以1开头的11位数字
@@ -112,6 +117,7 @@ export default ({
       }
     });
   } else if (type === 'email') { // 验证邮箱
+    keyboardType = 'email-address';
     rules.push({
       validator: (rule: any, value: any) => {
         if (value && !/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(value)) {
@@ -122,6 +128,7 @@ export default ({
       }
     });
   } else if (type === 'password') { // 验证密码
+    _maxLength = Math.min(50, maxLength || 50);
     rules.push({
       validator: (rule: any, value: any) => {
         // if (value && !/[a-zA-Z]/.test(value)) {
@@ -135,6 +142,7 @@ export default ({
       }
     });
   } else if (type === 'idNo') { // 身份证号码
+    _maxLength = 18;
     rules.push({
       validator: (rule: any, value: any) => {
         if (value && !utils.checkIdNo(value)) {
@@ -178,7 +186,7 @@ export default ({
       name={name}
       rules={rules}
     >
-      <FormCell {...{ placeholder: placeholder || `请填写${label}`, disabled, allowClear, maxLength, showCount, prefix, suffix, inputStyle, rows, autoSize, value: model[0], onChange: model[1] || onChange }} />
+      <FormCell {...{ placeholder: placeholder || `请填写${label}`, disabled, allowClear, maxLength: _maxLength, showCount, prefix, suffix, keyboardType, inputStyle, rows, autoSize, value: model[0], onChange: model[1] || onChange }} />
     </Form.Item>
   );
 };
