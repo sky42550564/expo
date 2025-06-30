@@ -971,10 +971,10 @@ const getRules = (sr) => {
 //  [/^_w_(\d+)$/, ([, d]) => ({ 'width': `${d}px` })],
 // [/^_s_(\d+)_?(\d+)?$/, ([, d1, d2]) => `_w_${d1} _h_${d2 || d1}`],
 const rules = getRules({
-  cmain: '#FFFFFF', // 主题色
-  csub: '#FFFFFF', // 主题次色，主要用来做渐变
-  ctext: '#000000', // 主题文字色
-  chigh: '#000000', // 高亮颜色
+  cmain: '#2D8CF0', // 主题色
+  csub: '#2D8CF0', // 主题次色，主要用来做渐变
+  ctext: '#FFFFFF', // 主题文字色
+  chigh: '#d19a66', // 高亮颜色
   primary: '#409EFF',
   success: '#67C23A',
   info: '#909399',

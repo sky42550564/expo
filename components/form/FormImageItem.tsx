@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 import { Form } from '@ant-design/react-native';
+import config from '@/config';
 import * as ImagePicker from 'expo-image-picker';
 
 const FormCell = ({
@@ -54,7 +55,7 @@ const FormCell = ({
     if (_.some(list, (o: any) => !o.success)) {
       return $alert('上传图片失败');
     }
-    const newImages = list.map((o: any) => 'http://localhost:5188' + o.result.url);
+    const newImages = list.map((o: any) => config.server + o.result.url);
     onImagesChange([...images, ...newImages]);
   }
   const onImagesChange = async (images: any) => {

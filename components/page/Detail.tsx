@@ -27,7 +27,7 @@ export default forwardRef((props: Props, ref) => {
   const { option } = useRedux('option'); // 全局变量
   const [form] = Form.useForm();
 
-  const pageData = props.pageData;
+  const pageData = props.pageData || {};
   const other = props.other;
   const callback = props.callback;
   const readonly = props.readonly || pageData.readonly; // 是否是只读
@@ -41,19 +41,19 @@ export default forwardRef((props: Props, ref) => {
   const onSubmitResult = props.onSubmitResult || pageData.onSubmitResult;
   const notShowCreateAlert = props.notShowCreateAlert || pageData.notShowCreateAlert;
   const forceEditting = props.forceEditting || pageData.forceEditting;
-  const hasCUD = !readonly && _.some(props.pageData.fields, (o: any) => _.get(o, 'value.type') && _.get(o, 'value.edit') !== false && _.get(o, 'value.readonly') !== true && _.get(o, 'value.arrow') !== true); // 判断是否可以有cud的操作，只要有一个字段有value.type并且不为readonly就可以编辑
+  const hasCUD = !readonly && _.some(pageData.fields, (o: any) => _.get(o, 'value.type') && _.get(o, 'value.edit') !== false && _.get(o, 'value.readonly') !== true && _.get(o, 'value.arrow') !== true); // 判断是否可以有cud的操作，只要有一个字段有value.type并且不为readonly就可以编辑
 
   const _isModify = !!record; // 是否是修改
   // 如果是修改的情况，如果有formPreHook，返回formPreHook的修正值，否则form就是record
-  let intFormData = _isModify ? _.reduce(props.pageData.fields, (r: any, o: any) => { r[o.name] = record[o.name]; return r }, {}) : _.reduce(props.pageData.fields, (r: any, o: any) => { r[o.name] = o.value?.default; return r }, {});
-  if (props.pageData.formPreHook) {
+  let intFormData = _isModify ? _.reduce(pageData.fields, (r: any, o: any) => { r[o.name] = record[o.name]; return r }, {}) : _.reduce(pageData.fields, (r: any, o: any) => { r[o.name] = o.value?.default; return r }, {});
+  if (pageData.formPreHook) {
     intFormData = pageData.formPreHook({ $: record, params: intFormData });
   }
   const [formData, setFormData] = useState(intFormData);
   const [isModify, setIsModify] = useState(_isModify);
 
-  const fields = useComputed(() => _.filter(props.pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, form: formData, initParams: props.initParams, isModify })), [props.pageData]);  // 过滤掉不显示的字段
-  const title = useComputed(() => props.title || (props.pageData.label && `${isModify ? '修改' : '新增'}${props.pageData.label}`), [props.pageData, isModify]);
+  const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, form: formData, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
+  const title = useComputed(() => props.title || (pageData.label && `${isModify ? '修改' : '新增'}${pageData.label}`), [pageData, isModify]);
 
   const [hasEdit, setHasEdit] = useState(!readonly);// 是否有编辑的栏目
   const [editting, setEditting] = useState(props.forceEditting || (hasCUD && !record)); // 新增的时候默认为编辑状态
@@ -144,7 +144,7 @@ export default forwardRef((props: Props, ref) => {
       {
         (!noFooter && hasEdit) &&
         <View style={_u(`_fx_rc _mv_30`)}>
-          {editting && <Div style={_u(`_button_160_36_r`)} onPress={submit} > {props.pageData.submitButtonText || '保存'} </Div> || <Div style={_u(`_button_160_36_r`)} onPress={submit} > 修改 </Div>}
+          {editting && <Div style={_u(`_button_160_36_r`)} onPress={submit} > {pageData.submitButtonText || '保存'} </Div> || <Div style={_u(`_button_160_36_r`)} onPress={submit} > 修改 </Div>}
           {editting && isModify && !forceEditting && <Div style={_u(`_button_160_36_r _bc_error_warning _c _ml_10`)} onPress={submit}> 取消 </Div>}
         </View>
       }

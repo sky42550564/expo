@@ -174,7 +174,7 @@ export default forwardRef((props: Props, ref) => {
     const _renderItem = pageData.renderItem || props.renderItem;
     let isMultiSelect = true, children, page, hasArrow = false, hasOper = false;
     return (
-      <View style={[_u(`_fx_r_ac_1 _w_100% _h_100% _p_10`), pageData.rowStyle, props.rowStyle]}>
+      <View style={[_u(`_fx_r_ac_1 _wf _p_10`), pageData.rowStyle, props.rowStyle]}>
         <View style={_u(`_fx_r_ac_1 _por`)}>
           {isMultiSelect && <Checkbox></Checkbox>}
           {_renderItem ? _renderItem({ item, index, pageData, page }) : <Row {...{ item, index, pageData, page }}></Row>}
@@ -246,7 +246,7 @@ export default forwardRef((props: Props, ref) => {
   // useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法
 
   return (
-    <View>
+    <View style={_u(`_full`)}>
       <FlatList
         data={dataList}
         renderItem={renderItem}
@@ -255,7 +255,7 @@ export default forwardRef((props: Props, ref) => {
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
       />
-      <Icon icon='AntDesign:pluscircle' color='#145fc4' size={50} s='_pof_b20_r20' onPress={() => showCreate()}></Icon>
+      <Icon icon='AntDesign:pluscircle' color='#2D8CF0' size={50} s='_poa_b20_r20' onPress={() => showCreate()}></Icon>
     </View>
   );
 });

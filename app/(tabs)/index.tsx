@@ -31,8 +31,6 @@ export default function Home() {
     ]
   };
   return (
-    <ScrollView style={_u(`_fx_1 _pb_120`)}>
-      <List pageData={pageData}></List>
-    </ScrollView>
+    <List pageData={pageData}></List>
   );
 }

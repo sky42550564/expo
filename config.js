@@ -4,8 +4,8 @@ const domain = 'http://localhost:5188';
 const qrcode = `${domain}/weixinQRCode`; // 小程序的普通二维码访问地址，在微信小程序后台设置扫普
 
 const setting = test ? {
-  server: 'http://localhost:5188',  // 服务器
-  // server: 'http://192.168.45.124:5188', // 通过代理服务
+  // server: 'http://localhost:5188',  // 服务器
+  server: 'http://192.168.45.124:5188', // 通过代理服务
   // server: 'https://somiit.com', // 接口服务器地址
   testPath: '/pages/test/index', // 不需要登录跳转到某一个页面
   // homePath: '/pages/test/index', // 登录成功后跳转的页面，不设置跳转到 /pages/square/index
