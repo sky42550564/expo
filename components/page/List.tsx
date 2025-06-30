@@ -53,7 +53,6 @@ export default forwardRef((props: Props, ref) => {
   const [totalCount, setTotalCount] = useState(0); // 所有数量
   const [loading, setLoading] = useState(false); // 列表加载状态
   const [finished, setFinished] = useState(true); // 是否加载完成
-  const [pageNo, setPageNo] = useState(0); // 页号
   const [selectedCount, setSelectedCount] = useState(0); // 被选中的元素
   const [filterOptions, setFilterOptions] = useState({}); // 过滤的参数
 
@@ -72,6 +71,7 @@ export default forwardRef((props: Props, ref) => {
   const sortOptions = pageData.sort; // 排序的参数
   const pageSize = pageData.pageSize || 20; // 页距
   const hasInitialList = false;
+  let pageNo = 0; // 页号
 
 
   const formatStringLookup = (lookup: any) => {
@@ -137,7 +137,7 @@ export default forwardRef((props: Props, ref) => {
     if (!data.success) { // 如果服务器返回成功
       data.result = { total: 0, list: [] };
     }
-    setPageNo(pageNo + 1); // 拉取了第一个页的数据后，就应该拉取第二页
+    pageNo++; // 拉取了第一个页的数据后，就应该拉取第二页
     if (data.result.list.length < pageSize) { // 说明已经拉取完成
       setFinished(true);
     }
@@ -147,14 +147,15 @@ export default forwardRef((props: Props, ref) => {
       list = pageData.listFormat(list, { pageNo, params, pageData, personal, option, other: props.other });
     }
     setTotalCount(data.result.total);
-    setDataList([...dataList, ...list]);
+    pageNo == 1 ? setDataList(list) : setDataList([...dataList, ...list]);
   }
   const refreshList = (params?: any) => { // 刷新列表
     if (pageData.list || props.list) { // 如果是传入了list，则不需要刷新
       return;
     }
+    pageNo = 0;
+    setTotalCount(0);
     setDataList([]);
-    setPageNo(0);
     setFinished(false);
     refreshParams = params;
     getList();
@@ -163,7 +164,7 @@ export default forwardRef((props: Props, ref) => {
   const Row = ({ item, index, separators }: any) => {
     return (
       <View style={_u(`_fx_r _w_100% _mv_10 _por`)}>
-        <Text>{item.name}xx</Text>
+        <Text>{item.name}</Text>
       </View>
     )
   }
@@ -198,9 +199,9 @@ export default forwardRef((props: Props, ref) => {
   const renderEmpty = (scope: any) => {
     const _renderEmpty = pageData.renderEmpty || props.renderEmpty;
     return _renderEmpty ? _renderEmpty(scope) : (
-      <View style={_u(`_fx_ccc`)}>
+      <View style={_u(`_fx_ccc _hmin_200`)}>
         <Icon icon='FontAwesome5:box-open' color='#d3d3d3'></Icon>
-        <Div class="_fs_12_aaaaaa _mt_10">没有相关数据~</Div>
+        <Div class='_fs_12_aaaaaa _mt_10'>没有相关数据~</Div>
       </View>
     );
   }
@@ -208,7 +209,7 @@ export default forwardRef((props: Props, ref) => {
   const renderHeader = (scope: any) => {
     const _renderHeader = pageData.renderHeader || props.renderHeader;
     return _renderHeader ? _renderHeader(scope) : (
-      <SearchBar cancelText="搜索"></SearchBar>
+      <SearchBar cancelText='搜索'></SearchBar>
     );
   }
   // 显示尾部
@@ -218,8 +219,8 @@ export default forwardRef((props: Props, ref) => {
       (pageSize < 1000 && !hasInitialList) &&
       <View style={_u(`_mv_10_20 _fx_rc _w_100%`)}>
         {
-          finished ? <Div v-if="state.finished" style={_u(`_fs_12_gray`)}>我是有底线的~</Div> : loading ?
-            <ActivityIndicator size="large" color="#0000ff" /> :
+          finished ? (!!totalCount && <Div s='_fs_12_gray'>我是有底线的~</Div>) : loading ?
+            <ActivityIndicator size='large' color='#0000ff' /> :
             <Div style={_u(`_bo_dashed _br_4 _fs_12_gray _p_4_10`)}>加载更多</Div>
         }
       </View>
