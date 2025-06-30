@@ -104,34 +104,6 @@ const getRules = (sr) => {
       }
       return obj;
     },
-    // 绝对布局 _pof | _pof_b100_r100
-    pof: ([s]) => {
-      const obj = { 'position': 'fixed' };
-      if (s) {
-        const list = s.split('_').filter(o => o);
-        const bc = removeOne(list, o => isColor(o))[0];
-        const t = removeOne(list, o => /^t-?[.\d]+(px)?$/.test(o))[0]; // top
-        const b = removeOne(list, o => /^b-?[.\d]+(px)?$/.test(o))[0]; // bottom
-        const l = removeOne(list, o => /^l-?[.\d]+(px)?$/.test(o))[0]; // left
-        const r = removeOne(list, o => /^r-?[.\d]+(px)?$/.test(o))[0]; // right
-        const h = removeOne(list, o => /^h-?[.\w]+/.test(o))[0]; // 横向
-        const v = removeOne(list, o => /^v-?[.\w]+/.test(o))[0]; // 纵向
-        t && (obj.top = formatUnit(t?.slice(1)));
-        b && (obj.bottom = formatUnit(b?.slice(1)));
-        l && (obj.left = formatUnit(l?.slice(1)));
-        r && (obj.right = formatUnit(r?.slice(1)));
-        if (h) {
-          obj.left = formatUnit(h?.slice(1));
-          obj.right = formatUnit(h?.slice(1));
-        }
-        if (v) {
-          obj.top = formatUnit(v?.slice(1));
-          obj.bottom = formatUnit(v?.slice(1));
-        }
-        bc && (obj['backgroundColor'] = formatColor(sr, bc));
-      }
-      return obj;
-    },
     // 相对布局
     por: () => ({ 'position': 'relative' }),
     // 绝对铺面

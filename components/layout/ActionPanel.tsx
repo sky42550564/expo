@@ -75,18 +75,18 @@ export default forwardRef(({
     <Modal animationType="fade" transparent statusBarTranslucent visible={visible}>
       <View style={_u(`_full _bc_#00000050`)}>
         {/* 边框 */}
-        <Animated.View style={_u(`_fx_c _of_hidden _por _p_10 _w_${width} _bc_white _pof_b0_l0 _brt_${radius}`, { transform: [{ translateY }] })}>
+        <Animated.View style={_u(`_fx_c _of_hidden _por _p_10 _w_${width} _bc_white _poa_b0_l0 _brt_${radius}`, { transform: [{ translateY }] })}>
           <View style={_u(`_fx_ccc`)}>
             {
               buttons.map((o: any, k: number) => (
-                <TouchableHighlight key={k} underlayColor='rgba(0, 0, 0, 0)' onPress={() => doConfirm(o)} style={_u(`_fx_rc_1 _sm_${width * 0.9}_40 _bob_#e3e3e3`)}>
+                <TouchableHighlight key={k} underlayColor='rgba(0, 0, 0, 0)' onPress={() => doConfirm(o)} style={_u(`_fx_rc_1 _wf _hm_40 _bob_#e3e3e3`)}>
                   <Text style={_u(`_fs_15_${o.color || '#0076FF'}`)}>{o.label}</Text>
                 </TouchableHighlight>
               ))
             }
             {
               !!option.onCancel &&
-              <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doCancel} style={_u(`_fx_rc_1 _hm_50`)}>
+              <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doCancel} style={_u(`_fx_rc_1 _wf _hm_40`)}>
                 <Text style={_u(`_fs_15_red`)}>{option.cancelText}</Text>
               </TouchableHighlight>
             }
