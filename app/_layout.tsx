@@ -10,6 +10,7 @@ import { store } from '../store';
 import { Provider as AntdProvider } from '@ant-design/react-native';
 import MessagePanel from '@/components/layout/MessagePanel';
 import ToastPanel from '@/components/layout/ToastPanel';
+import ModalPanel from '@/components/layout/ModalPanel';
 import CustomHeader from '@/components/navigate/CustomHeader';
 
 export default function RootLayout() {
@@ -50,6 +51,7 @@ export default function RootLayout() {
           <StatusBar style="auto" />
           <MessagePanel globalRefName="message"></MessagePanel>
           <ToastPanel globalRefName="toast"></ToastPanel>
+          <ModalPanel globalRefName="modal"></ModalPanel>
         </Provider>
       </AntdProvider>
     </ThemeProvider>
