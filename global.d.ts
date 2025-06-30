@@ -3,6 +3,7 @@ declare global {
   // react 常用方法
   const useState: any;
   const useEffect: any;
+  const useRef: any;
   // 常用方法
   const sr: any;
   const _: any;

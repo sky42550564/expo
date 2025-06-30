@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import config from '@/config.js';
 // react 常用方法
 global.useState = useState;
 global.useEffect = useEffect;
+global.useRef = useRef;
 // 常用方法
 import sr from './utils/libs/screen.js';
 global.sr = sr; // 窗口信息
