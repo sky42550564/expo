@@ -37,6 +37,7 @@ export default function Img({
     setFontStyle({ color, fontSize, lineHeight, fontWeight }); // 字体样式
     setChildStyle({ flexDirection, justifyContent, alignItems, flexWrap, gap }); // child样式
     const src = (_.startsWith(url, 'http://') || _.startsWith(url, 'https://') || _.startsWith(url, 'data:')) ? { uri: url } : url;
+    console.log('=================src', src);
     setSource(src);
     if (mode === 'width' || mode === 'height') { // 如果是限制宽或者高，则需要计算图片的大小
       setResizeMode('stretch');
@@ -59,17 +60,17 @@ export default function Img({
   if (onPress) {
     return (
       <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[_u(`_bc_white _por`), imageStyle]}>
-        <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+        {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
           {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
-        </ImageBackground>
+        </ImageBackground>}
       </TouchableOpacity>
     )
   }
   return (
     <View style={[_u(`_bc_white _por`), imageStyle]}>
-      { visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+      {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
         {_.isString(children) ? <Text style={fontStyle}>{children}</Text> : children}
-      </ImageBackground> }
+      </ImageBackground>}
     </View>
   )
 }

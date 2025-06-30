@@ -36,6 +36,11 @@ declare global {
   const MenuItem: any; // 列表菜单
   const MenuTitle: any; // 菜单标题
   const List: any; // 列表
-  const FormTextItem: any; // 文本输入
+  const ModalPanel: any; // 弹出框
+  const ActionPanel: any; // 底部弹出框
+  // 表单
+  const FormTextItem: any; // 文本输入框
+  const FormNumberItem: any; // 数字输入框
+  const FormImageItem: any; // 图片输入框
 }
 export { };

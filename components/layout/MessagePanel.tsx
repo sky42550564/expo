@@ -50,19 +50,19 @@ export default forwardRef(({
   return (
     <ModalPanel ref={modalPanelRef} noTitle position='middle' width={option.width}>
       <View style={_u(`_fx_ccc`)}>
-        <View style={_u(`_fx_rcc_1 _mv_40 _w_${option.width * 0.8}`)}>
+        <View style={_u(`_fx_rc_1 _mv_40 _w_${option.width * 0.8}`)}>
           {_.isString(option.content) ? <Text style={_u(`_w_100%`)}>{option.content}</Text> : (option.content || children)}
         </View>
         <Text style={_u(`_s_${option.width}_1_#d3d3d3`)} />
         <View style={_u(`_fx_rc _sm_${option.width}_50`)}>
           {
             !!option.onCancel &&
-            <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doCancel} style={_u(`_fx_rcc_1`)}>
+            <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doCancel} style={_u(`_fx_rc_1`)}>
               <Text style={_u(`_fs_15_red`)}>{option.cancelText}</Text>
             </TouchableHighlight>
           }
           {!!option.onCancel && <Text style={_u(`_s_1_50_#d3d3d3`)} />}
-          <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doConfirm} style={_u(`_fx_rcc_1`)}>
+          <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doConfirm} style={_u(`_fx_rc_1`)}>
             <Text style={_u(`_fs_15_#0076FF`)}>{option.confirmText}</Text>
           </TouchableHighlight>
         </View>

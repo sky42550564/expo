@@ -79,14 +79,14 @@ export default forwardRef(({
           <View style={_u(`_fx_ccc`)}>
             {
               buttons.map((o: any, k: number) => (
-                <TouchableHighlight key={k} underlayColor='rgba(0, 0, 0, 0)' onPress={() => doConfirm(o)} style={_u(`_fx_rcc_1 _sm_${width * 0.9}_40 _bob_#e3e3e3`)}>
+                <TouchableHighlight key={k} underlayColor='rgba(0, 0, 0, 0)' onPress={() => doConfirm(o)} style={_u(`_fx_rc_1 _sm_${width * 0.9}_40 _bob_#e3e3e3`)}>
                   <Text style={_u(`_fs_15_${o.color || '#0076FF'}`)}>{o.label}</Text>
                 </TouchableHighlight>
               ))
             }
             {
               !!option.onCancel &&
-              <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doCancel} style={_u(`_fx_rcc_1 _hm_50`)}>
+              <TouchableHighlight underlayColor='rgba(0, 0, 0, 0)' onPress={doCancel} style={_u(`_fx_rc_1 _hm_50`)}>
                 <Text style={_u(`_fs_15_red`)}>{option.cancelText}</Text>
               </TouchableHighlight>
             }

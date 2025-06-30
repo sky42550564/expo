@@ -21,7 +21,6 @@ export default ({
   suffix, // 带有后缀图标的 input
   inputStyle, // TextInput style
   onChange, // 输入框内容变化时的回调
-  model, // 双向绑定， [value, setValue]
 }: any) => {
   // 验证规则
   const rules = (rule ? (_.isArray(rule) ? rule : [rule]) : []).map((o: any) => ({ // 验证规则
@@ -126,19 +125,15 @@ export default ({
     });
   }
 
-  const initialValue = model?.[0];
-
   const onInputChange = (e: any) => {
     const value = e.target.value;
     onChange && onChange(value)
-    model?.[1] && model[1](value);
   }
   return (
     <Form.Item
       label={noLabel ? null : label}
       name={name}
       rules={rules}
-      initialValue={initialValue}
     >
       {
         !rows ?
@@ -163,7 +158,7 @@ export default ({
             inputStyle={inputStyle}
             rows={rows}
             autoSize={autoSize}
-            // onChange={onInputChange}
+            onChange={onInputChange}
           />
       }
     </Form.Item>

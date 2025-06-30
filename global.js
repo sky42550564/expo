@@ -90,7 +90,16 @@ import MenuTitle from '@/components/menu/MenuTitle';
 global.MenuTitle = MenuTitle; // 菜单标题
 import List from '@/components/page/list/List';
 global.List = List; // 列表
+import ModalPanel  from '@/components/layout/ModalPanel';
+global.ModalPanel  = ModalPanel ; // 弹出框
+import ActionPanel  from '@/components/layout/ActionPanel';
+global.ActionPanel  = ActionPanel ; // 底部弹出框
+// 表单
 import FormTextItem from '@/components/form/FormTextItem';
-global.FormTextItem = FormTextItem; // 列表
+global.FormTextItem = FormTextItem; // 文本输入框
+import FormNumberItem from '@/components/form/FormNumberItem';
+global.FormNumberItem = FormNumberItem; // 数字输入框
+import FormImageItem from '@/components/form/FormImageItem';
+global.FormImageItem = FormImageItem; // 图片输入框
 
 

@@ -70,7 +70,7 @@ export default forwardRef(({
             </View>
           }
           {/* 内容 */}
-          <View style={_u(`_fx_rcc_1 _of_y_auto`)}>
+          <View style={_u(`_fx_rc_1 _of_y_auto`)}>
             {option.content || children}
           </View>
         </View>

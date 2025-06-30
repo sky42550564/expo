@@ -42,35 +42,28 @@ export default ({
     rules.unshift({ required: true, message: `${label}不能为空` });
   }
 
-  const initialValue = model?.[0];
-
-  const onInputChange = (e: any) => {
-    const value = e.target.value;
+  const onInputChange = (value: any) => {
     onChange && onChange(value)
-    model?.[1] && model[1](value);
   }
   return (
     <Form.Item
       label={noLabel ? null : label}
       name={name}
       rules={rules}
-      initialValue={initialValue}
     >
-      {
-        <Stepper
-          placeholder={placeholder || `请填写${label}`}
-          disabled={disabled}
-          allowEmpty={allowEmpty}
-          min={min}
-          max={max}
-          step={step}
-          digits={precision}
-          minusButtonProps={minusButtonProps}
-          plusButtonProps={plusButtonProps}
-          inputStyle={inputStyle}
-          onChange={onInputChange}
-        />
-      }
+      <Stepper
+        placeholder={placeholder || `请填写${label}`}
+        disabled={disabled}
+        allowEmpty={allowEmpty}
+        min={min}
+        max={max}
+        step={step}
+        digits={precision}
+        minusButtonProps={minusButtonProps}
+        plusButtonProps={plusButtonProps}
+        inputStyle={inputStyle}
+        onChange={onInputChange}
+      />
     </Form.Item>
   );
 };

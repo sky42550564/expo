@@ -31,10 +31,12 @@ export default function Home() {
       <Form
         form={form}
         style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
+        initialValues={{ name: '124' }}
         autoComplete="off"
       >
-        <FormTextItem label='姓名' name='name' type='name' />
+        <FormTextItem label='姓名' name='name' maxLength={3} />
+        <FormNumberItem label='年龄' name='age' />
+        <FormImageItem label='照片' name='head' />
         {/* <FormTextItem label='密码' name='password' rows={4}/>
 
         <Form.Item name="remember" valuePropName="checked" label={null}>
