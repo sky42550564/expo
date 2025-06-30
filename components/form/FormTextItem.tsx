@@ -1,5 +1,52 @@
 import { Form, Input } from '@ant-design/react-native';
 
+const TextInput = (props: any) => {
+  const {
+    placeholder, // 默认显示
+    disabled = false, // 是否禁用
+    type, // 类型：name|phone|email|password
+    rows, // 如果大于1为多行编辑器
+    autoSize, // 自适应内容高度，可设置为 true | false 或对象：{ minRows: 2, maxRows: 6 }
+    maxLength, // 最大长度
+    allowClear = true, // 是否显示清楚图标
+    showCount = false, // 显示输入的字数，必须配合 maxLength 使用
+    prefix, // 带有前缀图标的 input
+    suffix, // 带有后缀图标的 input
+    inputStyle, // TextInput style
+    value, // antd的Form.Item自动传下来的值
+    onChange, // antd的Form.Item自动传下来的回调
+  } = props;
+  const onInputChange = (e: any) => {
+    onChange && onChange(e.target.value)
+  }
+  return !rows ?
+    <Input
+      placeholder={placeholder}
+      disabled={disabled}
+      allowClear={allowClear}
+      maxLength={maxLength}
+      showCount={showCount}
+      prefix={prefix}
+      suffix={suffix}
+      inputStyle={inputStyle}
+      value={value}
+      onChange={onInputChange}
+    />
+    :
+    <Input.TextArea
+      placeholder={placeholder}
+      disabled={disabled}
+      allowClear={allowClear}
+      maxLength={maxLength}
+      showCount={showCount}
+      inputStyle={inputStyle}
+      rows={rows}
+      autoSize={autoSize}
+      value={value}
+      onChange={onInputChange}
+    />
+}
+
 export default ({
   form, // 整个form
   label, // 标签
@@ -20,7 +67,8 @@ export default ({
   prefix, // 带有前缀图标的 input
   suffix, // 带有后缀图标的 input
   inputStyle, // TextInput style
-  onChange, // 输入框内容变化时的回调
+  onChange, // 监听变化时的回调
+  model = [], // 双向绑定， [value, setValue] 例如：<FormNumberItem label='年龄' model={[age, setAge]} />
 }: any) => {
   // 验证规则
   const rules = (rule ? (_.isArray(rule) ? rule : [rule]) : []).map((o: any) => ({ // 验证规则
@@ -124,43 +172,26 @@ export default ({
       }
     });
   }
-
-  const onInputChange = (e: any) => {
-    const value = e.target.value;
-    onChange && onChange(value)
-  }
   return (
     <Form.Item
       label={noLabel ? null : label}
       name={name}
       rules={rules}
     >
-      {
-        !rows ?
-          <Input
-            placeholder={placeholder || `请填写${label}`}
-            disabled={disabled}
-            allowClear={allowClear}
-            maxLength={maxLength}
-            showCount={showCount}
-            prefix={prefix}
-            suffix={suffix}
-            inputStyle={inputStyle}
-            onChange={onInputChange}
-          />
-          :
-          <Input.TextArea
-            placeholder={placeholder || `请填写${label}`}
-            disabled={disabled}
-            allowClear={allowClear}
-            maxLength={maxLength}
-            showCount={showCount}
-            inputStyle={inputStyle}
-            rows={rows}
-            autoSize={autoSize}
-            onChange={onInputChange}
-          />
-      }
+      <TextInput
+        placeholder={placeholder || `请填写${label}`}
+        disabled={disabled}
+        allowClear={allowClear}
+        maxLength={maxLength}
+        showCount={showCount}
+        prefix={prefix}
+        suffix={suffix}
+        inputStyle={inputStyle}
+        rows={rows}
+        autoSize={autoSize}
+        value={model[0]}
+        onChange={model[1] || onChange}
+      />
     </Form.Item>
   );
 };

@@ -19,9 +19,6 @@ const NumberInput = (props: any) => {
     value, // antd的Form.Item自动传下来的值
     onChange, // antd的Form.Item自动传下来的回调
   } = props;
-  const onInputChange = (value: any) => {
-    onChange && onChange(value)
-  }
   return (
     <View style={_u(`_fx_r_ac`)}>
       <Stepper
@@ -36,7 +33,7 @@ const NumberInput = (props: any) => {
         plusButtonProps={plusButtonProps}
         inputStyle={inputStyle}
         defaultValue={value}
-        onChange={onInputChange}
+        onChange={onChange}
       />
       <Div s='_fs_14_red _ml_10'>{unit}</Div>
     </View>
