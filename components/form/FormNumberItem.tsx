@@ -62,7 +62,7 @@ export default ({
   inputStyle, // TextInput style
   minusButtonProps, // minus 按钮 props { activeOpacity:1, underlayColor:'#ddd', children: <Text>-</Text>, delayLongPress:500 }
   plusButtonProps, // plus 按钮 props { activeOpacity:1, underlayColor:'#ddd', children: <Text>+</Text>, delayLongPress:500 }
-  onChange, // 输入框内容变化时的回调
+  onChange, // 监听变化时的回调
   model = [], // 双向绑定， [value, setValue] 例如：<FormNumberItem label='年龄' model={[age, setAge]} />
 }: any) => {
   // 验证规则

@@ -11,7 +11,7 @@ const ImageUploader = ({
   onChange, // antd的Form.Item自动传下来的回调
 }: any) => {
   const modalPanelRef = useRef(null);
-  const [images, setImages] = useState(count == 1 ? [value] : value);
+  const [images, setImages] = useState((!value ? [] : (count == 1 ? [value] : value)));
 
   // 打开图片选择器（使用 Expo 的 ImagePicker）
   const openImagePicker = async () => {
@@ -54,7 +54,6 @@ const ImageUploader = ({
     onChange && onChange(count == 1 ? images[0] : images);
   }
   const privewImage = (url: any) => {
-    console.log('=================url', url);
   }
 
   const deleteImage = (index: any) => {
@@ -92,7 +91,8 @@ export default ({
   width = 80, // 宽度
   height = 80, // 高度
   disabled = false, // 是否禁用
-  onChange, // 输入框内容变化时的回调
+  onChange, // 监听变化时的回调
+  model = [], // 双向绑定， [value, setValue] 例如：<FormImageItem label='头像' model={[head, setHead]} />
 }: any) => {
   // 验证规则
   const rules = [];
@@ -106,7 +106,7 @@ export default ({
       name={name}
       rules={rules}
     >
-      <ImageUploader {...{ count, disabled, onChange, width, height }} />
+      <ImageUploader {...{ count, disabled, width, height, value: model[0], onChange: model[1] || onChange }} />
     </Form.Item>
   );
 };
