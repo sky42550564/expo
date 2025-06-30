@@ -226,14 +226,14 @@ export default forwardRef((props: Props, ref) => {
     );
   }
   // 进入创建页面
-  const showCreate = (options: any) => {
-    router.push('/components/page/crud/detail', {
-      pageData: pageData.value,
+  const showCreate = (options?: any) => {
+    router.push('/pages/crud/detail', {
+      pageData,
       refreshList,
       initParams: props.initParams,
       callback: props.callback,
       other: props.other,
-      title: `新增${props.label || pageData.value.label}`,
+      title: `新增${props.label || pageData.label}`,
       ...options,
     });
   }
@@ -254,7 +254,7 @@ export default forwardRef((props: Props, ref) => {
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
       />
-      <Icon icon='AntDesign:pluscircle' color='#145fc4' size={50} s='_pof_b20_r20' onPress={showCreate}></Icon>
+      <Icon icon='AntDesign:pluscircle' color='#145fc4' size={50} s='_pof_b20_r20' onPress={() => showCreate()}></Icon>
     </View>
   );
 });

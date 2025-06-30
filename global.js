@@ -30,41 +30,15 @@ import api from './utils/api/index.js';
 global.api = api; // 接口定义
 import * as CO from './utils/constants/index.js';
 global.CO = CO; // 常量定义
+// 常用封装
 import useRedux from './utils/react-native/useRedux.js';
 global.useRedux = useRedux; // 全局属性
 import useComputed from './utils/react-native/useComputed.js';
 global.useComputed = useComputed; // 计算属性
 import Page from './utils/react-native/Page.tsx';
 global.Page = Page; // 页面封装
-
-// 路由操作
-import { useRouter } from 'expo-router';
-const expoRouter = useRouter();
-global.router = {
-  title: null, // 标题
-  headerLeft: null, // 导航栏左边
-  headerRight: null, // 导航栏右边
-  url: null, // 路由的url
-  passProps: {}, // 传递的页面参数
-  refs: {}, // 用来保存全局的组件的ref
-  api: {}, // 全局的方法
-  push(url, params) {
-    console.log('router:', url, params);
-    const { title, headerLeft, headerRight, ...passProps } = params || {};
-    this.title = title;
-    this.headerLeft = headerLeft;
-    this.headerRight = headerRight;
-    this.url = url;
-    this.passProps = passProps;
-    return new Promise(resolve => {
-      expoRouter.push(url);
-      resolve();
-    });
-  },
-  back() {
-    expoRouter.back();
-  },
-};
+import router from './utils/react-native/router.js';
+global.router = router; // 路由操作
 // 图片路径
 // 获取静态文件的地址，protocal/user.html -> http://localhost:5188/protocal/user.html
 global._url = (url) => {
@@ -96,6 +70,8 @@ import MenuTitle from '@/components/menu/MenuTitle';
 global.MenuTitle = MenuTitle; // 菜单标题
 import List from '@/components/page/List';
 global.List = List; // 列表
+import Detail from '@/components/page/Detail';
+global.Detail = Detail; // 详情
 import ModalPanel  from '@/components/layout/ModalPanel';
 global.ModalPanel  = ModalPanel ; // 弹出框
 import ActionPanel  from '@/components/layout/ActionPanel';

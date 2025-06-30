@@ -4,6 +4,7 @@ import { useNavigation } from 'expo-router';
 
 export default (Page: ComponentType<any>) => {
   return (props: any) => {
+    console.log('=================propsxx', props, router);
     const navigation = useNavigation();
     useEffect(() => { // 组件加载的时候动态设置导航栏
       navigation.setOptions({

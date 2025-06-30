@@ -22,7 +22,7 @@ type Props = PropsWithChildren<{
 }>;
 
 export default forwardRef((props: Props, ref) => {
-
+console.log('=================props', props);
   const { personal } = useRedux('personal'); // 全局个人信息
   const { option } = useRedux('option'); // 全局变量
   const [form] = Form.useForm();
