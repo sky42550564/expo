@@ -43,5 +43,7 @@ declare global {
   const FormTextItem: any; // 文本输入框
   const FormNumberItem: any; // 数字输入框
   const FormImageItem: any; // 图片输入框
+  const FormRadioItem: any; // 单选输入框
+  const FormCheckboxItem: any; // 多选输入框
 }
 export { };

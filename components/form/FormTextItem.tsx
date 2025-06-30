@@ -1,6 +1,6 @@
 import { Form, Input } from '@ant-design/react-native';
 
-const TextInput = (props: any) => {
+const FormItem = (props: any) => {
   const {
     placeholder, // 默认显示
     disabled = false, // 是否禁用
@@ -12,7 +12,7 @@ const TextInput = (props: any) => {
     showCount = false, // 显示输入的字数，必须配合 maxLength 使用
     prefix, // 带有前缀图标的 input
     suffix, // 带有后缀图标的 input
-    inputStyle, // TextInput style
+    inputStyle, // FormItem style
     value, // antd的Form.Item自动传下来的值
     onChange, // antd的Form.Item自动传下来的回调
   } = props;
@@ -66,7 +66,7 @@ export default ({
   verifyFunction, // 当type为verify的时候使用函数，返回true通过，否则不通过
   prefix, // 带有前缀图标的 input
   suffix, // 带有后缀图标的 input
-  inputStyle, // TextInput style
+  inputStyle, // FormItem style
   onChange, // 监听变化时的回调
   model = [], // 双向绑定， [value, setValue] 例如：<FormNumberItem label='年龄' model={[age, setAge]} />
 }: any) => {
@@ -178,20 +178,7 @@ export default ({
       name={name}
       rules={rules}
     >
-      <TextInput
-        placeholder={placeholder || `请填写${label}`}
-        disabled={disabled}
-        allowClear={allowClear}
-        maxLength={maxLength}
-        showCount={showCount}
-        prefix={prefix}
-        suffix={suffix}
-        inputStyle={inputStyle}
-        rows={rows}
-        autoSize={autoSize}
-        value={model[0]}
-        onChange={model[1] || onChange}
-      />
+      <FormItem {...{ placeholder: placeholder || `请填写${label}`, disabled, allowClear, maxLength, showCount, prefix, suffix, inputStyle, rows, autoSize, value: model[0], onChange: model[1] || onChange }} />
     </Form.Item>
   );
 };

@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { Form, Stepper } from '@ant-design/react-native';
 
-const NumberInput = (props: any) => {
+const FormItem = (props: any) => {
   const {
     label, // 标签
     placeholder, // 默认显示
@@ -87,21 +87,7 @@ export default ({
       name={name}
       rules={rules}
     >
-      <NumberInput
-        placeholder={placeholder || `请填写${label}`}
-        disabled={disabled}
-        allowEmpty={allowEmpty}
-        unit={unit}
-        min={min}
-        max={max}
-        step={step}
-        digits={precision}
-        minusButtonProps={minusButtonProps}
-        plusButtonProps={plusButtonProps}
-        inputStyle={inputStyle}
-        value={model[0]}
-        onChange={model[1] || onChange}
-      />
+      <FormItem {...{ placeholder: placeholder || `请填写${label}`, disabled, allowEmpty, unit, min, max, step, precision, minusButtonProps, plusButtonProps, inputStyle, value: model[0], onChange: model[1] || onChange }} />
     </Form.Item>
   );
 };

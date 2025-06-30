@@ -102,5 +102,9 @@ import FormNumberItem from '@/components/form/FormNumberItem';
 global.FormNumberItem = FormNumberItem; // 数字输入框
 import FormImageItem from '@/components/form/FormImageItem';
 global.FormImageItem = FormImageItem; // 图片输入框
+import FormRadioItem from '@/components/form/FormRadioItem';
+global.FormRadioItem = FormRadioItem; // 单选输入框
+import FormCheckboxItem from '@/components/form/FormCheckboxItem';
+global.FormCheckboxItem = FormCheckboxItem; // 多选输入框
 
 

@@ -7,9 +7,10 @@ export default function Home() {
 const [age, setAge] = useState(30);
 const [head, setHead] = useState(url);
 const [name, setName] = useState('xxx');
+const [nan, setNan] = useState([2]);
   const sumbit = async () => { // 
     console.log('=================age', age);
-    console.log('=================name', name);
+    console.log('=================nan', nan);
     // console.log('=================head', head);
     try {
       const ret = await form.validateFields();
@@ -29,19 +30,21 @@ const xx = (e:any) => { //
   return (
     <View style={_u(`_pt_50`)}>
       <FormNumberItem label='年龄' model={[age, setAge]} />
-      <FormImageItem label='头像' model={[head, setHead]} />
+      {/* <FormImageItem label='头像' model={[head, setHead]} /> */}
       <FormTextItem label='姓名' model={[name, setName]} />
+      <FormCheckboxItem label='男生' options={[1,2,3,4]} model={[nan, setNan]} />
       {/* <List pageData={pageData}></List> */}
       
       <Form
         form={form}
         style={{ maxWidth: 600 }}
-        initialValues={{ name: '124', head: url, age: 44 }}
+        initialValues={{ name: '124', head: url, age: 44, nan: [3] }}
         autoComplete="off"
       >
         <FormTextItem label='姓名' name='name' />
         <FormNumberItem label='年龄' name='age' onChange={xx} unit='米'/>
-        <FormImageItem label='照片' name='head' />
+        {/* <FormImageItem label='照片' name='head' /> */}
+        <FormCheckboxItem label='是否' name='nan' options={[1,2,3,4]} />
         {/* <FormTextItem label='密码' name='password' rows={4}/>
 
         <Form.Item name="remember" valuePropName="checked" label={null}>
