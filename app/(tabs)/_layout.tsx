@@ -1,9 +1,14 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform, View, Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import CustomTabBar from '@/components/navigate/CustomTabBar';
 
 export default function TabLayout() {
+  const { store: personalStore } = useRedux('personal');
+  useEffect(() => {
+    personalStore.refreshPersonal({ isLogin: true });
+  }, []);
+
   return (
     <Tabs
       // tabBar={(props) => <CustomTabBar {...props} />} // 自定义的组件

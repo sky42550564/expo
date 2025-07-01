@@ -4,7 +4,6 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { Provider } from 'react-redux';
-import { View } from 'react-native';
 import '../global'; // 注册全局变量
 import { store } from '../store';
 import { Provider as AntdProvider } from '@ant-design/react-native';
