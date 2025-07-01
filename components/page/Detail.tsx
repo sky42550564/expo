@@ -4,11 +4,11 @@ import { View } from 'react-native';
 import { Form } from '@ant-design/react-native';
 
 type Props = PropsWithChildren<{
-  title?: any; // 标题
   pageData?: any; // 选择模式下对应的页面配置
   record?: any; // 修改的数据
   noGetData?: any; // 不需要获取初始数据
   initParams?: any; // 初始的数据
+  params?: any; // 搜索参数
   refreshList?: any; // 刷新列表接口
   onSubmitResult?: any; // 提交数据的回调
   forceEditting?: boolean; // 强制为编辑状态，直接进行提交
@@ -52,11 +52,94 @@ export default forwardRef((props: Props, ref: any) => {
   const [isModify, setIsModify] = useState(_isModify);
 
   const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, form, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
-  const title = useComputed(() => props.title || (pageData.label && `${isModify ? '修改' : '新增'}${pageData.label}`), [pageData, isModify]);
 
   const [hasEdit, setHasEdit] = useState(!readonly);// 是否有编辑的栏目
   const [editting, setEditting] = useState(props.forceEditting || (hasCUD && !record)); // 新增的时候默认为编辑状态
-  const [rows, setRows] = useState([]);
+  const getRows = (list: any) => {
+    // 处理不断行的情况，如果一个filed
+    let _rows = [], row = [], n = list.length;
+    for (let i = 0; i < n; i++) {
+      const field = list[i];
+      row.push(field);
+      if (!list[i + 1]?.follow) {
+        _rows.push(row);
+        row = [];
+      }
+    }
+    row.length && _rows.push(row);
+    return _rows;
+  }
+  const tabs = useComputed(() => { // 是否是tab模式
+    if (_.find(fields, (o: any) => o.tab)) {
+      return _.map(_.groupBy(fields, (o: any) => o.tab), (v: any, k: any) => ({ label: k, rows: getRows(v) }));
+    }
+    return null;
+  });
+  const rows = useComputed(() => getRows(fields));
+
+  const checkFrom = async () => { // 验证表单并返回表单数据
+    pageData.debug && console.log('form = ', formRef.getFieldsValue());
+    let params;
+    try {
+      params = await formRef.validateFields();
+    } catch (e) { }
+    return params;
+  }
+
+  // 获取初始数据
+  const getData = async () => {
+    setForm(null);
+    setHasEdit(false);
+    const lookup = _.filter(pageData.fields, (o: any) => _.get(o, 'value.table')).reduce((r: any, o: any) => ({ ...r, [o.name]: o.value.table }), {});
+    let params = {
+      ...(props.params || {}), // 搜索参数，组合初始参数
+      $lookup: _.size(lookup) ? lookup : undefined, // 关联表
+    };
+    let detailParams = pageData.params?.detail; // pageData通过{params:{ detail: ... }} 传过来的参数
+    if (_.isFunction(detailParams)) {
+      params = detailParams({ params, pageData, personal, option, other });
+      if (!params) return; // 如果返回的空值，则阻止提交，用来做参数判断等
+    } else {
+      params = { ...params, ...(detailParams || {}) };
+    }
+    // return console.log('params = ', params);
+    let data: any = {};
+    if (!pageData.onlyCreate && _.size(params)) {
+      if (_.isFunction(pageData.apis?.detail)) {
+        data = await pageData.apis.detail({ params, personal, option, other });
+      } else {
+        const api = pageData.apis?.detail || `/detail/${pageData.table || pageData.name}`;
+        data = await utils.post(api, params);
+      }
+    }
+    if (data.success) { // 如果服务器返回成功
+      const form: any = {};
+      form.id = data.result.id;
+      for (const field of pageData.fields) {
+        if (field.name) {
+          let v = _.get(data.result, field.name);
+          form[field.name] = v === undefined ? field.value?.default : v;
+          // 只读属性：pageData.readonly 或者 field没有type 或者 field.readonly
+          if (!readonly && field.value && !field.value.readonly && field.value.type) {
+            setHasEdit(true);
+          }
+        }
+      }
+      setForm(form);
+    } else { // 如果没有这条数据,则为新增
+      setForm({});
+      for (const field of pageData.fields) {
+        if (field.name) {
+          // 只读属性：pageData.readonly 或者 field没有type 或者 field.readonly
+          if (!readonly && field.value && !field.value.readonly && field.value.type) {
+            setHasEdit(true);
+          }
+        }
+      }
+      setIsModify(false);
+      setEditting(true);
+    }
+  }
 
   const submit = async () => {
     pageData.debug && console.log('form = ', formRef.getFieldsValue());
@@ -127,19 +210,23 @@ export default forwardRef((props: Props, ref: any) => {
   }
 
   useEffect(() => {
+    if (!record && !noGetData) getData();
   }, []);
-  // useImperativeHandle(ref, () => ({ show, close })); // 暴露函数组件内部方法
 
+  useImperativeHandle(ref, () => ({ submit, checkFrom })); // 暴露函数组件内部方法
   return (
     <View>
-      <Form form={formRef} style={{ maxWidth: sr.w }} initialValues={form} autoComplete="off">
-        {fields.map((field: any) => <FormItem key={utils.uuid()} {...{ ...field, record, field, form, disabled: !editting }} />)}
-      </Form>
+      {
+        hasEdit &&
+        <Form form={formRef} style={{ maxWidth: sr.w }} initialValues={form} autoComplete="off">
+          {fields.map((field: any) => <FormItem key={utils.uuid()} {...{ ...field, record, field, form, disabled: !editting }} />)}
+        </Form>
+      }
       {
         (!noFooter && hasEdit) &&
         <View style={_u(`_fx_rc _mv_30`)}>
-          {editting && <Div style={_u(`_button_160_36_r`)} onPress={submit}>{pageData.submitButtonText || '保存'} </Div> || <Div style={_u(`_button_160_36_r`)} onPress={submit}>修改</Div>}
-          {editting && isModify && !forceEditting && <Div style={_u(`_button_160_36_r _bc_error_warning _c _ml_10`)} onPress={submit}> 取消 </Div>}
+          {editting && <Div style={_u(`_button_160_36_r`)} onPress={submit}>{pageData.submitButtonText || '保存'} </Div> || <Div style={_u(`_button_160_36_r`)} onPress={() => setEditting(true)}>修改</Div>}
+          {editting && isModify && !forceEditting && <Div style={_u(`_button_160_36_r _bc_error_warning _c _ml_10`)} onPress={() => setEditting(false)}> 取消 </Div>}
         </View>
       }
     </View>

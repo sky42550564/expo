@@ -162,12 +162,13 @@ export default (props: Props) => {
   }
 
   const showTableListPage = ({ label, list, fields }: any) => { // 显示展示列表组件
-    router.push('/components/page/crud/index', {
+    router.push('/page/crud/list', {
       title: label,
       pageData: {
         readonly: true,
+        hasArrow: true,
+        hideTop: true,
         label,
-        mobile: { hideTop: true, hasArrow: true },
         fields,
         list,
       },

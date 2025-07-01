@@ -27,7 +27,7 @@ const FormCell = ({
   }
   return (
     <Radio.Group disabled={disabled} onChange={onGrouphange} value={value} style={style || _u(row && `_fx_r_wrap _p_0`)}>
-      {_.map(options, (v: any, k: number) => <Radio.RadioItem key={k} value={getValue(v, k)}>{(labelKey ? v[labelKey] : v) + ''}</Radio.RadioItem>)}
+      {_.map(options, (v: any, k: number) => <Radio.RadioItem key={k} disabled={disabled} value={getValue(v, k)}>{(labelKey ? v[labelKey] : v) + ''}</Radio.RadioItem>)}
     </Radio.Group>
   );
 };

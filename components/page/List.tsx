@@ -6,7 +6,6 @@ import { SearchBar } from '@ant-design/react-native';
 import Item from './Item';
 
 type Props = PropsWithChildren<{
-  title?: any, // 标题
   label?: any, // tab页面传过来的label
   pageStyle?: any, // 容器样式
   list?: any, // 传入的数据
@@ -83,7 +82,7 @@ export default forwardRef((props: Props, ref) => {
     if (!filterOptions) { // 格式：{ 'name|phone': '/123/', 'age': '/123/' }
       return dataList;
     }
-    return _.filter(dataList, o => {
+    return _.filter(dataList, (o: any) => {
       for (const key in filterOptions) {
         const v = filterOptions[key];
         if (v === '//' || !v) return true;
@@ -96,7 +95,7 @@ export default forwardRef((props: Props, ref) => {
     });
   }, [dataList, filterOptions]);
   const hasArrow = useComputed(() => _.get(pageData, 'hasArrow', false)); // 是否有箭头
-  const title = useComputed(() => props.title || pageData.label);
+  const label = useComputed(() => props.label || pageData.label);
   const initSearchKeyword = useComputed(() => props.initSearchKeyword || pageData.initSearchKeyword);  // 初始搜索关键字
   const searchButtons = useComputed(() => { // 搜索按钮定义的按钮
     return _.filter(pageData?.searchOpers, (o: any) => utils.visible(o.visible, { pageData, personal, option, other }));
@@ -197,7 +196,7 @@ export default forwardRef((props: Props, ref) => {
       initParams: props.initParams,
       callback: props.callback,
       other,
-      title: `新增${props.label || pageData.label}`,
+      title: `新增${label}`,
       ...options,
     });
   }
@@ -223,7 +222,7 @@ export default forwardRef((props: Props, ref) => {
       initParams: props.initParams,
       other,
       callback: props.callback,
-      title: `${readonly ? '' : '修改'}${props.label || pageData.label}${readonly ? '详情' : ''}`,
+      title: `${readonly ? '' : '修改'}${label}${readonly ? '详情' : ''}`,
       ...options,
       record: item,
       readonly: readonly,
@@ -313,6 +312,7 @@ export default forwardRef((props: Props, ref) => {
   }
   // 显示头部
   const renderHeader = (scope: any) => {
+    if (props.hideTop) return null;
     const _renderHeader = pageData.renderHeader || props.renderHeader;
     return _renderHeader ? _renderHeader(scope) : (
       <SearchBar cancelText='搜索'></SearchBar>
