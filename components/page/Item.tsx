@@ -52,8 +52,8 @@ export default (props: Props) => {
           _.map(rows, (row: any, i: any) => (
             <Div key={i} s='_fx_r _mv_4'>
               {
-                _.map(row, (field: any, i: any) => (
-                  <Div key={i} s={`_fx_r _w_${100 / row.length}%`}>
+                _.map(row, (field: any, j: any) => (
+                  <Div key={j} s={`_fx_r _w_${100 / row.length}%`}>
                     {(!field.noLabel && field.label) && <Div style={_u(`_label _nowrap`, labelStyle)}>{field.label}</Div>}
                     <Cell field={field} item={props.item} pageData={props.pageData}></Cell>
                   </Div>

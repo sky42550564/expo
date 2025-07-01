@@ -2,6 +2,7 @@ import type { PropsWithChildren } from 'react';
 import { forwardRef, useImperativeHandle } from 'react';
 import { View } from 'react-native';
 import { Form } from '@ant-design/react-native';
+import Cell from './Cell';
 
 type Props = PropsWithChildren<{
   pageData?: any; // 选择模式下对应的页面配置
@@ -52,6 +53,16 @@ export default forwardRef((props: Props, ref: any) => {
   const [isModify, setIsModify] = useState(_isModify);
 
   const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, form, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
+  const opers = useComputed(() => _.filter(pageData.detailOpers, o => utils.visible(o.visible, { pageData, $: record, initParams, isModify: state.isModify })));  // 过滤掉不显示的按钮
+  const labelWidth = useComputed(() => {
+    const labelWidth = _.get(pageData, 'labelWidth');
+    if (labelWidth) {
+      return labelWidth;
+    }
+    const length = _.maxValue(fields.value, 'label.length');
+    const width = pageData.labelWidth || [60, 70, 80, 90, 100, 106, 110][length] || 80;
+    return width;
+  });
 
   const [hasEdit, setHasEdit] = useState(!readonly);// 是否有编辑的栏目
   const [editting, setEditting] = useState(props.forceEditting || (hasCUD && !record)); // 新增的时候默认为编辑状态
@@ -209,6 +220,33 @@ export default forwardRef((props: Props, ref: any) => {
     router.back();
   }
 
+  const renderFromItem = ({ field }: any) => { // 显示formItem
+    // 标签：没有name
+    if (!field.name) {
+      return (
+        <Div s={['_fx_r _mt_10', field.labelBackStyle]}>
+          <Div s={['_fs_14_bold', field.labelStyle]}>{field.label}</Div>
+        </Div>
+      )
+    }
+    // 只读属性的情况直接使用Cell显示
+    if (readonly || field.value?.readonly) {
+      return (
+        <FormPlainItem label={field.label} labelWidth={labelWidth}>
+          <Cell field={field} item={record} pageData={pageData}></Cell>
+        </FormPlainItem >
+      )
+    }
+    //点击进入箭头单独编辑
+    if (field.value?.arrow) {
+      return (
+        <FormArrowItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} pageData={pageData} />
+      )
+    }
+    return <FormItem key={utils.uuid()} label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting}
+    />
+  }
+
   useEffect(() => {
     if (!record && !noGetData) getData();
   }, []);
@@ -219,7 +257,20 @@ export default forwardRef((props: Props, ref: any) => {
       {
         hasEdit &&
         <Form form={formRef} style={{ maxWidth: sr.w }} initialValues={form} autoComplete="off">
-          {fields.map((field: any) => <FormItem key={utils.uuid()} {...{ ...field, record, field, form, disabled: !editting }} />)}
+          {/* {fields.map((field: any) => <FormItem key={utils.uuid()} {...{ ...field, record, field, form, disabled: !editting }} />)} */}
+          {
+            _.map(rows, (row: any, i: any) => (
+              <Div key={i} s='_fx_r'>
+                {
+                  _.map(row, (field: any, j: any) => (
+                    <Div key={j} s={`_w_${100 / row.length}%`}>
+                      {renderFromItem({ field })}
+                    </Div>
+                  ))
+                }
+              </Div>
+            ))
+          }
         </Form>
       }
       {
