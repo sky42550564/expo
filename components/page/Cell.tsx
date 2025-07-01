@@ -1,3 +1,4 @@
+import EditCell from './EditCell';
 import FileLabel from './FileLabel';
 
 type Props = {
@@ -20,12 +21,12 @@ export default (props: Props) => {
   }, [props]);
 
   const r = useComputed(() => {
-    const { type: fieldType, show, value, name, previewList, thumb } = currentField.value;
-    if (currentField.value.expandTable) { // 用来展示表格的几行内容，这是一个展示组件
+    const { type: fieldType, show, value, name, previewList, thumb } = currentField;
+    if (currentField.expandTable) { // 用来展示表格的几行内容，这是一个展示组件
       return {
         type: 'expandTable',
-        list: _.isFunction(currentField.value.expandTable.list) ? currentField.value.expandTable.list({ $: props.item }) : currentField.value.expandTable.list,
-        fields: currentField.value.expandTable.fields,
+        list: _.isFunction(currentField.expandTable.list) ? currentField.expandTable.list({ $: props.item }) : currentField.expandTable.list,
+        fields: currentField.expandTable.fields,
       };
     }
     let propsValue = props.item[name];
@@ -33,7 +34,7 @@ export default (props: Props) => {
       propsValue = propsValue / value.ratio;
     }
     if (show) { // 如果有show，则安装show的方法显示
-      propsValue = show({ v: props.item[name], $: props.item, pageData: props.pageData, personal: personal.value, option: option.value });
+      propsValue = show({ v: props.item[name], $: props.item, pageData: props.pageData, personal, option });
     }
     const type = fieldType || value?.type;
     if (propsValue?.render) {
@@ -72,18 +73,18 @@ export default (props: Props) => {
       return {
         type: 'Img',
         value: utils._thumb(propsValue, thumb),
-        previewList: previewList && _.isFunction(previewList) ? previewList({ v: propsValue, $: props.item, pageData: props.pageData, personal: personal.value, option: option.value }) : (previewList || [propsValue]),
+        previewList: previewList && _.isFunction(previewList) ? previewList({ v: propsValue, $: props.item, pageData: props.pageData, personal, option }) : (previewList || [propsValue]),
         style: _u(value.width && value.height ? `_s_${value.width}_${value.height}` : value.width ? `_w_${value.width}` : value.height ? `_h_${value.height}` : ``),
-        mode: value.mode || (value.width && value.height ? `scaleToFill` : value.width ? `widthFix` : value.height ? `heightFix` : `aspectFill`),
+        mode: value.mode || (value.width && value.height ? `stretch` : value.width ? `width` : value.height ? `height` : `cover`),
       };
     }
     if (type === 'images') {
       return {
         type: 'images',
         value: utils._thumb(propsValue[0], thumb),
-        previewList: previewList && _.isFunction(previewList) ? previewList({ v: propsValue, $: props.item, pageData: props.pageData, personal: personal.value, option: option.value }) : (previewList || propsValue),
+        previewList: previewList && _.isFunction(previewList) ? previewList({ v: propsValue, $: props.item, pageData: props.pageData, personal, option }) : (previewList || propsValue),
         style: _u(value.width && value.height ? `_s_${value.width}_${value.height}` : value.width ? `_w_${value.width}` : value.height ? `_h_${value.height}` : ``),
-        mode: value.mode || (value.width && value.height ? `scaleToFill` : value.width ? `widthFix` : value.height ? `heightFix` : `aspectFill`),
+        mode: value.mode || (value.width && value.height ? `stretch` : value.width ? `width` : value.height ? `height` : `cover`),
       };
     }
     if (type === 'imageText') {
@@ -91,12 +92,12 @@ export default (props: Props) => {
         type: 'imageText',
         value: propsValue,
         thumb: utils._thumb(_.find(propsValue, o => o.url)?.url, thumb),
-        previewList: previewList && _.isFunction(previewList) ? previewList({ v: propsValue, $: props.item, pageData: props.pageData, personal: personal.value, option: option.value }) : (previewList || _.filter(propsValue, o => o.url).map(o => o.url)),
+        previewList: previewList && _.isFunction(previewList) ? previewList({ v: propsValue, $: props.item, pageData: props.pageData, personal, option }) : (previewList || _.filter(propsValue, o => o.url).map(o => o.url)),
       }
     }
     if (type === 'radio' || type === 'select') {
       if (_.get(value.options, '0.label')) { // 保持排序有value的情况 options: [{ label: '是', value: 1 }, { label: '否', value: 1 }]
-        return { value: _.get(_.find(value.options, o => o.value == propsValue), 'label') };
+        return { value: _.get(_.find(value.options, o => o == propsValue), 'label') };
       }
       if (value.labelType == 2) { // 直接显示值的情况
         return { value: propsValue };
@@ -105,7 +106,7 @@ export default (props: Props) => {
     }
     if (type === 'checkbox') {
       if (_.get(value.options, '0.label')) { // 保持排序有value的情况 options: [{ label: '是', value: 1 }, { label: '否', value: 1 }]
-        return { value: _.values(_.mapValues(propsValue, v => _.get(_.find(value.options, o => o.value == v), 'label'))).join(', ') };
+        return { value: _.values(_.mapValues(propsValue, v => _.get(_.find(value.options, o => o == v), 'label'))).join(', ') };
       }
       if (value.labelType == 2) { // 直接显示值的情况
         return { value: _.join(propsValue, ', ') };
@@ -130,24 +131,24 @@ export default (props: Props) => {
     if (_.isString(color)) {
       return { color };
     }
-    return { color: color({ v: props.item[name], $: props.item, pageData: props.pageData, personal: personal.value, option: option.value }) };
+    return { color: color({ v: props.item[name], $: props.item, pageData: props.pageData, personal, option }) };
   }, [props, currentField]);
 
   const renderItem = () => {
-    if (r.value?.comonent) {
-      return r.value.comonent({ item, field, pageData });
+    if (r?.comonent) {
+      return r.comonent({ item, field, pageData });
     }
     if (['head'].includes(r.type)) {
-      return <UserHead user={{ head: r.value, name: r.name }} />;
+      return <UserHead user={{ head: r, name: r.name }} />;
     }
     if (['images', 'images'].includes(r.type)) {
-      return <Img url={r.value} style={r.style} mode={r.mode} onPress={() => utils.previewImage(r.previewList)}></Img>
+      return <Img url={r} style={r.style} mode={r.mode} onPress={() => utils.previewImage(r.previewList)}></Img>
     };
     if ('file' == r.type) {
-      return _.map(r.value, (item: any, i: any) => <FileLabel key={i} name={item.name} url={item.url} />);
+      return _.map(r, (item: any, i: any) => <FileLabel key={i} name={item.name} url={item.url} />);
     }
     if ('money' == r.type) {
-      return <Div>￥{utils._money(r.value)}</Div>
+      return <Div>￥{utils._money(r)}</Div>
     }
     if ('expandTable' == r.type) {
       return (
@@ -155,7 +156,7 @@ export default (props: Props) => {
       )
     }
     if (r.ontable && r.ontable != 'edit' && !props.readonly) {
-      return null;
+      return <EditCell value={r} field={field} record={item} pageData={pageData} ontable={r.ontable} ontableSubmit={r.ontableSubmit} ontableParams={r.ontableParams}></EditCell>;
     }
     return <Div s={['_value', colorStyle]}>{r.value}{r.unit || ''}</Div>;
   }
@@ -175,24 +176,24 @@ export default (props: Props) => {
 
   const handleOntableModify = () => { // onTable的编辑
     router.push('/components/page/singleForm/index', {
-      title: `修改${currentField.value.label}`,
-      value: currentField.value.value,
-      prop: currentField.value.name,
+      title: `修改${currentField.label}`,
+      value: currentField,
+      prop: currentField.name,
       form: props.item,
-      label: currentField.value.label,
+      label: currentField.label,
       callback: async ({ params }: any) => {
         // 如果是修改的时候，url和data不一样
         const url = props.pageData.apis?.modify || `/modify/${props.pageData.table || props.pageData.name}`;
         params = { ...params, id: props.item.id }; // 使用扩展符生成一个新的对象
         if (_.isFunction(props.ontableParams)) {
-          params = props.ontableParams({ params, $: props.item, pageData: props.pageData, personal: personal.value });
+          params = props.ontableParams({ params, $: props.item, pageData: props.pageData, personal });
         } else if (props.ontableParams) {
           params = { ...params, ...props.ontableParams };
         }
         // return console.log('params = ', params);
         let data;
         if (_.isFunction(props.ontableSubmit)) {
-          data = await props.ontableSubmit({ params, $: props.item, pageData: props.pageData, personal: personal.value, page: props.page });
+          data = await props.ontableSubmit({ params, $: props.item, pageData: props.pageData, personal, page: props.page });
           if (!data) return; // 如果钩子函数不返回，则不再向下继续
         } else {
           data = await utils.post(url, params);

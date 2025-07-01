@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import React from 'react';
-import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { FlatList, View, Text, ActivityIndicator, TextInput, StyleSheet } from 'react-native';
+import { useState, forwardRef } from 'react';
+import { FlatList, View, ActivityIndicator } from 'react-native';
 import { SearchBar } from '@ant-design/react-native';
 import Item from './Item';
 
@@ -201,7 +201,7 @@ export default forwardRef((props: Props, ref) => {
           hasOper &&
           <View style={_u(`_fx_c _ml_6`)}>
             <Icon icon='AntDesign:delete' size='10'></Icon>
-            <Icon icon='FontAwesome6:edit' size='10' style={_u(`_mt_6`)}></Icon>
+            <Icon icon='FontAwesome6:edit' size='10' style={_u(`_mt_20`)}></Icon>
           </View>
         }
       </View>

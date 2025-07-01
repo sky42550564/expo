@@ -1,8 +1,7 @@
 import type { PropsWithChildren } from 'react';
-import React from 'react';
-import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { FlatList, View, Text, ActivityIndicator, TextInput } from 'react-native';
-import { Button, Form, Input } from '@ant-design/react-native';
+import { forwardRef, useImperativeHandle } from 'react';
+import { View } from 'react-native';
+import { Form } from '@ant-design/react-native';
 
 type Props = PropsWithChildren<{
   title?: any; // 标题
@@ -22,10 +21,10 @@ type Props = PropsWithChildren<{
   other?: any; // 附加属性
 }>;
 
-export default forwardRef((props: Props, ref) => {
+export default forwardRef((props: Props, ref: any) => {
   const { personal } = useRedux('personal'); // 全局个人信息
   const { option } = useRedux('option'); // 全局变量
-  const [form] = Form.useForm();
+  const [formRef] = Form.useForm();
 
   const pageData = props.pageData || {};
   const other = props.other;
@@ -49,10 +48,10 @@ export default forwardRef((props: Props, ref) => {
   if (pageData.formPreHook) {
     intFormData = pageData.formPreHook({ $: record, params: intFormData });
   }
-  const [formData, setFormData] = useState(intFormData);
+  const [form, setForm] = useState(intFormData);
   const [isModify, setIsModify] = useState(_isModify);
 
-  const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, form: formData, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
+  const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, form, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
   const title = useComputed(() => props.title || (pageData.label && `${isModify ? '修改' : '新增'}${pageData.label}`), [pageData, isModify]);
 
   const [hasEdit, setHasEdit] = useState(!readonly);// 是否有编辑的栏目
@@ -60,10 +59,10 @@ export default forwardRef((props: Props, ref) => {
   const [rows, setRows] = useState([]);
 
   const submit = async () => {
-    pageData.debug && console.log('form = ', form.getFieldsValue());
+    pageData.debug && console.log('form = ', formRef.getFieldsValue());
     let params;
     try {
-      params = await form.validateFields();
+      params = await formRef.validateFields();
     } catch (e) { }
     if (!params) return;
     if (initParams) { // 初始参数
@@ -76,7 +75,7 @@ export default forwardRef((props: Props, ref) => {
       params.id = record?.id; // 修改的时候需要传当前数据的id
       let modifyParams = pageData.params?.modify; // pageData通过{params:{ modify: ... }} 传过来的参数
       if (_.isFunction(modifyParams)) {
-        params = modifyParams({ $: record, params, pageData, personal: personal.value, option: option.value, other });
+        params = modifyParams({ $: record, params, pageData, personal, option, other });
         if (!params) return; // 如果返回的空值，则阻止提交，用来做参数判断等
       } else {
         params = { ...params, ...(modifyParams || {}) };
@@ -84,7 +83,7 @@ export default forwardRef((props: Props, ref) => {
     } else {  // 追加pageData的创建的初始参数
       let createParams = pageData.params?.create; // pageData通过{params:{ create: ... }} 传过来的参数
       if (_.isFunction(createParams)) {
-        params = createParams({ $: record, params, pageData, personal: personal.value, option: option.value, other });
+        params = createParams({ $: record, params, pageData, personal, option, other });
         if (!params) return; // 如果返回的空值，则阻止提交，用来做参数判断等
       } else {
         params = { ...params, ...createParams };
@@ -102,14 +101,14 @@ export default forwardRef((props: Props, ref) => {
     let data;
     if (isModify) {
       if (_.isFunction(pageData.apis?.modify)) {
-        data = await pageData.apis?.modify({ $: record, params, pageData, personal: personal.value, option: option.value, other });
+        data = await pageData.apis?.modify({ $: record, params, pageData, personal, option, other });
         if (!data || (data.confirm === true && data.cancel === false && data.errMsg === 'showModal:ok')) return; // 如果钩子函数不返回，则不再向下继续
       } else {
         const api = pageData.apis?.modify || `/modify/${pageData.table || pageData.name}`;
         data = await utils.post(api, params);
       }
     } else if (_.isFunction(pageData.apis?.create)) {
-      data = await pageData.apis?.create({ params, pageData, personal: personal.value, option: option.value, other });
+      data = await pageData.apis?.create({ params, pageData, personal, option, other });
       if (!data || (data.confirm === true && data.cancel === false && data.errMsg === 'showModal:ok')) return; // 如果钩子函数不返回，则不再向下继续
     } else {
       const api = pageData.apis?.create || `/create/${pageData.table || pageData.name}`;
@@ -133,12 +132,7 @@ export default forwardRef((props: Props, ref) => {
 
   return (
     <View>
-      <Form
-        form={form}
-        style={{ maxWidth: sr.w }}
-        initialValues={formData}
-        autoComplete="off"
-      >
+      <Form form={formRef} style={{ maxWidth: sr.w }} initialValues={form} autoComplete="off">
         {fields.map((field: any) => <FormItem key={utils.uuid()} {...{ ...field, record, field, form, disabled: !editting }} />)}
       </Form>
       {

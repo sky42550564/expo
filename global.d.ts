@@ -5,8 +5,6 @@ declare global {
   const useEffect: any;
   const useRef: any;
   const useMemo: any;
-  const forwardRef: any;
-  const useImperativeHandle: any;
   // 常用方法
   const sr: any;
   const _: any;
