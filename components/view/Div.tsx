@@ -45,7 +45,7 @@ function Cell({
           colors={colors} // 渐变颜色数组
           start={start} // 起点坐标 (左上角)
           end={end}   // 终点坐标 (右下角)
-          style={[_u(`_w_100% _h_100%`), fontStyle, childStyle, { 'WebkitBackgroundClip': 'text', 'color': 'transparent' }]}
+          style={[_u(`_s`), fontStyle, childStyle, { 'WebkitBackgroundClip': 'text', 'color': 'transparent' }]}
         ><>{children}</></LinearGradient>
       }
       return (
@@ -54,7 +54,7 @@ function Cell({
             colors={colors} // 渐变颜色数组
             start={start} // 起点坐标 (左上角)
             end={end}   // 终点坐标 (右下角)
-            style={[_u(`_w_100% _h_100%`), childStyle]}
+            style={[_u(`_s`), childStyle]}
           />
         </MaskedView>
       );
@@ -65,7 +65,7 @@ function Cell({
         colors={bcolors} // 渐变颜色数组
         start={start} // 起点坐标 (左上角)
         end={end}   // 终点坐标 (右下角)
-        style={[_u(`_w_100% _h_100%`), childStyle]}
+        style={[_u(`_s`), childStyle]}
       >
         <Children fontStyle={fontStyle} children={children}></Children>
       </LinearGradient>

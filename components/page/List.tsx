@@ -175,6 +175,18 @@ export default forwardRef((props: Props, ref) => {
     });
   }
 
+  const deleteItem = async (item: any) => {
+    if (!await $confirm('xxx')) return;
+    const params = { id: item.id };  // 当前数据的id
+    const data = await utils.post(pageData.apis?.remove || `/remove/${pageData.table || pageData.name}`, params);
+    if (!data.success) { // 如果服务器返回成功
+      return $alert(data.message);
+    }
+    $alert('删除成功'); // 提示成功
+    // 刷新列表
+    refreshList();
+  }
+
   // 定义一个page传递给函数或者插槽
   const page = useComputed(() => ({ list: dataList, totalCount, showCreate, refreshList }), [dataList, totalCount]);
 
@@ -200,7 +212,7 @@ export default forwardRef((props: Props, ref) => {
         {
           hasOper &&
           <View style={_u(`_fx_c _ml_6`)}>
-            <Icon icon='AntDesign:delete' size='10'></Icon>
+            <Icon icon='AntDesign:delete' size='10' onPress={() => deleteItem(item)}></Icon>
             <Icon icon='FontAwesome6:edit' size='10' style={_u(`_mt_20`)}></Icon>
           </View>
         }
@@ -234,7 +246,7 @@ export default forwardRef((props: Props, ref) => {
     const _renderFooter = pageData.renderFooter || props.renderFooter;
     return _renderFooter ? _renderFooter(scope) : (
       (pageSize < 1000 && !hasInitialList) &&
-      <View style={_u(`_mv_10_20 _fx_rc _w_100%`)}>
+      <View style={_u(`_mv_10_20 _fx_rc _wf`)}>
         {
           finished ? (!!totalCount && <Div s='_fs_12_gray'>我是有底线的~</Div>) : loading ?
             <ActivityIndicator size='large' color='#0000ff' /> :

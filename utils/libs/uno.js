@@ -318,14 +318,17 @@ const getRules = (sr) => {
     // 圆形: _r_32_red
     // 固定大小: _sm_32_red | _rmin_32 |_rmax_32
     '([sr])(m|min|max)?': ([t, st, s]) => {
-      if (!s) return {};
       let width, height, bc;
-      const list = s.split('_').filter(o => o);
-      bc = removeOne(list, o => isColor(o))[0];
-      width = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0];
-      height = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0] || width;
+      if (!s) {
+        width = '100%';
+        height = '100%';
+      } else {
+        const list = s.split('_').filter(o => o);
+        bc = removeOne(list, o => isColor(o))[0];
+        width = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0];
+        height = removeOne(list, o => /^[.\d]+%?$/.test(o) && !isColor(o))[0] || width;
+      }
       const obj = {};
-
       (!st || st === 'm') && width && (obj['width'] = formatUnit(width));
       (!st || st === 'm') && height && (obj['height'] = formatUnit(height));
       (st === 'min' || st === 'm') && width && (obj['minWidth'] = formatUnit(width));

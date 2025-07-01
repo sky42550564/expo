@@ -51,7 +51,7 @@ export default forwardRef(({
     <ModalPanel ref={modalPanelRef} noTitle position='middle' width={option.width}>
       <View style={_u(`_fx_ccc`)}>
         <View style={_u(`_fx_rc_1 _mv_40 _w_${option.width * 0.8}`)}>
-          {_.isString(option.content) ? <Text style={_u(`_w_100%`)}>{option.content}</Text> : (option.content || children)}
+          {_.isString(option.content) ? <Text style={_u(`_wf _tc`)}>{option.content}</Text> : (option.content || children)}
         </View>
         <Text style={_u(`_s_${option.width}_1_#d3d3d3`)} />
         <View style={_u(`_fx_rc _sm_${option.width}_50`)}>

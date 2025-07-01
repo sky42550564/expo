@@ -61,7 +61,7 @@ export default function Img({
   if (onPress) {
     return (
       <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[_u(`_bc_white _por`), imageStyle]}>
-        {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]} onError={onError}>
+        {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_s`)]} onError={onError}>
           <Children fontStyle={fontStyle} children={children}></Children>
         </ImageBackground>}
       </TouchableOpacity>
@@ -69,7 +69,7 @@ export default function Img({
   }
   return (
     <View style={[_u(`_bc_white _por`), imageStyle]}>
-      {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]} onError={onError}>
+      {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_s`)]} onError={onError}>
         <Children fontStyle={fontStyle} children={children}></Children>
       </ImageBackground>}
     </View>
