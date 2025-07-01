@@ -120,11 +120,11 @@
 		],
 		"description": "passProps缩写"
 	},
-	"import xx from './xx.vue'": {
+	"import xx from './xx'": {
 		"prefix": "vimport",
 		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
-			"import $1 from './$1.vue';"
+			"import $1 from './$1';"
 		],
 		"description": "import缩写"
 	},
@@ -238,43 +238,43 @@
 		],
 		"description": "for in的缩写"
 	},
-	"{$1 && <View>$2</View> || <View>$3</View>}": {
+	"{$1 && <Div>$2</Div> || <Div>$3</Div>}": {
 		"prefix": "vif",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
-			"{$1 && <View>$2</View> || <View>$3</View>}"
+			"{$1 && <Div>$2</Div> || <Div>$3</Div>}"
 		],
 		"description": "if的缩写"
 	},
-	"{$1 && (<View>$2</View>) || (<View>$3</View>})": {
+	"{$1 && (<Div>$2</Div>) || (<Div>$3</Div>})": {
 		"prefix": "vifn",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"{",
 			"\t$1 && (",
-			"\t\t<View>$2</View>",
+			"\t\t<Div>$2</Div>",
 			"\t) || (",
-			"\t\t<View>$3</View>",
+			"\t\t<Div>$3</Div>",
 			"\t)",
 			"}",
 		],
 		"description": "if的多行缩写"
 	},
-	"{_.map((o, k)=><View>$1</View>)}": {
+	"{_.map((o, k)=><Div>$1</Div>)}": {
 		"prefix": "vmap",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
-			"{_.map($1, (o: any, k: any) => (<View key={k}>{${2:o}}</View>))}"
+			"{_.map($1, (o: any, i: any) => (<Div key={i}>{${2:o}}</Div>))}"
 		],
 		"description": "map的缩写"
 	},
-	"{_.map((o, k)=>(<View>$1</View>))}": {
+	"{_.map((o, k)=>(<Div>$1</Div>))}": {
 		"prefix": "vmapn",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [
 			"{",
-			"\t_.map($1, (o: any, k: any) => (",
-			"\t\t<View key={k}>{${2:o}}</View>",
+			"\t_.map($1, (o: any, i: any) => (",
+			"\t\t<Div key={i}>{${2:o}}</Div>",
 			"\t))",
 			"}",
 		],
@@ -312,7 +312,7 @@
 		],
 		"description": "Text的缩写"
 	},
-	"<Div s='_button'>确定</View>": {
+	"<Div s='_button'>确定</Div>": {
 		"prefix": "vbutton",
 		"scope": "javascriptreact,typescriptreact",
 		"body": [

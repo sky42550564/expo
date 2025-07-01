@@ -19,7 +19,7 @@ export default ({
     model[1] && model[1](newValue);
     onChange && onChange(newValue);
   };
-  const st = style || _u(s);
+  const st = _u(s, style);
   const { color, fontSize, fontWeight, lineHeight, ...otherStyle } = st;
   const fontStyle = { color, fontSize, lineHeight: lineHeight * 0.7, fontWeight }; // 字体样式
   return (

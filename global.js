@@ -62,6 +62,8 @@ import Img from '@/components/view/Img';
 global.Img = Img; // 代替Image
 import Icon from '@/components/view/Icon';
 global.Icon = Icon; // 图标
+import UserHead from '@/components/view/UserHead';
+global.UserHead = UserHead; // 用户头像
 import Checkbox from '@/components/view/Checkbox';
 global.Checkbox = Checkbox; // 选择框
 import MenuGrid from '@/components/menu/MenuGrid';

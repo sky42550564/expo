@@ -140,7 +140,21 @@ const getRules = (sr) => {
     scroll_x: () => ({ 'position': 'absolute', 'top': 0, 'bottom': 0, 'left': 0, 'right': 0, 'overflowX': 'auto' }),
     // 绝对铺面y滚动  
     scroll_y: () => ({ 'position': 'absolute', 'top': 0, 'bottom': 0, 'left': 0, 'right': 0, 'overflowY': 'auto' }),
-    as_end: () => ({ 'alignSelf': 'self-end' }), // 自身的布局
+    // 自身的布局 _self_as|ac|ae _self_js|jc|je
+    self: ([s]) => {
+      let obj = {};
+      if (s) {
+        const list = s.split('_').filter(o => o);
+        const bc = removeOne(list, o => isColor(o))[0];
+        const j = removeOne(list, o => /^(js|jc|je)$/.test(o))[0]; // justifySelf
+        const a = removeOne(list, o => /^(as|ac|ae)$/.test(o))[0]; // alignSelf
+        j && (obj['justifySelf'] = { js: 'flex-start', jc: 'center', je: 'flex-end' }[j]);
+        a && (obj['alignSelf'] = { as: 'flex-start', ac: 'center', ae: 'flex-end' }[a]);
+        bc && (obj['backgroundColor'] = formatColor(sr, bc));
+      }
+      return obj;
+    },
+    
     // _fx_1 _fx_1, flex: 1, 如果有数字项
     // flex: 横向 ja|jb|jc|js|je|j0 as|ac|ae|a0，j0为没有justifyContent，a0为没有alignItems
     // justifyContent：a:space-around,b:space-between,c:center,s:flex-start,e:flex-end
@@ -174,7 +188,7 @@ const getRules = (sr) => {
         } else if (dir === 'ccc') { // flex-column 水平居中，垂直居中
           obj = { 'display': 'flex', 'flexDirection': 'column', 'justifyContent': 'center', 'alignItems': 'center' };
         }
-        d && (obj['flex'] = d);
+        d && (obj['flex'] = +d);
         j && (obj['justifyContent'] = { ja: 'space-around', jb: 'space-between', jc: 'center', js: 'flex-start', je: 'flex-end' }[j]);
         a && (obj['alignItems'] = { as: 'flex-start', ac: 'center', ae: 'flex-end' }[a]);
         wrap && (obj['flexWrap'] = 'wrap');
@@ -955,7 +969,7 @@ const rules = getRules({
 });
 const _us = (...list) => {
   let style = {};
-  list = list.filter(o => o && o !== true);
+  list = _.flatten(list).filter(o => o && o !== true);
   for (const item of list) {
     if (_.isObject(item)) {  // 处理对象格式如：{width:'100px'}
       for (const key in item) {

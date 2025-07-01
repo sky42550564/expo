@@ -93,6 +93,6 @@ export default forwardRef(({
           </View>
         </Animated.View>
       </View>
-    </Modal >
+    </Modal>
   );
 });

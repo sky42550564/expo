@@ -1,8 +1,9 @@
 import type { PropsWithChildren } from 'react';
 import React from 'react';
 import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
-import { FlatList, View, Text, ActivityIndicator, TextInput } from 'react-native';
+import { FlatList, View, Text, ActivityIndicator, TextInput, StyleSheet } from 'react-native';
 import { SearchBar } from '@ant-design/react-native';
+import Item from './Item';
 
 type Props = PropsWithChildren<{
   title?: any, // 标题
@@ -161,10 +162,26 @@ export default forwardRef((props: Props, ref) => {
     getList();
   }
 
+  // 进入创建页面
+  const showCreate = (options?: any) => {
+    router.push('/pages/crud/detail', {
+      pageData,
+      refreshList,
+      initParams: props.initParams,
+      callback: props.callback,
+      other: props.other,
+      title: `新增${props.label || pageData.label}`,
+      ...options,
+    });
+  }
+
+  // 定义一个page传递给函数或者插槽
+  const page = useComputed(() => ({ list: dataList, totalCount, showCreate, refreshList }), [dataList, totalCount]);
+
   const Row = ({ item, index, separators }: any) => {
     return (
-      <View style={_u(`_fx_r _w_100% _mv_10 _por`)}>
-        <Text>{item.name}</Text>
+      <View style={_u(`_fx_r_1`)}>
+        <Item item={item} pageData={pageData} page={page}></Item>
       </View>
     )
   }
@@ -172,22 +189,22 @@ export default forwardRef((props: Props, ref) => {
   // 显示行内容
   const renderItem = ({ item, index, separators }: any) => {
     const _renderItem = pageData.renderItem || props.renderItem;
-    let isMultiSelect = true, children, page, hasArrow = false, hasOper = false;
+    let isMultiSelect = false, children, page, hasArrow = false, hasOper = true;
     return (
-      <View style={[_u(`_fx_r_ac_1 _wf _p_10`), pageData.rowStyle, props.rowStyle]}>
-        <View style={_u(`_fx_r_ac_1 _por`)}>
-          {isMultiSelect && <Checkbox></Checkbox>}
+      <View style={[_u(`_fx_r_ac_1 _p_10`)]}>
+        <View style={_u(`_fx_r_1`)}>
+          {isMultiSelect && <Checkbox s='_self_ac'></Checkbox>}
           {_renderItem ? _renderItem({ item, index, pageData, page }) : <Row {...{ item, index, pageData, page }}></Row>}
-        </View >
+        </View>
         {hasArrow && <View style={_u(`_arrow`)}></View>}
         {
           hasOper &&
-          <View style={_u(`_fx_c`)}>
+          <View style={_u(`_fx_c _ml_6`)}>
             <Icon icon='AntDesign:delete' size='10'></Icon>
             <Icon icon='FontAwesome6:edit' size='10' style={_u(`_mt_6`)}></Icon>
           </View>
         }
-      </View >
+      </View>
     );
   }
   // 显示分割线
@@ -226,18 +243,6 @@ export default forwardRef((props: Props, ref) => {
       </View>
     );
   }
-  // 进入创建页面
-  const showCreate = (options?: any) => {
-    router.push('/pages/crud/detail', {
-      pageData,
-      refreshList,
-      initParams: props.initParams,
-      callback: props.callback,
-      other: props.other,
-      title: `新增${props.label || pageData.label}`,
-      ...options,
-    });
-  }
 
   useEffect(() => {
     refreshList();
@@ -259,3 +264,4 @@ export default forwardRef((props: Props, ref) => {
     </View>
   );
 });
+

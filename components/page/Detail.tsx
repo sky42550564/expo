@@ -144,7 +144,7 @@ export default forwardRef((props: Props, ref) => {
       {
         (!noFooter && hasEdit) &&
         <View style={_u(`_fx_rc _mv_30`)}>
-          {editting && <Div style={_u(`_button_160_36_r`)} onPress={submit} > {pageData.submitButtonText || '保存'} </Div> || <Div style={_u(`_button_160_36_r`)} onPress={submit} > 修改 </Div>}
+          {editting && <Div style={_u(`_button_160_36_r`)} onPress={submit}>{pageData.submitButtonText || '保存'} </Div> || <Div style={_u(`_button_160_36_r`)} onPress={submit}>修改</Div>}
           {editting && isModify && !forceEditting && <Div style={_u(`_button_160_36_r _bc_error_warning _c _ml_10`)} onPress={submit}> 取消 </Div>}
         </View>
       }

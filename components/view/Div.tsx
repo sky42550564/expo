@@ -80,7 +80,7 @@ export default function Div({
   s, // 样式，类格式
   style, // 样式
 }: Props) {
-  const st = style || _us(s);
+  const st = _us(s, style);
   const angle = st.angle;
   const colors = st.colors;
   const bcolors = st.bcolors;

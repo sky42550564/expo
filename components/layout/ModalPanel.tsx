@@ -75,6 +75,6 @@ export default forwardRef(({
           </View>
         </View>
       </View>
-    </Modal >
+    </Modal>
   );
 });

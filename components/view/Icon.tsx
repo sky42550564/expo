@@ -8,7 +8,7 @@ import * as icons from '@expo/vector-icons';
 <Icon icon="checkmark-circle" onPress={onPress}></Icon>
 <Icon icon="Ionicons:checkmark-circle" onPress={onPress}></Icon>
 <Icon icon={_img('logo.png')} onPress={onPress}></Icon>
-<Icon icon={require('@/assets/images/react-logo.png')} ></Icon>
+<Icon icon={require('@/assets/images/react-logo.png')}></Icon>
 <Icon icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=="></Icon>
 */
 type Props = PropsWithChildren<{
@@ -48,7 +48,7 @@ export default function Icon({
   style, // 样式
   ...params // 剩余参数
 }: Props) {
-  const st = style || _u(s);
+  const st = _u(s, style);
   if (onPress) {
     return (
       <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={st}>

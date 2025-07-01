@@ -12,22 +12,23 @@ export default function Home() {
         label: '头像',
         name: 'head',
         value: { type: 'image' },
+        list: { image: true, style: _u(`_r_50 _of_hidden`),  click: () => $alert('123') }, // 列表配置
       },
       {
         label: '姓名',
         name: 'name',
         value: { type: 'text' },
       },
-      // {
-      //   label: '手机号码',
-      //   name: 'phone',
-      //   value: { type: 'phone' },
-      // },
-      // {
-      //   label: '性别',
-      //   name: 'sex',
-      //   value: { type: 'radio', options: ['男', '女'], default: 0 },
-      // }
+      {
+        label: '手机号码',
+        name: 'phone',
+        value: { type: 'phone' },
+      },
+      {
+        label: '性别',
+        name: 'sex',
+        value: { type: 'radio', options: ['男', '女'], default: 0 },
+      }
     ]
   };
 

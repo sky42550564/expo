@@ -12,6 +12,7 @@ type Props = PropsWithChildren<{
   s?: string; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
   mode?: string; // 填充类型：stretch, cover, contain, width, height，如果是width的时候，style一定要指定width, 如果是height的时候，style一定要指定height
   style?: object, // 样式
+  onError?: any, // 加载错误
 }>;
 
 
@@ -22,6 +23,7 @@ export default function Img({
   s, // 样式，类格式
   style, // 样式
   mode,
+  onError,
 }: Props) {
   const [resizeMode, setResizeMode] = useState(mode);
   const [imageStyle, setImageStyle] = useState(null);
@@ -31,13 +33,12 @@ export default function Img({
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const st = style || _u(s);
+    const st = _u(s, style);
     const { color, fontSize, fontWeight, lineHeight, ..._otherStyle } = st;
     const { flexDirection, justifyContent, alignItems, flexWrap, gap, ...otherStyle } = _otherStyle;
     setFontStyle({ color, fontSize, lineHeight, fontWeight }); // 字体样式
     setChildStyle({ flexDirection, justifyContent, alignItems, flexWrap, gap }); // child样式
     const src = (_.startsWith(url, 'http://') || _.startsWith(url, 'https://') || _.startsWith(url, 'data:')) ? { uri: url } : url;
-    console.log('=================src', src);
     setSource(src);
     if (mode === 'width' || mode === 'height') { // 如果是限制宽或者高，则需要计算图片的大小
       setResizeMode('stretch');
@@ -60,7 +61,7 @@ export default function Img({
   if (onPress) {
     return (
       <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={[_u(`_bc_white _por`), imageStyle]}>
-        {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+        {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]} onError={onError}>
           <Children fontStyle={fontStyle} children={children}></Children>
         </ImageBackground>}
       </TouchableOpacity>
@@ -68,7 +69,7 @@ export default function Img({
   }
   return (
     <View style={[_u(`_bc_white _por`), imageStyle]}>
-      {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]}>
+      {visible && <ImageBackground source={source} resizeMode={resizeMode} style={[childStyle, _u(`_w_100% _h_100%`)]} onError={onError}>
         <Children fontStyle={fontStyle} children={children}></Children>
       </ImageBackground>}
     </View>
