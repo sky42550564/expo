@@ -6,11 +6,11 @@ export default ({
   fontStyle,
 }: any) => {
   if (_.isArray(children)) {
-    return children.map((o: any) => {
+    return children.map((o: any, i: number) => {
       if (React.isValidElement(o)) return o;
       if (_.isPlainObject(o))
         o = JSON.stringify(o);
-      if (_.isString(o)) return <Text style={fontStyle}>{o}</Text>;
+      if (_.isString(o)) return <Text key={i} style={fontStyle}>{o}</Text>;
       return o;
     });
   }

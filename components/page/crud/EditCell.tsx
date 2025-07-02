@@ -1,5 +1,3 @@
-import { Form } from '@ant-design/react-native';
-
 type Props = {
   value?: any, // 单元的值
   field?: any, // pageData对应的域
@@ -15,20 +13,15 @@ export default (props: Props) => {
   const { personal } = useRedux('personal'); // 全局个人信息
   const { option } = useRedux('option'); // 全局变量
 
-  const [formRef] = Form.useForm();
-  const [form, setForm] = useState({
+  const form = useForm({
     [props.field.name]: props.record[props.field.name] // 新建的时候设置默认值
   });
-
-  const buttonVisible = useComputed(() => props.ontable == 'edit' || (props.ontable !== 'change' && form[props.field.name] !== props.value), [props]); // 按钮是否显示
+  const buttonVisible = useComputed(() => props.ontable == 'edit' || (props.ontable !== 'change' && form.data[props.field.name] !== props.value), [props]); // 按钮是否显示
 
   const submit = async () => { // 提交
     // 提交之前先验证表单
-    let params;
-    try {
-      params = await formRef.validateFields();
-    } catch (e) { }
-    if (!params) return;
+    if (!form.validate()) return;
+    let params = { ...form.data };
     // 如果是修改的时候，url和data不一样
     const url = props.pageData.apis?.modify || `/modify/${props.pageData.table || props.pageData.name}`;
     params.id = props.record.id; // 修改的时候需要传当前数据的id
@@ -53,11 +46,9 @@ export default (props: Props) => {
   }
 
   return (
-    <Div s='_fx_r _scale_0.7 _hm_19'>
-      <Form form={formRef} initialValues={form} autoComplete="off">
-        <FormItem key={utils.uuid()} {...{ noLabel: true, label: props.field.label, value: props.field.value, record: props.record, field: props.field, form, required: false }} />
-        {buttonVisible && <Div onPress={submit} s='_button_white_warning_error_v_335_42_fs14_r _of_hidden'>确定</Div>}
-      </Form>
+    <Div>
+      <FormItem key={utils.uuid()} {...{ noLabel: true, label: props.field.label, value: props.field.value, record: props.record, field: props.field, form, required: false }} />
+      {buttonVisible && <Div onPress={submit} s='_button_80_22_fs14_r6_b _of_hidden'>确定</Div>}
     </Div>
   );
 }

@@ -25,7 +25,6 @@ type Props = PropsWithChildren<{
 export default forwardRef((props: Props, ref: any) => {
   const { personal } = useRedux('personal'); // 全局个人信息
   const { option } = useRedux('option'); // 全局变量
-  const [formRef] = Form.useForm();
 
   const pageData = props.pageData || {};
   const other = props.other;
@@ -49,11 +48,12 @@ export default forwardRef((props: Props, ref: any) => {
   if (pageData.formPreHook) {
     intFormData = pageData.formPreHook({ $: record, params: intFormData });
   }
-  const [form, setForm] = useState(intFormData);
+  const form = useForm(intFormData);
   const [isModify, setIsModify] = useState(_isModify);
 
-  const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, form, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
-  const opers = useComputed(() => _.filter(pageData.detailOpers, o => utils.visible(o.visible, { pageData, $: record, initParams, isModify: state.isModify })));  // 过滤掉不显示的按钮
+  const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
+  const opers = useComputed(() => _.filter(pageData.detailOpers, (o: any) => utils.visible(o.visible, { pageData, $: record, initParams, isModify })));  // 过滤掉不显示的按钮
+
   const labelWidth = useComputed(() => {
     const labelWidth = _.get(pageData, 'labelWidth');
     if (labelWidth) {
@@ -89,11 +89,9 @@ export default forwardRef((props: Props, ref: any) => {
   const rows = useComputed(() => getRows(fields));
 
   const checkFrom = async () => { // 验证表单并返回表单数据
-    pageData.debug && console.log('form = ', formRef.getFieldsValue());
-    let params;
-    try {
-      params = await formRef.validateFields();
-    } catch (e) { }
+    pageData.debug && console.log('form = ', form.data);
+    if (!form.validate()) return;
+    const params = { ...form.data };
     return params;
   }
 
@@ -153,12 +151,9 @@ export default forwardRef((props: Props, ref: any) => {
   }
 
   const submit = async () => {
-    pageData.debug && console.log('form = ', formRef.getFieldsValue());
-    let params;
-    try {
-      params = await formRef.validateFields();
-    } catch (e) { }
-    if (!params) return;
+    pageData.debug && console.log('form = ', form.data);
+    if (!form.validate()) return;
+    let params = { ...form.data };
     if (initParams) { // 初始参数
       params = { ...params, ...initParams };
     }
@@ -244,8 +239,7 @@ export default forwardRef((props: Props, ref: any) => {
         // <FormArrowItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} pageData={pageData} />
       )
     }
-    return <FormItem key={utils.uuid()} label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting}
-    />
+    return <FormItem key={utils.uuid()} label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} />
   }
 
   useEffect(() => {
@@ -256,23 +250,17 @@ export default forwardRef((props: Props, ref: any) => {
   return (
     <View>
       {
-        hasEdit &&
-        <Form form={formRef} style={{ maxWidth: sr.w }} initialValues={form} autoComplete="off">
-          {/* {fields.map((field: any) => <FormItem key={utils.uuid()} {...{ ...field, record, field, form, disabled: !editting }} />)} */}
-          {
-            _.map(rows, (row: any, i: any) => (
-              <Div key={i} s='_fx_r'>
-                {
-                  _.map(row, (field: any, j: any) => (
-                    <Div key={j} s={`_w_${100 / row.length}%`}>
-                      {renderFromItem({ field })}
-                    </Div>
-                  ))
-                }
-              </Div>
-            ))
-          }
-        </Form>
+        hasEdit && _.map(rows, (row: any, i: any) => (
+          <Div key={i} s='_fx_r'>
+            {
+              _.map(row, (field: any, j: any) => (
+                <Div key={j} s={`_w_${100 / row.length}%`}>
+                  {renderFromItem({ field })}
+                </Div>
+              ))
+            }
+          </Div>
+        ))
       }
       {
         (!noFooter && hasEdit) &&
