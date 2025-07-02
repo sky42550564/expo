@@ -1,7 +1,7 @@
 import { Text } from 'react-native';
 export default ({
-  formRef, // 表单引用
   children, // 子组件
+  form, // 表单引用
   label, // 标签
   prop, // 字段名称
   labelLeft, // 标签的左边宽度
@@ -32,7 +32,8 @@ export default ({
   });
 
   const validate = () => {
-    const value = formRef.items[prop];
+    const value = form.data[prop];
+    console.log('=================value', form);
     const requiredRule = _.find(rules, (o: any) => o.required === true);
     if (requiredRule && (value === '' || value == null)) { // 有必填的判断，但是空值的时候
       $alert(requiredRule.message);
@@ -51,20 +52,19 @@ export default ({
   }
 
   useEffect(() => {
-    formRef.showFull && (state._showFull = true);
-    formRef.showRight && (state._showRight = true);
-    formRef.showLine && (state._showLine = true);
-    formRef.labelLeft && (state._labelLeft = formRef.labelLeft); // 标签的左边宽度
-    formRef.labelWidth && (state._labelWidth = formRef.labelWidth); // 标签的宽度
-    formRef.labelRight && (state._labelRight = formRef.labelRight); // 标签的右边宽度
-    formRef.hasSpace && (state._hasSpace = formRef.hasSpace); // 标签栏等距分开
-    formRef.hasBorder && (state._hasBorder = formRef.hasBorder); // 输入框是否有下划线
+    form.settings.showFull && (state._showFull = true);
+    form.settings.showRight && (state._showRight = true);
+    form.settings.showLine && (state._showLine = true);
+    form.settings.labelLeft && (state._labelLeft = form.settings.labelLeft); // 标签的左边宽度
+    form.settings.labelWidth && (state._labelWidth = form.settings.labelWidth); // 标签的宽度
+    form.settings.labelRight && (state._labelRight = form.settings.labelRight); // 标签的右边宽度
+    form.settings.hasSpace && (state._hasSpace = form.settings.hasSpace); // 标签栏等距分开
+    form.settings.hasBorder && (state._hasBorder = form.settings.hasBorder); // 输入框是否有下划线
     setState({ ...state });
-    formRef.validates[prop] = validate // 挂载的时候向父级添加prop
+    form.addRule(prop, validate); // 挂载的时候向父级添加prop
     return () => {
       // 挂卸载的时候删除prop
-      delete formRef.validates[prop];
-      delete formRef.values[prop];
+      form.remove(prop);
     }
   }, []);
 

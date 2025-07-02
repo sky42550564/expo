@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import config from '@/config.js';
 // react 常用方法
 global.useState = useState;
 global.useEffect = useEffect;
 global.useRef = useRef;
 global.useMemo = useMemo;
+global.useCallback = useCallback;
 // 常用方法
 import sr from './utils/libs/screen.js';
 global.sr = sr; // 窗口信息
@@ -33,6 +34,8 @@ import useRedux from './utils/react-native/useRedux.js';
 global.useRedux = useRedux; // 全局属性
 import useComputed from './utils/react-native/useComputed.js';
 global.useComputed = useComputed; // 计算属性
+import useForm from './utils/react-native/useForm.js';
+global.useForm = useForm; // 表单操作
 import Page from './utils/react-native/Page.tsx';
 global.Page = Page; // 页面封装
 import router from './utils/react-native/router.js';
@@ -79,6 +82,8 @@ global.ModalPanel  = ModalPanel ; // 弹出框
 import ActionPanel  from '@/components/layout/ActionPanel';
 global.ActionPanel  = ActionPanel ; // 底部弹出框
 // 表单
+import FormLabel from '@/components/form/FormLabel';
+global.FormLabel = FormLabel; // 表单标签
 import FormTextItem from '@/components/form/FormTextItem';
 global.FormTextItem = FormTextItem; // 文本输入框
 import FormNumberItem from '@/components/form/FormNumberItem';

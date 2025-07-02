@@ -1,11 +1,14 @@
-import { Text } from 'react-native';;
+import React from 'react';
+import { Text } from 'react-native';
 
 export default ({
   children,
   fontStyle,
 }: any) => {
-  if (_.isArray(children) && _.every(children, (o: any) => _.isString(o))) {
-    children = children.join('');
+  if (_.isArray(children)) {
+    children = children.map((o: any) => _.isPlainObject(o) && !React.isValidElement(o) ? JSON.stringify(o): o);
+  } else if (_.isPlainObject(children) && !React.isValidElement(children)) {
+    children = JSON.stringify(children);
   }
   return _.isString(children) ? <Text style={fontStyle}>{children}</Text> : children;
 };

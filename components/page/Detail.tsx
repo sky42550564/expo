@@ -240,7 +240,8 @@ export default forwardRef((props: Props, ref: any) => {
     //点击进入箭头单独编辑
     if (field.value?.arrow) {
       return (
-        <FormArrowItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} pageData={pageData} />
+        null
+        // <FormArrowItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} pageData={pageData} />
       )
     }
     return <FormItem key={utils.uuid()} label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting}

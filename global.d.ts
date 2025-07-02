@@ -5,6 +5,7 @@ declare global {
   const useEffect: any;
   const useRef: any;
   const useMemo: any;
+  const useCallback: any;
   // 常用方法
   const sr: any;
   const _: any;
@@ -17,6 +18,7 @@ declare global {
   const CO: any;
   const useRedux: any;  // 全局属性
   const useComputed: any; // 计算属性
+  const useForm: any; // 表单操作
   const Page: any;
   // 路由操作
   const router: any;
@@ -45,6 +47,7 @@ declare global {
   const ModalPanel: any; // 弹出框
   const ActionPanel: any; // 底部弹出框
   // 表单
+  const FormLabel: any; // 表单标签
   const FormTextItem: any; // 文本输入框
   const FormNumberItem: any; // 数字输入框
   const FormImageItem: any; // 图片输入框
