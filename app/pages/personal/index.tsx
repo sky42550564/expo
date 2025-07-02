@@ -13,7 +13,7 @@ export default Page((props: any) => {
   }
 
   const pageData = {
-    formProps: { labelWidth: 40, labelRight: 30 }, // 表单属性
+    formSetting: { labelWidth: 40, labelRight: 30 }, // 表单属性
     fields: [
       {
         label: '昵称',

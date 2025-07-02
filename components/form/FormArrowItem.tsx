@@ -15,7 +15,7 @@ export default ({
   field, // 字段
   pageData, // 页面配置
   record, // 数据
-  formProps, // 表单属性
+  formSetting, // 表单属性
 }: any) => {
   // 验证规则
   const rules = [];
@@ -33,14 +33,14 @@ export default ({
     }
     router.push('/pages/singleForm/index', {
       title: `设置${label}`,
-      value,
-      prop,
+      formSetting,
       form,
+      prop,
       label,
+      value,
       field,
-      pageData,
       record,
-      formProps,
+      pageData,
     });
   }
 
