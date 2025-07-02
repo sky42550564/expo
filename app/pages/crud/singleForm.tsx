@@ -15,7 +15,7 @@ export default Page(({
     if (!singleForm.validate()) return;
     const params = { [prop]: singleForm.data[prop], id: record?.id };
     // return console.log('params = ', params);
-    const data = await callback({ params, form: form.data, record, pageData });
+    const data = await callback({ params, form, record, pageData });
     if (data !== true) { // 如果返回为true，则不再处理结果
       if (!data.success) { // 如果返回不成功
         return $alert(data.message); // 提示用户错误信息
@@ -30,7 +30,7 @@ export default Page(({
     <>
       <Div s='_h_20'></Div>
       <FormItem {...{ label, prop, value, field, form: singleForm }} />
-      <Div onPress={submit} s='_button_335_40_fs14_r _of_hidden _mt_20'>保存</Div>
+      <Div onPress={submit} s='_button_200_36_fs14_r _of_hidden _mt_50 _self_ac'>保存</Div>
     </>
   );
 })

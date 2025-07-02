@@ -1,15 +1,16 @@
-
 export default Page((props: any) => {
   const { personal, store: personalStore } = useRedux('personal');
 
-  const modifyPersonalInfo = async (params: any, field: string) => { // 修改个人信息
+
+  const modifyPersonalInfo = async (params: any, form: any, field: string) => { // 修改个人信息
     const data = await utils.post('/modify/tb_member', params);
     if (!data.success) {
       $alert(data.message);
     }
-    $success('操作成功');
+    personalStore.updatePersonal({ [field]: params[field] });
+    form.set(field, params[field]);
+    $success('设置成功');
     router.back();
-    personalStore.updatePersonal(_.pick(params, field));
   }
 
   const pageData = {
@@ -21,8 +22,8 @@ export default Page((props: any) => {
         value: {
           arrow: true,
           type: 'text',
-          callback: async ({ params }: any) => { // 点击箭头表单组件的回调
-            modifyPersonalInfo(params, 'name');
+          callback: async ({ params, form }: any) => { // 点击箭头表单组件的回调
+            modifyPersonalInfo(params, form, 'name');
             return true;
           },
         },
@@ -35,8 +36,8 @@ export default Page((props: any) => {
           type: 'head',
           hideArrow: true, // 有值的时候隐藏箭头
           placeholder: '',
-          callback: async ({ params }: any) => {
-            modifyPersonalInfo(params, 'head');
+          callback: async ({ params, form }: any) => {
+            modifyPersonalInfo(params, form, 'head');
             return true;
           },
         },
@@ -48,8 +49,8 @@ export default Page((props: any) => {
           arrow: true,
           type: 'text',
           rows: 5,
-          callback: async ({ params }: any) => {
-            modifyPersonalInfo(params, 'signature');
+          callback: async ({ params, form }: any) => {
+            modifyPersonalInfo(params, form, 'signature');
             return true;
           },
         },
@@ -62,8 +63,8 @@ export default Page((props: any) => {
           type: 'select',
           options: ['男', '女'],
           hideArrow: true,
-          callback: async ({ params }: any) => {
-            modifyPersonalInfo(params, 'sex');
+          callback: async ({ params, form }: any) => {
+            modifyPersonalInfo(params, form, 'sex');
             return true;
           },
         },
@@ -74,17 +75,13 @@ export default Page((props: any) => {
         value: {
           arrow: true,
           type: 'date',
-          callback: async ({ params }: any) => {
-            modifyPersonalInfo(params, 'birthday');
+          callback: async ({ params, form }: any) => {
+            modifyPersonalInfo(params, form, 'birthday');
             return true;
           },
         },
       },
     ],
-  }
-
-  const onSubmitResult = (result: any) => { // 更新个人信息
-    personalStore.updatePersonal(_.pick(result, pageData.fields.map(o => o.name)));
   }
 
   return (

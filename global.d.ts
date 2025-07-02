@@ -54,6 +54,7 @@ declare global {
   const FormRadioItem: any; // 单选输入框
   const FormCheckboxItem: any; // 多选输入框
   const FormPlainItem: any; // 值显示
+  const FormArrowItem: any; // 剪头表单
   const FormItem: any; // 表单项
 }
 export { };

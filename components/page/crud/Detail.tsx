@@ -49,6 +49,7 @@ export default forwardRef((props: Props, ref: any) => {
     intFormData = pageData.formPreHook({ $: record, params: intFormData });
   }
   const form = useForm(intFormData);
+
   const [isModify, setIsModify] = useState(_isModify);
 
   const fields = useComputed(() => _.filter(pageData.fields, (o: any) => utils.visible(_.ifNull(o.edit, o.value?.edit), { pageData: pageData, $: record, initParams: props.initParams, isModify })), [pageData]);  // 过滤掉不显示的字段
@@ -235,11 +236,10 @@ export default forwardRef((props: Props, ref: any) => {
     //点击进入箭头单独编辑
     if (field.value?.arrow) {
       return (
-        null
-        // <FormArrowItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} pageData={pageData} />
+        <FormArrowItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} pageData={pageData} />
       )
     }
-    // return <FormItem key={utils.uuid()} label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} />
+    return <FormItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} />
   }
 
   useEffect(() => {

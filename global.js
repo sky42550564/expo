@@ -96,6 +96,8 @@ import FormCheckboxItem from '@/components/form/FormCheckboxItem';
 global.FormCheckboxItem = FormCheckboxItem; // 多选输入框
 import FormPlainItem from '@/components/form/FormPlainItem';
 global.FormPlainItem = FormPlainItem; // 值显示
+import FormArrowItem from '@/components/form/FormArrowItem';
+global.FormArrowItem = FormArrowItem; // 剪头表单
 import FormItem from '@/components/form/FormItem';
 global.FormItem = FormItem; // 表单项
 

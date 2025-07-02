@@ -139,7 +139,7 @@ export default (props: Props) => {
       return r.comonent({ item, field, pageData });
     }
     if (['head'].includes(r.type)) {
-      return <UserHead user={{ head: r, name: r.name }} />;
+      return <UserHead user={{ head: r.value, name: r.name }} />;
     }
     if (['images', 'images'].includes(r.type)) {
       return <Img url={r} style={r.style} mode={r.mode} onPress={() => utils.previewImage(r.previewList)}></Img>

@@ -355,7 +355,7 @@ export default forwardRef((props: Props, ref) => {
         <Div s='_wf_50 _poa_l0_b0 _fx_r _bc_f5f5f5'>
           {
             selectedCount &&
-            <Div v-if='state.selectedCount' s='_fs_14 _p_4_10 _br_4 _bc_06BE62 _c_white _mr_10' onPress={onMultiSelect}>完成({selectedCount})</Div>
+            <Div s='_fs_14 _p_4_10 _br_4 _bc_06BE62 _c_white _mr_10' onPress={onMultiSelect}>完成({selectedCount})</Div>
             ||
             <Div s='_fs_14 _p_4_10 _br_4 _bc_efefef _c_c0c0c0 _mr_10'>完成</Div>
           }

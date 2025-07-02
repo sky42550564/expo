@@ -1,6 +1,15 @@
-import { View } from 'react-native';
 import Cell from '@/components/page/crud/Cell';
 
+// 设置value
+/*
+value: {
+  arrow: true,
+  pagePath: '/pages/personal/modifyPassword',
+  click: ()=>{},
+  callback: async ({ params }) => {}),
+  相对应的表单的其他属性
+},
+*/
 export default ({
   form, // form
   prop, // 字段名
@@ -24,23 +33,25 @@ export default ({
   }
 
   const showEditPage = () => {
-    if (value.disabled) return;
-    if (value.click) {
-      return value.click();
+    const { disabled, click, pagePath, pageProps, callback, ...newValue } = value;
+    if (disabled) return;
+    if (click) {
+      return click();
     }
-    if (value.pagePath) {
-      return router.push(value.pagePath, value.pageParams);
+    if (pagePath) {
+      return router.push(pagePath, pageProps);
     }
-    router.push('/pages/singleForm/index', {
+    router.push('/pages/crud/singleForm', {
       title: `设置${label}`,
       formSetting,
       form,
       prop,
       label,
-      value,
+      value: newValue,
       field,
       record,
       pageData,
+      callback,
     });
   }
 
@@ -48,11 +59,10 @@ export default ({
     <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled }}>
       <Div s='_fx_rb _fx_1' onPress={showEditPage}>
         <Div></Div>
-        <Div s='_fx_r'>
-          {form[prop] === undefined && <Div s='_value'>{value.placeholder == undefined ? `请设置${label}` : value.placeholder}</Div>}
+        <Div s='_fx_r_ac'>
+          {form.data[prop] === undefined && <Div s='_value'>{value.placeholder == undefined ? `请设置${label}` : value.placeholder}</Div>}
           <Cell field={field} item={form.data} pageData={pageData}></Cell>
-          <Div v-if='!value.hideArrow' s='_arrow _ml_10'></Div>
-          <Div v-else s='_w_19'></Div>
+          {!value.hideArrow && <Div s='_arrow _ml_10'></Div> || <Div s='_w_19'></Div>}
         </Div>
       </Div>
     </FormLabel>
