@@ -9,10 +9,10 @@ export default ({
   labelWidth, // 标签的宽度
   labelRight, // 标签的右边宽度
   noLabel, // 不显示标签
-  placeholder, // 默认显示
   required, // 必选
-  rule, // 附加的规则，可以正则，函数或者数组
   disabled = false, // 是否禁用
+  placeholder, // 默认显示
+  rule, // 附加的规则，可以正则，函数或者数组
   min = -9999999, // 最小值
   max = 9999999, // 最小值
   step = 1, // 最小值

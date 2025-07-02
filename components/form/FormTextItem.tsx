@@ -8,10 +8,10 @@ export default ({
   labelWidth, // 标签的宽度
   labelRight, // 标签的右边宽度
   noLabel, // 不显示标签
-  placeholder, // 默认显示
   required, // 必选
-  rule, // 附加的规则，可以正则，函数或者数组
   disabled = false, // 是否禁用
+  placeholder, // 默认显示
+  rule, // 附加的规则，可以正则，函数或者数组
   unit, // 单位
   type, // 类型：name|phone|email|password
   rows, // 如果大于1为多行编辑器

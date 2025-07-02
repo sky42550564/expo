@@ -40,6 +40,7 @@ export default ({
   });
 
   const validate = () => {
+    if (!rules) return true;
     const value = form.data[prop];
     const requiredRule = _.find(rules, (o: any) => o.required === true);
     if (requiredRule && (value === '' || value == null)) { // 有必填的判断，但是空值的时候

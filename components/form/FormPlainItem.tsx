@@ -1,36 +1,26 @@
-import { View, Text } from 'react-native';
-import { Form } from '@ant-design/react-native';
-
-const FormCell = ({
-  children, // 子组件
-  placeholder, // 默认显示
-  style, // 样式
-  unit, // 单位
-  value, // antd的Form.Item自动传下来的值
-}: any) => {
-  return (
-    <View style={_u(`_fx_r`)}>
-      {children ? <Children fontStyle={_u(`_fs_17`, style)} children={children}></Children> : <Div style={_u(`_fs_17`, style)}>{value || placeholder}</Div>}
-      {unit !== undefined && <Div s='_fs_red'>{unit}</Div>}
-    </View>
-  );
-};
-
 export default ({
   children, // 子组件
+  form, // 整个form
+  prop, // 字段名
   label, // 标签
-  name, // 字段名
+  labelLeft, // 标签的左边宽度
+  labelWidth, // 标签的宽度
+  labelRight, // 标签的右边宽度
   noLabel, // 不显示标签
   placeholder, // 默认显示
   style, // 样式
   unit, // 单位
 }: any) => {
   return (
-    <Form.Item
-      label={noLabel ? null : label}
-      name={name}
-    >
-      <FormCell {...{ children, placeholder, style, unit }} />
-    </Form.Item>
+    <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, unit }}>
+      <Div style={_u(`_fx_r`)}>
+        {
+          children ?
+            <Children fontStyle={_u(`_fs_17`, style)} children={children}></Children>
+            : <Div style={_u(`_fs_17`, style)}>{form.data[prop] == undefined ? placeholder : form.data[prop]}</Div>
+        }
+        {unit !== undefined && <Div s='_fs_red'>{unit}</Div>}
+      </Div>
+    </FormLabel>
   );
 };
