@@ -100,6 +100,8 @@ import FormDateItem from '@/components/form/FormDateItem';
 global.FormDateItem = FormDateItem; // 日期选择器
 import FormCityItem from '@/components/form/FormCityItem';
 global.FormCityItem = FormCityItem; // 城市选择器
+import FormPickerItem from '@/components/form/FormPickerItem';
+global.FormPickerItem = FormPickerItem; // 选择器
 import FormPlainItem from '@/components/form/FormPlainItem';
 global.FormPlainItem = FormPlainItem; // 值显示
 import FormArrowItem from '@/components/form/FormArrowItem';
