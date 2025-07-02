@@ -18,7 +18,6 @@ export default function Home() {
       <FormTextItem label='姓名' prop='name' form={form} />
       <FormNumberItem label='年龄' prop='age' form={form} ratio={100} unit='%'/>
       <Div onPress={sumbit} s='_button_white_warning_error_v_335_42_fs14_r _of_hidden'>提交</Div>
-
     </View>
   );
 }
