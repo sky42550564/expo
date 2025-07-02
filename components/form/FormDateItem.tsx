@@ -1,6 +1,6 @@
-import { DatePicker, List } from '@ant-design/react-native';
+import { DatePicker } from '@ant-design/react-native';
 
-function DateItem(props: any) {
+function PickerItem(props: any) {
   const { onPress, disabled, label, placeholder, form, prop } = props;
   return (
     <Div s='_fx_1 _h_30 _fx_rb _pr_10' onPress={onPress}>
@@ -56,7 +56,7 @@ export default ({
   return (
     <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled }}>
       <DatePicker {...{ precision: type, minDate, maxDate, filter, onChange: onInputChange }}>
-        <DateItem {...{ disabled, label, placeholder, form, prop }}></DateItem>
+        <PickerItem {...{ disabled, label, placeholder, form, prop }}></PickerItem>
       </DatePicker>
     </FormLabel>
   );
