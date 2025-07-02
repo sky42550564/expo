@@ -7,6 +7,7 @@ import isTomorrow from 'dayjs/plugin/isTomorrow.js';
 import isYesterday from 'dayjs/plugin/isYesterday.js';
 import isLeapYear from 'dayjs/plugin/isLeapYear.js';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+import weekOfYear from 'dayjs/plugin/weekOfYear.js';
 
 dayjs.locale('zh-cn', {
   monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
@@ -36,6 +37,7 @@ dayjs.extend(isTomorrow);
 dayjs.extend(isYesterday);
 dayjs.extend(isLeapYear);
 dayjs.extend(customParseFormat);
+dayjs.extend(weekOfYear);
 
 const myPlugin = (option, dayjsClass, dayjsFactory) => {
   // extend dayjs()

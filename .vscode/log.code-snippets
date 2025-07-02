@@ -136,11 +136,11 @@
 		],
 		"description": "ref缩写"
 	},
-	"const xx = computed(() => xx)": {
+	"const xx = useComputed(() => xx, [])": {
 		"prefix": "vcomputed",
 		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
-			"const $1 = computed(() => $2);"
+			"const $1 = useComputed(() => $2, []);"
 		],
 		"description": "computed缩写"
 	},

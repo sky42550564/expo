@@ -5,6 +5,7 @@ export default ({
   children,
   fontStyle,
 }: any) => {
+  if (!children) return children;
   if (_.isArray(children)) {
     return children.map((o: any, i: number) => {
       if (React.isValidElement(o)) return o;

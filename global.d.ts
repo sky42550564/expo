@@ -53,6 +53,7 @@ declare global {
   const FormImageItem: any; // 图片输入框
   const FormRadioItem: any; // 单选输入框
   const FormCheckboxItem: any; // 多选输入框
+  const FormDateItem: any; // 日期选择器
   const FormPlainItem: any; // 值显示
   const FormArrowItem: any; // 剪头表单
   const FormItem: any; // 表单项
