@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import Cell from '@/components/page/Cell';
+import Cell from '@/components/page/crud/Cell';
 
 export default ({
   form, // form

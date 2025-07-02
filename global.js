@@ -73,9 +73,9 @@ import MenuItem from '@/components/menu/MenuItem';
 global.MenuItem = MenuItem; // 列表菜单
 import MenuTitle from '@/components/menu/MenuTitle';
 global.MenuTitle = MenuTitle; // 菜单标题
-import List from '@/components/page/List';
+import List from '@/components/page/crud/List';
 global.List = List; // 列表
-import Detail from '@/components/page/Detail';
+import Detail from '@/components/page/crud/Detail';
 global.Detail = Detail; // 详情
 import ModalPanel  from '@/components/layout/ModalPanel';
 global.ModalPanel  = ModalPanel ; // 弹出框
