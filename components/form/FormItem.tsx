@@ -7,7 +7,11 @@ export default ({
   if (['number'].includes(value.type)) return <FormNumberItem  {...props} />;
   if (['number'].includes(value.type)) return <FormNumberItem  {...props} precision={2} ratio={100} unit='元' />;
   if (['image', 'head', 'images'].includes(value.type)) return <FormImageItem  {...props} />;
+  if (['bool'].includes(value.type)) return <FormBoolItem  {...props} />;
   if (['radio'].includes(value.type)) return <FormRadioItem  {...props} />;
   if (['checkbox'].includes(value.type)) return <FormCheckboxItem  {...props} />;
+  if (['year' ,'month' ,'day' ,'hour' ,'minute' ,'second' ,'week' ,'week-day'].includes(value.type)) return <FormDateItem  {...props} />;
+  if (['city'].includes(value.type)) return <FormCityItem  {...props} />;
+  if (['picker'].includes(value.type)) return <FormPickerItem  {...props} />;
   return <FormPlainItem  {...props} />;
 };
