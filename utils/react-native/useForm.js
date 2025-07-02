@@ -1,16 +1,20 @@
 
 import { useRef, useCallback } from 'react';
 // 用法： const form = useForm({name: ''}); // 初始form
-// setting: {}
-// showFull: 是否分行展示，标签在上一行，表单在下一行
-// showRight: 右边展示
-// showLine: 显示下划线
-// labelLeft: 标签的左边宽度
-// labelWidth: 标签的宽度
-// labelRight: 标签的右边宽度
-// hasSpace: 标签栏等距分开
-// hasBorder: 输入框是否有下划线
-// hasColon: 是否有冒号
+// setting: {
+//   showFull: 是否分行展示，标签在上一行，表单在下一行
+//   showRight: 右边展示
+//   showLine: 显示下划线
+//   labelLeft: 标签的左边宽度
+//   labelWidth: 标签的宽度
+//   labelRight: 标签的右边宽度
+//   hasSpace: 标签栏等距分开
+//   hasBorder: 输入框是否有下划线
+//   hasColon: 是否有冒号
+//   needAlert: 是否需要弹出错误框
+//   labelColor: // 便签的颜色
+//   needShowRequired: // 是否显示必选
+// }
 export default (defaultValue, defaultSetting = {}) => {
   const [formData, setFormData] = useState(defaultValue);
 

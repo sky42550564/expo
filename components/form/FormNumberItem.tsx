@@ -1,49 +1,13 @@
 import { View } from 'react-native';
-import { Form, Stepper } from '@ant-design/react-native';
-
-const FormCell = (props: any) => {
-  const {
-    label, // 标签
-    placeholder, // 默认显示
-    disabled = false, // 是否禁用
-    min = -9999999, // 最小值
-    max = 9999999, // 最小值
-    step = 1, // 最小值
-    precision = 0, // 精度
-    allowEmpty = false, // 是否允许内容为空
-    ratio = 1, // 缩放比例
-    unit, // 单位
-    inputStyle, // TextInput style
-    minusButtonProps, // minus 按钮 props { activeOpacity:1, underlayColor:'#ddd', children: <Text>-</Text>, delayLongPress:500 }
-    plusButtonProps, // plus 按钮 props { activeOpacity:1, underlayColor:'#ddd', children: <Text>+</Text>, delayLongPress:500 }
-    value, // antd的Form.Item自动传下来的值
-    onChange, // antd的Form.Item自动传下来的回调
-  } = props;
-  return (
-    <View style={_u(`_fx_r_ac`)}>
-      <Stepper
-        placeholder={placeholder || `请填写${label}`}
-        disabled={disabled}
-        allowEmpty={allowEmpty}
-        min={min}
-        max={max}
-        step={step}
-        digits={precision}
-        minusButtonProps={minusButtonProps}
-        plusButtonProps={plusButtonProps}
-        inputStyle={inputStyle}
-        defaultValue={value}
-        onChange={onChange}
-      />
-      <Div s='_fs_14_red _ml_10'>{unit}</Div>
-    </View>
-  )
-}
+import { Stepper } from '@ant-design/react-native';
 
 export default ({
   form, // 整个form
+  prop, // 字段名
   label, // 标签
-  name, // 字段名
+  labelLeft, // 标签的左边宽度
+  labelWidth, // 标签的宽度
+  labelRight, // 标签的右边宽度
   noLabel, // 不显示标签
   placeholder, // 默认显示
   required, // 必选
@@ -60,7 +24,6 @@ export default ({
   minusButtonProps, // minus 按钮 props { activeOpacity:1, underlayColor:'#ddd', children: <Text>-</Text>, delayLongPress:500 }
   plusButtonProps, // plus 按钮 props { activeOpacity:1, underlayColor:'#ddd', children: <Text>+</Text>, delayLongPress:500 }
   onChange, // 监听变化时的回调
-  model = [], // 双向绑定， [value, setValue] 例如：<FormNumberItem label='年龄' model={[age, setAge]} />
 }: any) => {
   // 验证规则
   const rules = (rule ? (_.isArray(rule) ? rule : [rule]) : []).map((o: any) => ({ // 验证规则
@@ -81,13 +44,29 @@ export default ({
   if (required !== false) { // 默认是必传，只有传false的时候才不是必传
     rules.unshift({ required: true, message: `${label}不能为空` });
   }
+
+  const onInputChange = (value: any) => {
+    const realValue = value / ratio;
+    onChange && onChange(realValue);
+    form.set(prop, realValue);
+  }
+
   return (
-    <Form.Item
-      label={noLabel ? null : label}
-      name={name}
-      rules={rules}
-    >
-      <FormCell {...{ placeholder: placeholder || `请填写${label}`, disabled, allowEmpty, unit, min, max, step, precision, minusButtonProps, plusButtonProps, inputStyle, value: model[0], onChange: model[1] || onChange }} />
-    </Form.Item>
+    <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled, unit }}>
+      <Stepper
+        placeholder={placeholder || `请填写${label}`}
+        disabled={disabled}
+        allowEmpty={allowEmpty}
+        min={min}
+        max={max}
+        step={step}
+        digits={precision}
+        minusButtonProps={minusButtonProps}
+        plusButtonProps={plusButtonProps}
+        inputStyle={inputStyle}
+        value={(form.data[prop] || 0) * ratio}
+        onChange={onInputChange}
+      />
+    </FormLabel>
   );
 };

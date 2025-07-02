@@ -2,11 +2,11 @@ import { Input } from '@ant-design/react-native';
 
 export default ({
   form, // form
+  prop, // 字段名
   label, // 标签
   labelLeft, // 标签的左边宽度
   labelWidth, // 标签的宽度
   labelRight, // 标签的右边宽度
-  prop, // 字段名
   noLabel, // 不显示标签
   placeholder, // 默认显示
   required, // 必选
@@ -25,7 +25,6 @@ export default ({
   suffix, // 带有后缀图标的 input
   inputStyle, // FormCell style
   onChange, // 监听变化时的回调
-  model, // 双向绑定， [value, setValue] 例如：<FormNumberItem label='年龄' model={[age, setAge]} />
 }: any) => {
   // 验证规则
   let _maxLength = maxLength;
@@ -138,12 +137,11 @@ export default ({
   }
   const onInputChange = (e: any) => {
     const { value } = e.target;
-    onChange && onChange(value)
-    model && model[1](value);
+    onChange && onChange(value);
     form.set(prop, value);
   }
   return (
-    <FormLabel {...{ form, label, prop, labelLeft, labelWidth, labelRight, noLabel, rules, required, unit }} >
+    <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled, unit }} >
       {
         !rows ?
           <Input
