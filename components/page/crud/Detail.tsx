@@ -97,7 +97,7 @@ export default forwardRef((props: Props, ref: any) => {
 
   // 获取初始数据
   const getData = async () => {
-    setForm(null);
+    form.setAll({});
     setHasEdit(false);
     const lookup = _.filter(pageData.fields, (o: any) => _.get(o, 'value.table')).reduce((r: any, o: any) => ({ ...r, [o.name]: o.value.table }), {});
     let params = {
@@ -134,9 +134,9 @@ export default forwardRef((props: Props, ref: any) => {
           }
         }
       }
-      setForm(form);
+      form.setAll(form);
     } else { // 如果没有这条数据,则为新增
-      setForm({});
+      form.setAll({});
       for (const field of pageData.fields) {
         if (field.name) {
           // 只读属性：pageData.readonly 或者 field没有type 或者 field.readonly
@@ -239,7 +239,7 @@ export default forwardRef((props: Props, ref: any) => {
         // <FormArrowItem label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} pageData={pageData} />
       )
     }
-    return <FormItem key={utils.uuid()} label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} />
+    // return <FormItem key={utils.uuid()} label={field.label} labelWidth={labelWidth} prop={field.name} value={field.value} record={record} field={field} form={form} disabled={!editting} />
   }
 
   useEffect(() => {
@@ -266,7 +266,7 @@ export default forwardRef((props: Props, ref: any) => {
         (!noFooter && hasEdit) &&
         <Div s='_fx_rc _mv_30'>
           {editting && <Div s='_button_160_36_r' onPress={submit}>{pageData.submitButtonText || '保存'} </Div> || <Div s='_button_160_36_r' onPress={() => setEditting(true)}>修改</Div>}
-          {editting && isModify && !forceEditting && <Div s='_button_160_36_r _bc_error_warning _c _ml_10' onPress={() => setEditting(false)}> 取消 </Div>}
+          {editting && isModify && !forceEditting && <Div s='_button_white_error_warning_160_36_r _ml_10' onPress={() => setEditting(false)}>取消</Div>}
         </Div>
       }
     </View>

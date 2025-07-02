@@ -45,7 +45,7 @@ function Cell({
           colors={colors} // 渐变颜色数组
           start={start} // 起点坐标 (左上角)
           end={end}   // 终点坐标 (右下角)
-          style={[_u(`_s`), fontStyle, childStyle, { 'WebkitBackgroundClip': 'text', 'color': 'transparent' }]}
+          style={[_u(`_fx_1`), fontStyle, childStyle, { 'WebkitBackgroundClip': 'text', 'color': 'transparent' }]}
         ><>{children}</></LinearGradient>
       }
       return (
@@ -54,7 +54,7 @@ function Cell({
             colors={colors} // 渐变颜色数组
             start={start} // 起点坐标 (左上角)
             end={end}   // 终点坐标 (右下角)
-            style={[_u(`_s`), childStyle]}
+            style={[_u(`_fx_1`), childStyle]}
           />
         </MaskedView>
       );
@@ -65,7 +65,7 @@ function Cell({
         colors={bcolors} // 渐变颜色数组
         start={start} // 起点坐标 (左上角)
         end={end}   // 终点坐标 (右下角)
-        style={[_u(`_s`), childStyle]}
+        style={[_u(`_fx_1`), childStyle]}
       >
         <Children fontStyle={fontStyle} children={children}></Children>
       </LinearGradient>
@@ -92,6 +92,9 @@ export default function Div({
   const { flexDirection, justifyContent, alignItems, flexWrap, gap, ...otherStyle } = _otherStyle;
   const childStyle = { flexDirection, justifyContent, alignItems, flexWrap, gap };
   const containerStyle = (colors?.length > 1 || bcolors?.length > 1) ? otherStyle : _otherStyle;
+  if ( bcolors?.length > 1) {
+    containerStyle.overflow = 'hidden';
+  }
 
   if (onPress) {
     return (
