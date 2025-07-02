@@ -1,4 +1,4 @@
-import { Form, Radio } from '@ant-design/react-native';
+import { Radio } from '@ant-design/react-native';
 
 const FormCell = ({
   disabled = false, // 是否禁用

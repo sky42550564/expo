@@ -141,7 +141,7 @@ export default ({
     form.set(prop, value);
   }
   return (
-    <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled, unit }} >
+    <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled, unit }}>
       {
         !rows ?
           <Input
@@ -171,6 +171,6 @@ export default ({
             onChange={onInputChange}
           />
       }
-    </FormLabel >
+    </FormLabel>
   );
 };

@@ -17,7 +17,6 @@ export default ({
   row = true, // 默认为横向, false为纵向
   style, // 样式
   onChange, // 监听变化时的回调
-  model = [], // 双向绑定， [value, setValue] 例如：<FormImageItem label='头像' model={[head, setHead]} />
 }: any) => {
   // 验证规则
   const rules = [];

@@ -212,7 +212,7 @@ export default (props: Props) => {
       <Div s="_fx_r">
         {renderItem()}
         {r.ontable == 'edit' && <Icon icon="FontAwesome6:edit" size={18} s="_ml_20" onPress={() => handleOntableModify()} />}
-      </Div >
+      </Div>
     ) : null
   );
 }

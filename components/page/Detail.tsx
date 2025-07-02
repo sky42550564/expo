@@ -234,7 +234,7 @@ export default forwardRef((props: Props, ref: any) => {
       return (
         <FormPlainItem label={field.label} labelWidth={labelWidth}>
           <Cell field={field} item={record} pageData={pageData}></Cell>
-        </FormPlainItem >
+        </FormPlainItem>
       )
     }
     //点击进入箭头单独编辑

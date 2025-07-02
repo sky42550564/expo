@@ -1,18 +1,29 @@
-import { View } from 'react-native';
-import { Form } from '@ant-design/react-native';
 import config from '@/config';
 import * as ImagePicker from 'expo-image-picker';
 
-const FormCell = ({
-  count = 1, // 最多上传图片数量
+export default ({
+  form, // form
+  prop, // 字段名
+  label, // 标签
+  labelLeft, // 标签的左边宽度
+  labelWidth, // 标签的宽度
+  labelRight, // 标签的右边宽度
+  noLabel, // 不显示标签
+  required, // 必选
   disabled = false, // 是否禁用
-  width, // 宽度
-  height, // 高度
-  value, // antd的Form.Item自动传下来的值
-  onChange, // antd的Form.Item自动传下来的回调
+  count = 1, // 图片数量
+  width = 80, // 宽度
+  height = 80, // 高度
+  onChange, // 监听变化时的回调
 }: any) => {
+  // 验证规则
+  const rules = [];
+  if (required !== false) { // 默认是必传，只有传false的时候才不是必传
+    rules.unshift({ required: true, message: `${label}不能为空` });
+  }
+
   const modalPanelRef = useRef(null);
-  const [images, setImages] = useState((!value ? [] : (count == 1 ? [value] : value)));
+  const [images, setImages] = useState((!form.data[prop] ? [] : (count == 1 ? [form.data[prop]] : form.data[prop])));
 
   // 打开图片选择器（使用 Expo 的 ImagePicker）
   const openImagePicker = async () => {
@@ -58,12 +69,6 @@ const FormCell = ({
     const newImages = list.map((o: any) => config.server + o.result.url);
     onImagesChange([...images, ...newImages]);
   }
-  const onImagesChange = async (images: any) => {
-    setImages(images);
-    onChange && onChange(count == 1 ? images[0] : images);
-  }
-  const privewImage = (url: any) => {
-  }
 
   const deleteImage = (index: any) => {
     images.splice(index, 1);
@@ -74,48 +79,31 @@ const FormCell = ({
     modalPanelRef.current.show();
   }
 
-  const buttons = [{ label: '从相册选择', callback: openImagePicker }, { label: '拍照', callback: takePhoto }];
-  return (
-    <View>
-      <View style={_u(`_fx_r_wrap`)}>
-        {images.map((url: string, index: number) => (
-          <Img key={index} url={url} s={`_s_${width}_${height} _por _mh_4 _bo`} onPress={() => privewImage(url)}>
-            {!disabled && <Icon s='_poa_t0_r0' icon='MaterialIcons:delete' color='red' size={20} onPress={() => deleteImage(index)}></Icon>}
-          </Img>
-        ))}
-        {(images.length < count && !disabled) && <Icon s={`_s_80 _fx_rc`} icon='AntDesign:plus' color='gray' onPress={showActionSheet}></Icon>}
-      </View>
-      <ActionPanel ref={modalPanelRef} buttons={buttons}></ActionPanel>
-    </View>
-  );
-};
-
-export default ({
-  form, // 整个form
-  label, // 标签
-  name, // 字段名
-  noLabel, // 不显示标签
-  required, // 必选
-  count = 1, // 图片数量
-  width = 80, // 宽度
-  height = 80, // 高度
-  disabled = false, // 是否禁用
-  onChange, // 监听变化时的回调
-  model = [], // 双向绑定， [value, setValue] 例如：<FormImageItem label='头像' model={[head, setHead]} />
-}: any) => {
-  // 验证规则
-  const rules = [];
-  if (required !== false) { // 默认是必传，只有传false的时候才不是必传
-    rules.unshift({ required: true, message: `${label}不能为空` });
+  const privewImage = (url: any) => {
   }
 
+  const onImagesChange = async (images: any) => {
+    setImages(images);
+    const value = count == 1 ? images[0] : images;
+    onChange && onChange(value);
+    form.set(prop, value);
+  }
+
+  const buttons = [{ label: '从相册选择', callback: openImagePicker }, { label: '拍照', callback: takePhoto }];
+
   return (
-    <Form.Item
-      label={noLabel ? null : label}
-      name={name}
-      rules={rules}
-    >
-      <FormCell {...{ count, disabled, width, height, value: model[0], onChange: model[1] || onChange }} />
-    </Form.Item>
+    <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled }}>
+      <Div>
+        <Div s='_fx_r_wrap'>
+          {images.map((url: string, index: number) => (
+            <Img key={index} url={url} s={`_s_${width}_${height} _por _mh_4 _bo`} onPress={() => privewImage(url)}>
+              {!disabled && <Icon s='_poa_t0_r0' icon='MaterialIcons:delete' color='red' size={20} onPress={() => deleteImage(index)}></Icon>}
+            </Img>
+          ))}
+          {(images.length < count && !disabled) && <Icon s={`_s_80 _fx_rc`} icon='AntDesign:plus' color='gray' onPress={showActionSheet}></Icon>}
+        </Div>
+        <ActionPanel ref={modalPanelRef} buttons={buttons}></ActionPanel>
+      </Div>
+    </FormLabel>
   );
 };

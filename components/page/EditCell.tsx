@@ -57,7 +57,7 @@ export default (props: Props) => {
       <Form form={formRef} initialValues={form} autoComplete="off">
         <FormItem key={utils.uuid()} {...{ noLabel: true, label: props.field.label, value: props.field.value, record: props.record, field: props.field, form, required: false }} />
         {buttonVisible && <Div onPress={submit} s='_button_white_warning_error_v_335_42_fs14_r _of_hidden'>确定</Div>}
-      </Form >
-    </Div >
+      </Form>
+    </Div>
   );
 }

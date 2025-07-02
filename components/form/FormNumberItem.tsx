@@ -1,4 +1,3 @@
-import { View } from 'react-native';
 import { Stepper } from '@ant-design/react-native';
 
 export default ({
@@ -27,18 +26,18 @@ export default ({
 }: any) => {
   // 验证规则
   const rules = (rule ? (_.isArray(rule) ? rule : [rule]) : []).map((o: any) => ({ // 验证规则
-    validator: (rule: any, value: any) => {
+    validator: (rule: any, value: any, callback: any) => {
       if (_.isRegExp(o)) {
         if (!o.test(value)) {
-          return Promise.reject(new Error(`请输入正确的${label}`)); // 验证失败
+          return callback(`请输入正确的${label}`); // 验证失败
         }
       } else {
         const ret = o({ v: value, $: form });
         if (ret) {
-          return Promise.reject(new Error(ret)); // 验证失败
+          return callback(ret); // 验证失败
         }
       }
-      return Promise.resolve(); // 验证成功
+      return callback(); // 验证成功
     }
   }));
   if (required !== false) { // 默认是必传，只有传false的时候才不是必传

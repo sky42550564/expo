@@ -15,6 +15,6 @@ export default (props: any) => {
   return (
     (head && !failed) ? <Img url={utils._thumb(head, 80)} s={`_rm_${size}`} onError={haddleError}></Img> :
       name ? <Div s={`_rm_${size}_d3d3d3 _fx_rc _fs_16_bold`}>{name[0]}</Div> :
-        <Img url={_imgc('common/defaultHead.png')} s={`_rm_${size}`} ></Img>
+        <Img url={_imgc('common/defaultHead.png')} s={`_rm_${size}`}></Img>
   )
 }
