@@ -8,10 +8,13 @@ export default ({
   if (['number'].includes(value.type)) return <FormNumberItem  {...props} precision={2} ratio={100} unit='元' />;
   if (['image', 'head', 'images'].includes(value.type)) return <FormImageItem  {...props} />;
   if (['bool'].includes(value.type)) return <FormBoolItem  {...props} />;
+  if (['switch'].includes(value.type)) return <FormSwitchItem  {...props} />;
   if (['radio'].includes(value.type)) return <FormRadioItem  {...props} />;
   if (['checkbox'].includes(value.type)) return <FormCheckboxItem  {...props} />;
-  if (['year' ,'month' ,'day' ,'hour' ,'minute' ,'second' ,'week' ,'week-day'].includes(value.type)) return <FormDateItem  {...props} />;
+  if (['year', 'month', 'day', 'hour', 'minute', 'second', 'week', 'week-day'].includes(value.type)) return <FormDateItem  {...props} />;
   if (['city'].includes(value.type)) return <FormCityItem  {...props} />;
   if (['picker'].includes(value.type)) return <FormPickerItem  {...props} />;
+  if (['slider'].includes(value.type)) return <FormSliderItem  {...props} />;
+  if (['score'].includes(value.type)) return <FormScoreItem  {...props} />;
   return <FormPlainItem  {...props} />;
 };

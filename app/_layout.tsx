@@ -41,8 +41,7 @@ export default function RootLayout() {
                 fontWeight: 'bold', // 标题字体粗细
               },
               headerTitleAlign: 'center', // 标题对齐方式
-            }}
-          >
+            }}>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
             <Stack.Screen name="pages/personal/index" options={{ title: '个人中心' }} />

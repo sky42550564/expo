@@ -1,6 +1,6 @@
-import type { PropsWithChildren, ReactElement } from 'react';
+import type { PropsWithChildren } from 'react';
 import { useState, forwardRef, useImperativeHandle } from 'react';
-import { Modal, View, Text } from 'react-native';
+import { Modal } from 'react-native';
 
 type Props = PropsWithChildren<{
   globalRefName?: string, // 是否是全局组件，全局组件会挂载到router.refs上
@@ -56,25 +56,25 @@ export default forwardRef(({
   }
   return (
     <Modal animationType="fade" transparent statusBarTranslucent visible={visible}>
-      <View style={_u(`_full _bc_#00000050`, option.position === 'middle' && `_fx_rc`)}>
+      <Div s={[`_full _bc_#00000050`, option.position === 'middle' && `_fx_rc`]}>
         {/* 边框 */}
-        <View style={_u(`_fx_c _of_hidden _por _w_${option.width} _bc_white`, option.height && `_h_${option.height}`, option.position === 'bottom' ? `_poa_b0_l0 _brt_${option.radius}` : option.position === 'top' ? `_poa_t0_l0 _brb_${option.radius}` : `_br_${option.radius}`)}>
+        <Div s={[`_fx_c _of_hidden _por _w_${option.width} _bc_white`, option.height && `_h_${option.height}`, option.position === 'bottom' ? `_poa_b0_l0 _brt_${option.radius}` : option.position === 'top' ? `_poa_t0_l0 _brb_${option.radius}` : `_br_${option.radius}`]}>
           {/* 标题栏 */}
           {
             !option.noTitle &&
-            <View style={_u(`_wf_30 _fx_rc _pb_4 _bob_f8f8f8`)}>
+            <Div s='_wf_40 _fx_rc _bob_f8f8f8 _por'>
               {/* 标题 */}
-              {option.title && <Text style={_u(`_fs_14_#a3a3a3_bold`)}>{option.title}</Text> || <View></View>}
+              {option.title && <Div s='_fs_14_#a3a3a3_bold'>{option.title}</Div> || <Div></Div>}
               {/* 关闭按钮 */}
-              {!option.noClose && <View style={_u(`_poa_r10_t0`)}><Icon icon="close-circle-outline" color="#a3a3a3" onPress={close}></Icon></View>}
-            </View>
+              {!option.noClose && <Icon s='_poa_r10' icon="close-circle-outline" size={18} color="#d3d3d3" onPress={close}></Icon>}
+            </Div>
           }
           {/* 内容 */}
-          <View style={_u(`_fx_rc_1 _of_y_auto`)}>
+          <Div s='_fx_rc_1 _of_y_auto'>
             {option.content || children}
-          </View>
-        </View>
-      </View>
+          </Div>
+        </Div>
+      </Div>
     </Modal>
   );
 });
