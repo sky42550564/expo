@@ -46,6 +46,7 @@ declare global {
   const Detail: any; // 详情
   const Tabs: any; // tab卡片
   const Banners: any; // 轮播图
+  const TimeCountDown: any; // 倒计时
   const ModalPanel: any; // 弹出框
   const ActionPanel: any; // 底部弹出框
   // 表单

@@ -81,6 +81,8 @@ import Tabs  from '@/components/layout/Tabs';
 global.Tabs  = Tabs ; // tab卡片
 import Banners  from '@/components/layout/Banners';
 global.Banners  = Banners ; // 轮播图
+import TimeCountDown  from '@/components/layout/TimeCountDown';
+global.TimeCountDown  = TimeCountDown ; // 倒计时
 import ModalPanel  from '@/components/layout/ModalPanel';
 global.ModalPanel  = ModalPanel ; // 弹出框
 import ActionPanel  from '@/components/layout/ActionPanel';

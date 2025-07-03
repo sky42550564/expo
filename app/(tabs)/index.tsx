@@ -21,8 +21,10 @@ export default function Home() {
   const tabs = [{label: '初级会员', badge: 5}, {label: '高级会员', badge: 10}];
   return (
     <View style={_u(`_pt_50`)}>
-      <Banners list={list}></Banners>
-      <Div s=''>{form.data}</Div>
+      {/* <Banners list={list}></Banners> */}
+      <TimeCountDown time={moment().subtract(3,'d')} label='还有' outTimeLabel='已超期' showOutTime timeStyle></TimeCountDown>
+      
+      <Div s='_mt_40'>{form.data}</Div>
       <Div s=''>{activeTabIndex}</Div>
       <Tabs model={[activeTabIndex, setActiveTabIndex]} tabs={tabs} itemWidth={80} lineWidth={20} labelKey='label'></Tabs>
       <FormTextItem label='姓名' type='phone' prop='phone' form={form} />
