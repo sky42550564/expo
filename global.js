@@ -108,6 +108,10 @@ import FormPlainItem from '@/components/form/FormPlainItem';
 global.FormPlainItem = FormPlainItem; // 值显示
 import FormArrowItem from '@/components/form/FormArrowItem';
 global.FormArrowItem = FormArrowItem; // 剪头表单
+import FormScoreItem from '@/components/form/FormScoreItem';
+global.FormScoreItem = FormScoreItem; // 评分表单
+import FormSliderItem from '@/components/form/FormSliderItem';
+global.FormSliderItem = FormSliderItem; // 滑块表单
 import FormItem from '@/components/form/FormItem';
 global.FormItem = FormItem; // 表单项
 

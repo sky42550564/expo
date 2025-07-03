@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 export default function Home() {
-  const form = useForm({ name: '方运江', xx: true, head: 'http://192.168.45.124:5188/uploadFile/20250322/67de2e07707a672acc2c1d92.jpg' }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
+  const form = useForm({ name: '方运江',  xx: 0.1, head: 'http://192.168.45.124:5188/uploadFile/20250322/67de2e07707a672acc2c1d92.jpg' }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
 
   const sumbit = () => { // 
     if (!form.validate()) return;
@@ -15,7 +15,7 @@ export default function Home() {
     <View style={_u(`_pt_50`)}>
       <Div s=''>{form.data}</Div>
       <FormTextItem label='姓名' prop='name' form={form} />
-      <FormSwitchItem label='生日' prop='xx' form={form} />
+      <FormSliderItem label='生日' prop='xx'  form={form} ratio={100} />
       {/* <FormPlainItem label='姓名' prop='name' form={form} />
       <FormNumberItem label='年龄' prop='age' form={form} ratio={100} unit='%' />
       <FormCheckboxItem label='性别' prop='sex' form={form} options={['男', '女']} />

@@ -60,6 +60,8 @@ declare global {
   const FormPickerItem: any; // 选择器
   const FormPlainItem: any; // 值显示
   const FormArrowItem: any; // 剪头表单
+  const FormScoreItem: any; // 评分表单
+  const FormSliderItem: any; // 滑块表单
   const FormItem: any; // 表单项
 }
 export { };
