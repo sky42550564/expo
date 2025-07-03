@@ -45,6 +45,7 @@ declare global {
   const List: any; // 列表
   const Detail: any; // 详情
   const Tabs: any; // tab卡片
+  const Banners: any; // 轮播图
   const ModalPanel: any; // 弹出框
   const ActionPanel: any; // 底部弹出框
   // 表单

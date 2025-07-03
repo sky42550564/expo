@@ -79,6 +79,8 @@ import Detail from '@/components/page/crud/Detail';
 global.Detail = Detail; // 详情
 import Tabs  from '@/components/layout/Tabs';
 global.Tabs  = Tabs ; // tab卡片
+import Banners  from '@/components/layout/Banners';
+global.Banners  = Banners ; // 轮播图
 import ModalPanel  from '@/components/layout/ModalPanel';
 global.ModalPanel  = ModalPanel ; // 弹出框
 import ActionPanel  from '@/components/layout/ActionPanel';

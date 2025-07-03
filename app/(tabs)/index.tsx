@@ -4,6 +4,12 @@ export default function Home() {
   const form = useForm({ name: '方运江' }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
   const [activeTabIndex, setActiveTabIndex] = useState(false);
 
+  const list = [
+    `http://192.168.45.124:5188/uploadFile/20250322/67de2e07707a672acc2c1d92.jpg`,
+    `http://192.168.45.124:5188/uploadFile/20250322/67de2e07707a672acc2c1d92.jpg`,
+    `http://192.168.45.124:5188/uploadFile/20250322/67de2e07707a672acc2c1d92.jpg`,
+  ];
+
   const sumbit = () => { // 
     if (!form.validate()) return;
     const params = form.data;
@@ -15,6 +21,7 @@ export default function Home() {
   const tabs = [{label: '初级会员', badge: 5}, {label: '高级会员', badge: 10}];
   return (
     <View style={_u(`_pt_50`)}>
+      <Banners list={list}></Banners>
       <Div s=''>{form.data}</Div>
       <Div s=''>{activeTabIndex}</Div>
       <Tabs model={[activeTabIndex, setActiveTabIndex]} tabs={tabs} itemWidth={80} lineWidth={20} labelKey='label'></Tabs>
