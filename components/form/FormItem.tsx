@@ -13,6 +13,8 @@ export default ({
   if (['checkbox'].includes(value.type)) return <FormCheckboxItem  {...props} />;
   if (['year', 'month', 'day', 'hour', 'minute', 'second', 'week', 'week-day'].includes(value.type)) return <FormDateItem  {...props} />;
   if (['city'].includes(value.type)) return <FormCityItem  {...props} />;
+  if (['region'].includes(value.type)) return <FormRegionItem  {...props} />;
+  if (['selectTree'].includes(value.type)) return <FormSelectTreeItem  {...props} />;
   if (['picker'].includes(value.type)) return <FormPickerItem  {...props} />;
   if (['slider'].includes(value.type)) return <FormSliderItem  {...props} />;
   if (['score'].includes(value.type)) return <FormScoreItem  {...props} />;

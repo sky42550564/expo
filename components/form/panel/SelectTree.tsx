@@ -25,12 +25,13 @@ export default forwardRef((props: Props, ref) => {
 
   const getList = async (parentId = null) => {
     const params = { pageSize: 1000, parentId };
-    const data = await utils.post(`/list/tb_region`, params);
+    const data = await utils.post(`/list/${props.table}`, params);
     if (data.success) {
-      return data.result.list.map((o: any) => ({ name: o.name, isLeaf: props.leafLevels.includes(o.level), id: o.id }));
+      return data.result.list;
     }
     return null;
   }
+
   const getInitList = async () => {
     const { initValue } = props;
     if (initValue) {
