@@ -92,6 +92,8 @@ import FormImageItem from '@/components/form/FormImageItem';
 global.FormImageItem = FormImageItem; // 图片输入框
 import FormBoolItem from '@/components/form/FormBoolItem';
 global.FormBoolItem = FormBoolItem; // 是否选择器
+import FormSwitchItem from '@/components/form/FormSwitchItem';
+global.FormSwitchItem = FormSwitchItem; // 开关选择器
 import FormRadioItem from '@/components/form/FormRadioItem';
 global.FormRadioItem = FormRadioItem; // 单选输入框
 import FormCheckboxItem from '@/components/form/FormCheckboxItem';
