@@ -80,6 +80,6 @@ export default ({
           <Div s='_fs_12_gray _fx_rc'>{time + '秒之后重试'}</Div>
         }
       </Div>
-    </FormLabel >
+    </FormLabel>
   );
 };

@@ -179,6 +179,6 @@ export default forwardRef((props: Props, ref) => {
           </Div>
         </Div>
       </Div>
-    </Modal >
+    </Modal>
   )
 });

@@ -44,6 +44,7 @@ declare global {
   const MenuTitle: any; // 菜单标题
   const List: any; // 列表
   const Detail: any; // 详情
+  const Tabs: any; // tab卡片
   const ModalPanel: any; // 弹出框
   const ActionPanel: any; // 底部弹出框
   // 表单
