@@ -58,6 +58,7 @@ declare global {
   const FormDateItem: any; // 日期选择器
   const FormCityItem: any; // 城市选择器
   const FormRegionItem: any; // 区域选择器
+  const FormSelectTreeItem: any // 树形选择器
   const FormPickerItem: any; // 选择器
   const FormPlainItem: any; // 值显示
   const FormArrowItem: any; // 剪头表单

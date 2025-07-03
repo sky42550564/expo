@@ -104,6 +104,8 @@ import FormCityItem from '@/components/form/FormCityItem';
 global.FormCityItem = FormCityItem; // 城市选择器
 import FormRegionItem from '@/components/form/FormRegionItem';
 global.FormRegionItem = FormRegionItem; // 区域选择器
+import FormSelectTreeItem from '@/components/form/FormSelectTreeItem';
+global.FormSelectTreeItem = FormSelectTreeItem; // 树形选择器
 import FormPickerItem from '@/components/form/FormPickerItem';
 global.FormPickerItem = FormPickerItem; // 选择器
 import FormPlainItem from '@/components/form/FormPlainItem';

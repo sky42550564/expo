@@ -18,7 +18,7 @@ export default ({
   // 验证规则
   const rules = [];
   if (required !== false) { // 默认是必传，只有传false的时候才不是必传
-    rules.unshift({ required: true, message: `${label}不能为空` });
+    rules.unshift({ required: true, message: `请选择${label}` });
   }
 
   const selectRegionRef = useRef(null);
@@ -30,9 +30,9 @@ export default ({
     selectRegionRef.current.show();
   }
   const onSelect = (addressList: any) => {
-    const value = _.map(addressList, 'name');
-    onChange && onChange(value);
-    form.set(prop, value);
+    const val = _.map(addressList, 'name');
+    onChange && onChange(val);
+    form.set(prop, val);
   }
 
   return (
