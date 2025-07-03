@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 export default function Home() {
-  const form = useForm({ name: '方运江', xx: "67b73779ab5925b13fc9ecdd" }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
+  const form = useForm({ name: '方运江' }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
 
   const sumbit = () => { // 
     if (!form.validate()) return;
@@ -14,9 +14,11 @@ export default function Home() {
   return (
     <View style={_u(`_pt_50`)}>
       <Div s=''>{form.data}</Div>
-      <FormTextItem label='姓名' prop='name' form={form} />
+      <FormTextItem label='姓名' type='phone' prop='phone' form={form} />
       {/* <FormRegionItem label='生日' prop='xx'  form={form} /> */}
-      <FormSelectTreeItem label='类型' prop="xx" table="tb_goods_type" dependParams={[{ name: 'parentGoodsTypeIds', valueKey: 'parentIds' }]} form={form} />
+      <FormVerifyCodeItem label='生日' prop='xx'  form={form} />
+      {/* <FormSelectTreeItem label='类型' prop="xx" table="tb_goods_type" dependParams={[{ name: 'parentGoodsTypeIds', valueKey: 'parentIds' }]} form={form} /> */}
+      
       {/* <FormPlainItem label='姓名' prop='name' form={form} />
       <FormNumberItem label='年龄' prop='age' form={form} ratio={100} unit='%' />
       <FormCheckboxItem label='性别' prop='sex' form={form} options={['男', '女']} />

@@ -116,6 +116,8 @@ import FormScoreItem from '@/components/form/FormScoreItem';
 global.FormScoreItem = FormScoreItem; // 评分表单
 import FormSliderItem from '@/components/form/FormSliderItem';
 global.FormSliderItem = FormSliderItem; // 滑块表单
+import FormVerifyCodeItem from '@/components/form/FormVerifyCodeItem';
+global.FormVerifyCodeItem = FormVerifyCodeItem; // 验证码表单
 import FormItem from '@/components/form/FormItem';
 global.FormItem = FormItem; // 表单项
 

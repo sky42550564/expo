@@ -24,11 +24,11 @@ export default ({
   prefix, // 带有前缀图标的 input
   suffix, // 带有后缀图标的 input
   inputStyle, // FormCell style
+  keyboardType = 'default', // 键盘类型:default|text|password|number|number-pad|decimal-pad|numeric|email-address|phone-pad|url
   onChange, // 监听变化时的回调
 }: any) => {
   // 验证规则
   let _maxLength = maxLength;
-  let keyboardType: any = 'default';
   const rules = (rule ? (_.isArray(rule) ? rule : [rule]) : []).map((o: any) => ({ // 验证规则
     validator: (rule: any, value: any, callback: any) => {
       if (_.isRegExp(o)) {
@@ -84,6 +84,7 @@ export default ({
     });
   } else if (type === 'password') { // 验证密码
     _maxLength = Math.min(50, maxLength || 50);
+    keyboardType = 'password';
     rules.push({
       validator: (rule: any, value: any, callback: any) => {
         // if (value && !/[a-zA-Z]/.test(value)) {

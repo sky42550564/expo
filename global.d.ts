@@ -64,6 +64,7 @@ declare global {
   const FormArrowItem: any; // 剪头表单
   const FormScoreItem: any; // 评分表单
   const FormSliderItem: any; // 滑块表单
+  const FormVerifyCodeItem: any; // 验证码表单
   const FormItem: any; // 表单项
 }
 export { };
