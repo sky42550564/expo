@@ -57,7 +57,7 @@ export default ({
     (pageData.search === true || (_.isArray(pageData.search) && _.isString(pageData.search[0]))) &&
     <Div s='_fx_rc_1'>
       <Div s='_fx_1 _p_6_10'>
-        <Input styles={{ input: _u(`_p_6_10`) }} placeholder='输入关键字搜索' allowClear maxLength={20} value={keyword} onChange={onInputChange} />
+        <Input inputStyle={_u(`_p_6_10`)} placeholder='输入关键字搜索' allowClear maxLength={20} value={keyword} onChange={onInputChange} />
       </Div>
       <Icon icon='AntDesign:search1' color='gray' size={20} onPress={onSearch} s='_mh_6'></Icon>
     </Div >
@@ -70,15 +70,15 @@ export default ({
               actions={list.map((o: any) => ({ text: o.label, key: o.name }))}
               onAction={(item: any) => results[i].name = item.key}
               trigger="onPress">
-              <Div s='_s_100_40'>
+              <Div s='_s_100_40_red'>
                 {results[i].form.label}
               </Div>
             </Tooltip.Menu>
-            <Div>==</Div>
+            <Div>{list}</Div>
           </Div>
         ))
       }
-      <Icon icon='AntDesign:search1' onPress={onSearch} s='_mh_6'></Icon>
+      <Icon icon='AntDesign:search1' color='gray' size={20} onPress={onSearch}></Icon>
     </Div >
   )
 }

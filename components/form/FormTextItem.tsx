@@ -153,7 +153,7 @@ export default ({
             showCount={showCount}
             prefix={prefix}
             suffix={suffix}
-            inputStyle={inputStyle}
+            inputStyle={_u(`_p_6_10`, inputStyle)}
             type={keyboardType}
             value={form.data[prop]}
             onChange={onInputChange}
@@ -165,7 +165,7 @@ export default ({
             allowClear={allowClear}
             maxLength={_maxLength}
             showCount={showCount}
-            inputStyle={inputStyle}
+            inputStyle={_u(`_p_6_10`, inputStyle)}
             rows={rows}
             autoSize={autoSize}
             value={form.data[prop]}
