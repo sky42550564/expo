@@ -100,10 +100,12 @@ import FormBoolItem from '@/components/form/FormBoolItem';
 global.FormBoolItem = FormBoolItem; // 是否选择器
 import FormSwitchItem from '@/components/form/FormSwitchItem';
 global.FormSwitchItem = FormSwitchItem; // 开关选择器
+import FormSelectItem from '@/components/form/FormSelectItem';
+global.FormSelectItem = FormSelectItem; // 列表选择器
 import FormRadioItem from '@/components/form/FormRadioItem';
-global.FormRadioItem = FormRadioItem; // 单选输入框
+global.FormRadioItem = FormRadioItem; // 单选选择器
 import FormCheckboxItem from '@/components/form/FormCheckboxItem';
-global.FormCheckboxItem = FormCheckboxItem; // 多选输入框
+global.FormCheckboxItem = FormCheckboxItem; // 多选选择器
 import FormDateItem from '@/components/form/FormDateItem';
 global.FormDateItem = FormDateItem; // 日期选择器
 import FormCityItem from '@/components/form/FormCityItem';

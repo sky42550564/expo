@@ -6,7 +6,7 @@ import CustomTabBar from '@/components/navigate/CustomTabBar';
 export default function TabLayout() {
   const { store: personalStore } = useRedux('personal');
   useEffect(() => {
-    personalStore.refreshPersonal({ isLogin: true });
+    // personalStore.refreshPersonal({ isLogin: true });
   }, []);
 
   return (

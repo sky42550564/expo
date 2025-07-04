@@ -56,8 +56,9 @@ declare global {
   const FormImageItem: any; // 图片输入框
   const FormSwitchItem: any;  // 开关选择器
   const FormBoolItem: any;  // 是否选择器
-  const FormRadioItem: any; // 单选输入框
-  const FormCheckboxItem: any; // 多选输入框
+  const FormSelectItem: any;  // 列表选择器
+  const FormRadioItem: any; // 单选选择器
+  const FormCheckboxItem: any; // 多选选择器
   const FormDateItem: any; // 日期选择器
   const FormCityItem: any; // 城市选择器
   const FormRegionItem: any; // 区域选择器

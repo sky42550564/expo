@@ -43,31 +43,27 @@ export default forwardRef((props: Props, ref) => {
   let refreshParams: any; // 刷新列表的时候传过来的参数
   const other = props.other;
 
-  const { personal } = useRedux('personal'); // 全局个人信息
-  const { option } = useRedux('option'); // 全局变量
+  const pageData = useComputed(() => { // 页面配置
+    searchOptions = {}; // pageData变化的时候需要重置searchOptions
+    let propsPageData = props.pageData;
+    // 如果传了pageData，则使用pageData作为页面配置，pageData可以是函数
+    propsPageData = (_.isFunction(propsPageData) ? propsPageData({ other }) : propsPageData) || {};
 
-  const [dataList, setDataList] = useState([] as any); // 列表
-  const [totalCount, setTotalCount] = useState(0); // 所有数量
+    if (_.isFunction(propsPageData.fields)) { // 修正fields
+      propsPageData.fields = propsPageData.fields({ other });
+    }
+    return propsPageData;
+  }, []);
+  const sortOptions = pageData.sort; // 排序的参数
+  const pageSize = pageData.pageSize || 20; // 页距
+  let pageNo = 0; // 页号
+
+  const [dataList, setDataList] = useState(pageData.list || props.list || []); // 列表
+  const [totalCount, setTotalCount] = useState(dataList.length); // 所有数量
   const [loading, setLoading] = useState(false); // 列表加载状态
   const [finished, setFinished] = useState(false); // 是否加载完成
   const [selectedCount, setSelectedCount] = useState(0); // 被选中的元素
   const [filterOptions, setFilterOptions] = useState(props.filterOptions); // 过滤的参数
-
-  const getPageData = () => { // 页面配置
-    searchOptions = {}; // pageData变化的时候需要重置searchOptions
-    let propsPageData = props.pageData;
-    // 如果传了pageData，则使用pageData作为页面配置，pageData可以是函数
-    propsPageData = (_.isFunction(propsPageData) ? propsPageData({ personal, option, other }) : propsPageData) || {};
-
-    if (_.isFunction(propsPageData.fields)) { // 修正fields
-      propsPageData.fields = propsPageData.fields({ personal, option, other });
-    }
-    return propsPageData;
-  };
-  const pageData = getPageData();
-  const sortOptions = pageData.sort; // 排序的参数
-  const pageSize = pageData.pageSize || 20; // 页距
-  let pageNo = 0; // 页号
 
   const isSingleSelect = useComputed(() => !!props.onSelect && !props.multi, [props]); // 是否是单选
   const isMultiSelect = useComputed(() => !!props.onSelect && props.multi, [props]); // 是否是多选
@@ -98,7 +94,7 @@ export default forwardRef((props: Props, ref) => {
   const label = useComputed(() => props.label || pageData.label);
   const initSearchKeyword = useComputed(() => props.initSearchKeyword || pageData.initSearchKeyword);  // 初始搜索关键字
   const searchButtons = useComputed(() => { // 搜索按钮定义的按钮
-    return _.filter(pageData?.searchOpers, (o: any) => utils.visible(o.visible, { pageData, personal, option, other }));
+    return _.filter(pageData?.searchOpers, (o: any) => utils.visible(o.visible, { pageData, other }));
   });
 
   const formatStringLookup = (lookup: any) => {
@@ -141,12 +137,12 @@ export default forwardRef((props: Props, ref) => {
     };
     let listParams = pageData.params?.list; // pageData通过{params:{ list: ... }} 传过来的参数
     if (_.isFunction(listParams)) {
-      params = listParams({ params, pageData, personal, option, other });
+      params = listParams({ params, pageData, other });
     } else {
       params = { ...params, ...(listParams || {}) };
     }
     // return console.log('params = ', params);
-    if (pageData.getListPreHook && !(await pageData.getListPreHook({ params, pageData, personal, option, other }))) { // 拉取列表前的判断钩子函数
+    if (pageData.getListPreHook && !(await pageData.getListPreHook({ params, pageData, other }))) { // 拉取列表前的判断钩子函数
       return;
     }
     let data;
@@ -154,7 +150,7 @@ export default forwardRef((props: Props, ref) => {
       data = { success: true, result: { list: [] } };
     } else {
       if (_.isFunction(pageData.apis?.list)) {
-        data = await pageData.apis?.list({ params, pageData, personal, option, other });
+        data = await pageData.apis?.list({ params, pageData, other });
       } else {
         const api = pageData.apis?.list?.url || pageData.apis?.list || `/list/${pageData.table || pageData.name}`;
         data = await utils.post(api, params);
@@ -171,7 +167,7 @@ export default forwardRef((props: Props, ref) => {
     props.onGetList && props.onGetList({ result: data.result, params });
     let list = pageData.testCount ? _.grow(data.result.list, pageData.testCount) : data.result.list;
     if (pageData.listFormat) { // 如果pageData设置了对list过滤的函数，则过滤
-      list = pageData.listFormat(list, { pageNo, params, pageData, personal, option, other });
+      list = pageData.listFormat(list, { pageNo, params, pageData, other });
     }
     setTotalCount(data.result.total);
     pageNo == 1 ? setDataList(list) : setDataList([...dataList, ...list]);
@@ -201,18 +197,18 @@ export default forwardRef((props: Props, ref) => {
     });
   }
 
-  const showDetail = (item: any, options?: any) => { // 进入详情页面
+  const showDetail = (item: any, index: number, options?: any) => { // 进入详情页面
     if (isSingleSelect) {
-      return props.onSelect(item);
+      return props.onSelect(item, index);
     }
     if (isMultiSelect) {
-      return onRadioClick(item);
+      return onRadioClick(item, index);
     }
     if (pageData.showDetail) {
-      return pageData.showDetail({ $: item, pageData: pageData, personal: personal, option: option, other });
+      return pageData.showDetail({ $: item, index, pageData: pageData, other });
     }
     if (props.showDetail) {
-      return props.showDetail({ $: item, pageData: pageData, personal: personal, option: option, other });
+      return props.showDetail({ $: item, index, pageData: pageData, other });
     }
     if (pageData.notShowDetail) { // 不显示详情页面
       return;
@@ -242,7 +238,7 @@ export default forwardRef((props: Props, ref) => {
     refreshList();
   }
 
-  const onRadioClick = (item: any) => { // 多选是点击选择按钮
+  const onRadioClick = (item: any, index: number) => { // 多选是点击选择按钮
     item.selected = !item.selected;
     setSelectedCount(_.filter(dataList, (o: any) => o.selected).length);
     props.onSelectChange && props.onSelectChange(dataList);
@@ -278,8 +274,8 @@ export default forwardRef((props: Props, ref) => {
   const renderItem = ({ item, index, separators }: any) => {
     const _renderItem = pageData.renderItem || props.renderItem;
     return (
-      <View style={[_u(`_fx_r_ac_1 _p_10`)]}>
-        <View style={_u(`_fx_r_1`)}>
+      <Div s='_fx_r_ac_1 _p_10' onPress={modifyButtonVisible && !props.onSelect ? undefined : () => showDetail(item, index)}>
+        <View style={_u(`_fx_r_1 _por`)}>
           {isMultiSelect && <Checkbox s='_self_ac'></Checkbox>}
           {_renderItem ? _renderItem({ item, index, pageData, page }) : <Row {...{ item, index, pageData, page }}></Row>}
         </View>
@@ -287,11 +283,11 @@ export default forwardRef((props: Props, ref) => {
         {
           (modifyButtonVisible || removeButtonVisible) &&
           <View style={_u(`_fx_c _ml_6`)}>
-            {modifyButtonVisible && <Icon icon='AntDesign:delete' size='10' onPress={() => removeItem(item)}></Icon>}
-            {removeButtonVisible && <Icon icon='FontAwesome6:edit' size='10' style={_u(`_mt_20`)} onPress={() => showDetail(item)}></Icon>}
+            {removeButtonVisible && <Icon icon='AntDesign:delete' size='10' onPress={() => removeItem(item)}></Icon>}
+            {modifyButtonVisible && <Icon icon='FontAwesome6:edit' size='10' style={_u(`_mt_20`)} onPress={() => showDetail(item, index)}></Icon>}
           </View>
         }
-      </View>
+      </Div>
     );
   }
   // 显示分割线
