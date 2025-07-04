@@ -3,6 +3,7 @@ import React from 'react';
 import { useState, forwardRef, useImperativeHandle } from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
 import { SearchBar } from '@ant-design/react-native';
+import Search from './Search';
 import Item from './Item';
 
 type Props = PropsWithChildren<{
@@ -63,7 +64,7 @@ export default forwardRef((props: Props, ref) => {
   const [loading, setLoading] = useState(false); // 列表加载状态
   const [finished, setFinished] = useState(false); // 是否加载完成
   const [selectedCount, setSelectedCount] = useState(0); // 被选中的元素
-  const [filterOptions, setFilterOptions] = useState(props.filterOptions); // 过滤的参数
+  const [filterOptions, setFilterOptions] = useState(pageData.filterOptions || props.filterOptions); // 过滤的参数
 
   const isSingleSelect = useComputed(() => !!props.onSelect && !props.multi, [props]); // 是否是单选
   const isMultiSelect = useComputed(() => !!props.onSelect && props.multi, [props]); // 是否是多选
@@ -97,6 +98,15 @@ export default forwardRef((props: Props, ref) => {
     return _.filter(pageData?.searchOpers, (o: any) => utils.visible(o.visible, { pageData, other }));
   });
 
+  // 从Search中设置searchOptions
+  const setSearchOptions = (search: any) => {
+    if (pageData.list || props.list) { // 如果为静态数据，则只是过滤
+      setFilterOptions(search);
+    } else {
+      searchOptions = search;
+      refreshList();
+    }
+  }
   const formatStringLookup = (lookup: any) => {
     if (_.isString(lookup)) { // 解析简化的lookup
       return lookup.split(',').reduce((r: any, o: any) => {
@@ -311,7 +321,7 @@ export default forwardRef((props: Props, ref) => {
     if (props.hideTop) return null;
     const _renderHeader = pageData.renderHeader || props.renderHeader;
     return _renderHeader ? _renderHeader(scope) : (
-      <SearchBar cancelText='搜索'></SearchBar>
+      pageData.search && <Search {...{ pageData, filterFields: props.filterFields, initSearchKeyword, setSearchOptions }}></Search>
     );
   }
   // 显示尾部
