@@ -16,7 +16,8 @@ export default ({
   valueKey, // 获取的字段，默认为数字下标 ([0,1])，$s: 字符串下标(['0','1'])，$: 直接使用label为值 如: ['汉族', '苗族']：值为：汉族，苗族，'，如果[{ id: 1, name: '汉族' }]，可设置为id
   labelKey, // 显示的字段，默认为数组的一项，如'汉族'，如果[{ id: 1, name: '汉族' }]，可设置为name
   width = 150, // 宽度
-  height = 200, // 搞=高度
+  height = 200, // 高度
+  hasSearch = false, // 是否有搜索
   onChange, // 监听变化时的回调
 }: any) => {
   // 验证规则
@@ -64,8 +65,8 @@ export default ({
 
   const renderList = () => {
     return (
-      <Div style={_u(`_s_${width}_${height}`)} onPress={(event: any) => event.stopPropagation()}>
-        <List pageData={pageData} onSelect={onSelect}></List>
+      <Div style={_u(`_s_${width}_${height} _por`)} onPress={(event: any) => event.stopPropagation()}>
+        <List pageData={pageData} onSelect={onSelect} hideTop={!hasSearch}></List>
       </Div>
     )
   }
