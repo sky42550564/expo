@@ -5,19 +5,14 @@ export default ({
   children,
   fontStyle,
 }: any) => {
-  if (!children) return children;
-  if (_.isArray(children)) {
-    return children.map((o: any, i: number) => {
-      if (React.isValidElement(o)) return o;
-      if (_.isPlainObject(o))
-        o = JSON.stringify(o);
-      if (_.isString(o)) return <Text key={i} style={fontStyle}>{o}</Text>;
-      return o;
-    });
-  }
-  if (React.isValidElement(children)) return children;
-  if (_.isPlainObject(children))
-    children = JSON.stringify(children);
-  if (_.isString(children)) return <Text style={fontStyle}>{children}</Text>;
-  return children;
+  return React.Children.map(children, (child: any) => {
+    if (React.isValidElement(child)) {
+      let props: any = child.props || {};
+      const style = { ...fontStyle, ...props?.style };
+      return React.cloneElement(child, { ...props, style } as any);
+    }
+    if (_.isPlainObject(child)) child = JSON.stringify(child);
+    if (_.isString(child)) return <Text style={fontStyle}>{child}</Text>;
+    return child;
+  });
 };

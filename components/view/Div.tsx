@@ -7,8 +7,9 @@ import MaskedView from '@react-native-masked-view/masked-view';
 // 背景渐变： <Div s="_bc_red_blue"></Div>
 // 字体渐变： <Div s="_c_red_blue"></Div>
 type Props = PropsWithChildren<{
-  s?: string; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
-  style?: object, // 样式
+  s?: any; // 样式，式类格，必须遵循@/utils/libs/uno.js的定义
+  style?: any, // 样式
+  fontStyle?: any, // 文字样式
   onPress?: (event: GestureResponderEvent) => void; // 点击事件
 }>;
 
@@ -88,7 +89,7 @@ export default function Div({
   delete st.colors;
   delete st.bcolors;
   const { color, fontSize, fontWeight, lineHeight, ..._otherStyle } = st;
-  const fontStyle = { color, fontSize, lineHeight: lineHeight * 0.7, fontWeight }; // 字体样式
+  const fontStyle = { color, fontSize, lineHeight: lineHeight && (lineHeight * 0.7), fontWeight }; // 字体样式
   const { flexDirection, justifyContent, alignItems, flexWrap, gap, ...otherStyle } = _otherStyle;
   const childStyle = { flexDirection, justifyContent, alignItems, flexWrap, gap };
   const containerStyle = (colors?.length > 1 || bcolors?.length > 1) ? otherStyle : _otherStyle;

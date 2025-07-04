@@ -9,9 +9,9 @@ import { View, Image, ImageBackground, Text, TouchableOpacity } from 'react-nati
 type Props = PropsWithChildren<{
   onPress?: (event: GestureResponderEvent) => void; // 点击事件
   url: any; // icon
-  s?: string; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
+  s?: any; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
+  style?: any, // 样式
   mode?: string; // 填充类型：stretch, cover, contain, width, height，如果是width的时候，style一定要指定width, 如果是height的时候，style一定要指定height
-  style?: object, // 样式
   onError?: any, // 加载错误
 }>;
 

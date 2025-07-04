@@ -13,8 +13,8 @@ import * as icons from '@expo/vector-icons';
 */
 type Props = PropsWithChildren<{
   onPress?: (event: GestureResponderEvent) => void; // 点击事件
-  s?: string; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
-  style?: object, // 样式
+  s?: any; // 样式，类格式，必须遵循@/utils/libs/uno.js的定义
+  style?: any, // 样式
   icon: any; // icon
   size?: string | number; // icon
   color?: string; // icon

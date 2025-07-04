@@ -975,9 +975,7 @@ const _us = (...list) => {
   list = _.flatten(list).filter(o => o && o !== true);
   for (const item of list) {
     if (_.isObject(item)) {  // 处理对象格式如：{width:'100px'}
-      for (const key in item) {
-        style[key] = item[key];
-      }
+      style = { ...style, ..._.omitNil(item) };
     } else {
       if (item.includes(':') && !item.includes('http:') && !item.includes('https:')) { // 处理'width:100px;height:100px'格式
         const lines = item.split(';').filter(Boolean);
@@ -986,7 +984,7 @@ const _us = (...list) => {
           style[ss[0]] = ss[1];
         }
       } else { // 处理uno格式
-        const items = item.split(' ').filter(Boolean).map(o => o.replace(/#/g, '')); // 去除颜色的#号，因为在uno.js中会添加上
+        const items = item.split(' ').filter(Boolean);
         for (const item of items) {
           const rule = _.find(rules, o => _.isRegExp(o[0]) ? o[0].test(item) : item === o[0]);
           if (rule) {
