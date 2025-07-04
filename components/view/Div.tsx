@@ -10,6 +10,7 @@ type Props = PropsWithChildren<{
   s?: any; // 样式，式类格，必须遵循@/utils/libs/uno.js的定义
   style?: any, // 样式
   fontStyle?: any, // 文字样式
+  button: boolean, // 不添加onPress的时候也使用TouchableOpacity
   onPress?: (event: GestureResponderEvent) => void; // 点击事件
 }>;
 
@@ -80,6 +81,7 @@ export default function Div({
   children, // 子组件
   s, // 样式，类格式
   style, // 样式
+  button, // 不添加onPress的时候也使用TouchableOpacity
 }: Props) {
   const st = _us(s, style);
   const angle = st.angle;
@@ -97,9 +99,9 @@ export default function Div({
     containerStyle.overflow = 'hidden';
   }
 
-  if (onPress) {
+  if (onPress || button) {
     return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={containerStyle}>
+      <TouchableOpacity activeOpacity={0.6} style={containerStyle}>
         <Cell {...{ fontStyle, childStyle, angle, colors, bcolors, children }}></Cell>
       </TouchableOpacity>
     )

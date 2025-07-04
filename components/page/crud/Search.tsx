@@ -1,4 +1,5 @@
-import { Input, Tooltip } from '@ant-design/react-native';
+import { Input, Tooltip, Button } from '@ant-design/react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 export default ({
   pageData, // 页面配置
@@ -70,9 +71,9 @@ export default ({
               actions={list.map((o: any) => ({ text: o.label, key: o.name }))}
               onAction={(item: any) => results[i].name = item.key}
               trigger="onPress">
-              <Div s='_s_100_40_red'>
-                {results[i].form.label}
-              </Div>
+                <TouchableOpacity style={_u(`_s_100_40_red`)}>
+                  <Text>{results[i].form.label}</Text>
+                </TouchableOpacity>
             </Tooltip.Menu>
             <Div>{list}</Div>
           </Div>
