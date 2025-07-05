@@ -3,6 +3,7 @@ import type { FormProps } from '@ant-design/react-native';
 import { Button, Form, Input, Tooltip } from '@ant-design/react-native';
 import { FloatingAction } from "react-native-floating-action";
 
+
 export default function Home() {
   const pageData = {
     table: 'student',
@@ -11,10 +12,6 @@ export default function Home() {
       [ // 多个用下拉框选择
         { label: '姓名', name: 'name', value: { type: 'text', full: false } },
         { label: '手机号码', name: 'phone', value: { type: 'text' } },
-      ],
-      [ // 多个用下拉框选择
-        { label: '姓名', name: 'name1', value: { type: 'text', full: false } },
-        { label: '手机号码', name: 'phone1', value: { type: 'text' } },
       ],
     ],
     fields: [

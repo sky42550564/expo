@@ -101,7 +101,7 @@ export default function Div({
 
   if (onPress || button) {
     return (
-      <TouchableOpacity activeOpacity={0.6} style={containerStyle}>
+      <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={containerStyle}>
         <Cell {...{ fontStyle, childStyle, angle, colors, bcolors, children }}></Cell>
       </TouchableOpacity>
     )

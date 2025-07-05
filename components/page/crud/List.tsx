@@ -2,7 +2,6 @@ import type { PropsWithChildren } from 'react';
 import React from 'react';
 import { useState, forwardRef, useImperativeHandle } from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
-import { SearchBar } from '@ant-design/react-native';
 import Search from './Search';
 import Item from './Item';
 
@@ -37,6 +36,7 @@ type Props = PropsWithChildren<{
   renderHeader?: any, // 显示头部
   renderFooter?: any, // 显示尾部
 }>;
+
 
 export default forwardRef((props: Props, ref) => {
   // 普通全局变量
@@ -350,10 +350,10 @@ export default forwardRef((props: Props, ref) => {
       <FlatList
         data={dataList}
         renderItem={renderItem}
-        ItemSeparatorComponent={renderSeparator}
-        ListEmptyComponent={renderEmpty}
-        ListHeaderComponent={renderHeader}
-        ListFooterComponent={renderFooter}
+        ItemSeparatorComponent={useMemo(renderSeparator)}
+        ListEmptyComponent={useMemo(renderEmpty)}
+        ListHeaderComponent={useMemo(renderHeader)}
+        ListFooterComponent={useMemo(renderFooter)}
       />
       {createButtonVisible && <Icon icon='AntDesign:pluscircle' color='#2D8CF0' size={50} s='_poa_b20_r20' onPress={() => showCreate()}></Icon>}
       {

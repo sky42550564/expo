@@ -69,7 +69,7 @@ export default ({
       <Icon icon='AntDesign:search1' color='gray' size={20} onPress={onSearch} s='_mh_6'></Icon>
     </Div >
     ||
-    <Div s='_fx_1_r_ac'>
+    <Div s='_fx_r_ac'>
       <Div s='_fx_1_c'>
         {
           _.map(pageData.search, (list: any, i: any) => (
