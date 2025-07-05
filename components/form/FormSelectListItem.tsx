@@ -16,6 +16,8 @@ export default ({
   valueKey, // 获取的字段，默认为数字下标 ([0,1])，$s: 字符串下标(['0','1'])，$: 直接使用label为值 如: ['汉族', '苗族']：值为：汉族，苗族，'，如果[{ id: 1, name: '汉族' }]，可设置为id
   labelKey, // 显示的字段，默认为数组的一项，如'汉族'，如果[{ id: 1, name: '汉族' }]，可设置为name
   width = 150, // 宽度
+  height = 200, // 高度
+  hasSearch = false, // 是否有搜索
   onChange, // 监听变化时的回调
 }: any) => {
   // 验证规则
@@ -23,6 +25,8 @@ export default ({
   if (required !== false) { // 默认是必传，只有传false的时候才不是必传
     rules.unshift({ required: true, message: `${label}不能为空` });
   }
+
+  const tooltipRef = useRef(null);
 
   const getValue = (v: any, k: any) => {
     if (valueKey === '$') {
@@ -43,23 +47,38 @@ export default ({
     return labelKey ? item[labelKey] : item;
   }, [form.data[prop]]);
 
-  const onSelect = (value: any) => {
+  const pageData = useComputed(() => {
+    return {
+      list: options,
+      renderItem: ({ item }: any) => {
+        return <Text style={_u(`_fx_1 _tc`)}>{labelKey ? item[labelKey] : item}</Text>
+      }
+    }
+  }, []);
+
+  const onSelect = (v: any, k: any) => {
+    const value = getValue(v, k);
     onChange && onChange(value);
     form.set(prop, value);
+    tooltipRef.current.hide();
+  }
+
+  const renderList = () => {
+    return (
+      <Div style={_u(`_s_${width}_${height} _por`)} onPress={(event: any) => event.stopPropagation()}>
+        <List pageData={pageData} onSelect={onSelect} hideTop={!hasSearch}></List>
+      </Div>
+    )
   }
 
   return (
     <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled }}>
-      <Tooltip.Menu
-        actions={options.map((v: any, k: any) => ({ text: labelKey ? v[labelKey] : v, key: getValue(v, k) }))}
-        onAction={(item: any) => onSelect(item.key)}
-        placement="bottom-start"
-        trigger="onPress">
-        <TouchableOpacity style={_u(`_s_${width}_30 _fx_1 _fx_rb`)}>
+      <Tooltip ref={tooltipRef} content={renderList()} trigger='onPress'>
+        <TouchableOpacity style={_u(`_fx_1 _h_30 _fx_rb`)}>
           <Div s={`_fs_14 _ml_8px ${showLabel ? `` : `_c_c0c4cc`}`}>{showLabel ? showLabel : (placeholder || `请选择${label}`)}</Div>
-          {!disabled && <Div s='_arrow _mr_10'></Div>}
+          {!disabled && <Div s='_arrow'></Div>}
         </TouchableOpacity>
-      </Tooltip.Menu>
+      </Tooltip>
     </FormLabel>
   );
 };
