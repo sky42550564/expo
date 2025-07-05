@@ -5,13 +5,13 @@ export default ({
   pageData, // 页面配置
   filterFields, // 设置过滤函数
   initSearchKeyword = '', // 初始关键字
-  itemStyle = _u(`_w_315`), // 样式
   setSearchOptions, // 设置搜索选项的回调
 }: any) => {
   const [keyword, setKeyword] = useState(initSearchKeyword);
   const [results, setResults] = useState(_.isArray(pageData.search) && !_.isString(pageData.search[0]) ? _.map(pageData.search, (list: any) => ({ // 接收结果
     name: '',
-    form: list.reduce((r: any, v: any) => ({ ...r, [v.name]: '' }), {}),
+    label: '',
+    form: useForm(list.reduce((r: any, v: any) => ({ ...r, [v.name]: '' }), {})),
   })) : []);
 
   const onInputChange = (e: any) => {
@@ -41,17 +41,23 @@ export default ({
     } else {
       for (const i in results) {
         const item = results[i];
-        if (item.name && item.form[item.name]) {
-          const searchItem = _.find(pageData.search[i], o => o.name === item.name);
+        const value = item.form.data[item.name];
+        if (item.name && value) {
+          const searchItem = _.find(pageData.search[i], (o: any) => o.name === item.name);
           if (_.get(searchItem, 'value.type') === 'text' && !_.get(searchItem, 'value.full')) {
-            search[item.name] = `/${item.form[item.name]}/`; // 如果不是全文匹配的用模糊搜索
+            search[item.name] = `/${value}/`; // 如果不是全文匹配的用模糊搜索
           } else {
-            search[item.name] = item.form[item.name];
+            search[item.name] = value;
           }
         }
       }
     }
     setSearchOptions(search);
+  }
+
+  const renderForm = (item: any, i: number) => {
+    if (!item) return null;
+    return <FormItem label={item.label} prop={item.name} value={item.value} field={item} form={results[i].form} required={false} noLabel />
   }
 
   return (
@@ -63,23 +69,35 @@ export default ({
       <Icon icon='AntDesign:search1' color='gray' size={20} onPress={onSearch} s='_mh_6'></Icon>
     </Div >
     ||
-    <Div s='_fx_r_1 _mv_6'>
-      {
-        _.map(pageData.search, (list: any, i: any) => (
-          <Div key={i} s={['_fx_r', itemStyle]}>
-            <Tooltip.Menu
-              actions={list.map((o: any) => ({ text: o.label, key: o.name }))}
-              onAction={(item: any) => results[i].name = item.key}
-              trigger="onPress">
-                <TouchableOpacity style={_u(`_s_100_40_red`)}>
-                  <Text>{results[i].form.label}</Text>
+    <Div s='_fx_1_r_ac'>
+      <Div s='_fx_1_c'>
+        {
+          _.map(pageData.search, (list: any, i: any) => (
+            <Div key={i} s={['_fx_1_rc _hm_50']}>
+              <Tooltip.Menu
+                actions={list.map((o: any, k: any) => ({ text: o.label, key: o.name }))}
+                onAction={(item: any) => { setResults((prev: any) => { prev[i].name = item.key; prev[i].label = item.text; return [...prev] }) }}
+                trigger="onPress">
+                <TouchableOpacity style={_u(`_s_100_30 _fx_rc`)}>
+                  {
+                    results[i].label &&
+                    <Div s='_fx_rb _fs_14'>
+                      <Text>{results[i].label}：</Text>
+                      <Icon icon='AntDesign:closecircleo' size={12} color='gray' onPress={() => { setResults((prev: any) => { prev[i].name = ''; prev[i].label = ''; return [...prev] }) }}></Icon>
+                    </Div>
+                    ||
+                    <Text style={_u(`_fs_14_gray`)}>请选择</Text>
+                  }
                 </TouchableOpacity>
-            </Tooltip.Menu>
-            <Div>{list}</Div>
-          </Div>
-        ))
-      }
-      <Icon icon='AntDesign:search1' color='gray' size={20} onPress={onSearch}></Icon>
+              </Tooltip.Menu>
+              <Div s='_fx_1'>
+                {renderForm(_.find(list, (o: any) => results[i].name === o.name), i)}
+              </Div>
+            </Div>
+          ))
+        }
+      </Div>
+      <Icon icon='AntDesign:search1' color='gray' size={20} onPress={onSearch} s='_mh_10'></Icon>
     </Div >
   )
 }

@@ -1,22 +1,50 @@
-import { View } from 'react-native';
+import { View, ScrollView, Image, Text } from 'react-native';
+import type { FormProps } from '@ant-design/react-native';
+import { Button, Form, Input, Tooltip } from '@ant-design/react-native';
+import { FloatingAction } from "react-native-floating-action";
 
 export default function Home() {
-  const form = useForm({ name: '方运江' }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
-  const [activeTabIndex, setActiveTabIndex] = useState(false);
+  const pageData = {
+    table: 'student',
+    label: '人员',
+    search: [
+      [ // 多个用下拉框选择
+        { label: '姓名', name: 'name', value: { type: 'text', full: false } },
+        { label: '手机号码', name: 'phone', value: { type: 'text' } },
+      ],
+      [ // 多个用下拉框选择
+        { label: '姓名', name: 'name1', value: { type: 'text', full: false } },
+        { label: '手机号码', name: 'phone1', value: { type: 'text' } },
+      ],
+    ],
+    fields: [
+      {
+        label: '头像',
+        name: 'head',
+        value: { type: 'image' },
+        list: { image: true, style: _u(`_r_50 _of_hidden`), click: () => $alert('123') }, // 列表配置
+      },
+      {
+        label: '姓名',
+        name: 'name',
+        value: { type: 'text' },
+      },
+      {
+        label: '手机号码',
+        name: 'phone',
+        value: { type: 'phone' },
+      },
+      {
+        label: '性别',
+        name: 'sex',
+        value: { type: 'radio', options: ['男', '女'], default: 0 },
+      }
+    ]
+  };
 
-
-  const sumbit = () => { // 
-    if (!form.validate()) return;
-    const params = form.data;
-    console.log('=================params', params);
-  }
 
   return (
-    <View style={_u(`_pt_50`)}>
-      <Div s='_mt_40'>{form.data}</Div>
-       <FormTextItem label='姓名'  prop='name' form={form} />
-       <FormSelectItem label='性别' options={['  男  ','  女  ']} prop='xx' form={form} />
-      <Div onPress={sumbit} s='_button_white_warning_error_v_335_42_fs14_r _of_hidden'>提交</Div>
-    </View>
+    <List pageData={pageData}></List>
+   
   );
 }
