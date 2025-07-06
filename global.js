@@ -36,6 +36,10 @@ import useWatch from './utils/react-native/useWatch.js';
 global.useWatch = useWatch; // 属性监听
 import useComputed from './utils/react-native/useComputed.js';
 global.useComputed = useComputed; // 计算属性
+import useMounted from './utils/react-native/useMounted.js';
+global.useMounted = useMounted; // 生命周期加载
+import useWillUnmount from './utils/react-native/useWillUnmount.js';
+global.useWillUnmount = useWillUnmount; // 生命周期卸载
 import useForm from './utils/react-native/useForm.js';
 global.useForm = useForm; // 表单操作
 import Page from './utils/react-native/Page.tsx';

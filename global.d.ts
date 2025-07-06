@@ -19,6 +19,8 @@ declare global {
   const useRedux: any;  // 全局属性
   const useWatch: any; // 属性监听
   const useComputed: any; // 计算属性
+  const useMounted: any; // 生命周期加载
+  const useWillUnmount: any; // 生命周期卸载
   const useForm: any; // 表单操作
   const Page: any;
   // 路由操作
