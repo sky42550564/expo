@@ -64,7 +64,7 @@ export default ({
     (pageData.search === true || (_.isArray(pageData.search) && _.isString(pageData.search[0]))) &&
     <Div s='_fx_rc_1'>
       <Div s='_fx_1 _p_6_10'>
-        <Input inputStyle={_u(`_p_6_10`)} placeholder='输入关键字搜索' allowClear maxLength={20} value={keyword} onChange={onInputChange} />
+        <Input inputStyle={_u(`_p_6_10 _bo _br_4`)} placeholder='输入关键字搜索' allowClear maxLength={20} value={keyword} onChange={onInputChange} />
       </Div>
       <Icon icon='AntDesign:search1' color='gray' size={20} onPress={onSearch} s='_mh_6'></Icon>
     </Div >

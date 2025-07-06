@@ -76,18 +76,24 @@ export default forwardRef((props: Props, ref) => {
   const hasInitialList = useComputed(() => pageData.list || props.list, [props]); // 是否有初始的列表
   const emptyText = useComputed(() => pageData.emptyText || props.emptyText, [props]); // 空列表的提示语
   const showList = useComputed(() => { // 显示列表
-    if (!filterOptions) { // 格式：{ 'name|phone': '/123/', 'age': '/123/' }
-      return dataList;
+    if (!_.size(filterOptions)) { // 格式：{ 'name|phone': '/123/', 'age': '/123/' }
+      return [...dataList];
     }
     return _.filter(dataList, (o: any) => {
       for (const key in filterOptions) {
         const v = filterOptions[key];
         if (v === '//' || !v) return true;
         const keyList = key.split('|');
-        for (const k of keyList) {
+        if (keyList) { // 处理没有设置pageData.fields的情况
+          if (/^\/.*\/$/.test(v) && utils._r(v.slice(1, -1)).test(JSON.stringify(o))) return true;
+          else if (v === o) return true;
+          return false;
+        }
+        for (const k of keyList as any) {
           if (/^\/.*\/$/.test(v) && utils._r(v.slice(1, -1)).test(o[k])) return true;
           else if (v === o[k]) return true;
         }
+        return false;
       }
     });
   }, [dataList, filterOptions]);
@@ -348,7 +354,7 @@ export default forwardRef((props: Props, ref) => {
   return (
     <View style={_u(`_full`)}>
       <FlatList
-        data={dataList}
+        data={showList}
         renderItem={renderItem}
         ItemSeparatorComponent={useMemo(renderSeparator)}
         ListEmptyComponent={useMemo(renderEmpty)}

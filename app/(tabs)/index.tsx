@@ -1,47 +1,27 @@
-import { View, ScrollView, Image, Text } from 'react-native';
-import type { FormProps } from '@ant-design/react-native';
-import { Button, Form, Input, Tooltip } from '@ant-design/react-native';
-import { FloatingAction } from "react-native-floating-action";
-
+import { Text, View } from 'react-native';
 
 export default function Home() {
+  const form = useForm({ name: '方运江' }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
+  const [activeTabIndex, setActiveTabIndex] = useState(false);
+
+
+  const sumbit = () => { // 
+    if (!form.validate()) return;
+    const params = form.data;
+    console.log('=================params', params);
+  }
+
   const pageData = {
-    table: 'student',
-    label: '人员',
-    search: [
-      [ // 多个用下拉框选择
-        { label: '姓名', name: 'name', value: { type: 'text', full: false } },
-        { label: '手机号码', name: 'phone', value: { type: 'text' } },
-      ],
-    ],
-    fields: [
-      {
-        label: '头像',
-        name: 'head',
-        value: { type: 'image' },
-        list: { image: true, style: _u(`_r_50 _of_hidden`), click: () => $alert('123') }, // 列表配置
-      },
-      {
-        label: '姓名',
-        name: 'name',
-        value: { type: 'text' },
-      },
-      {
-        label: '手机号码',
-        name: 'phone',
-        value: { type: 'phone' },
-      },
-      {
-        label: '性别',
-        name: 'sex',
-        value: { type: 'radio', options: ['男', '女'], default: 0 },
-      }
-    ]
+    list: ['男', '女'],
+    search: true,
+    renderItem: ({ item }: any) => {
+      return <Div>{item}</Div>
+    }
   };
 
-
   return (
-    <List pageData={pageData}></List>
-   
+    <View style={_u(`_fx_1 _pt_50`)}>
+      <List pageData={pageData}></List>
+    </View>
   );
 }
