@@ -26,8 +26,6 @@ export default ({
   onChange,
   model,
 }: Props) => {
-  const [state, setState] = useState({ activeColor, activeTabIndex: model?.[0] || 0 });
-
   const getValue = (v: any, k: any) => {
     if (valueKey === '$') {
       return v; // 返回值
@@ -41,12 +39,20 @@ export default ({
     return +k;
   };
 
+  const [state, setState] = useState({ activeColor, activeTabIndex: model ? model[0] : getValue(tabs[0], 0) });
+
   const changeTab = (value: any, item: any, index: number) => {
     setState((prev: any) => ({ ...prev, activeTabIndex: value }));
     onChange && onChange(value, item, index);
     model?.[1] && model?.[1](value);
   }
 
+  useWatch(() => {
+    if (tabs) {
+      state.activeTabIndex = getValue(tabs[0], 0);
+      setState({...state});
+    }
+  }, [tabs], false);
 
   return (
     <Div s='_wf_32 _por'>

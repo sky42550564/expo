@@ -21,7 +21,7 @@ export default forwardRef((props: Props, ref) => {
 
   const listRef = useRef(null);
   const [state, setState] = useState({
-    tabs: [], // tabs
+    tabs: null as any, // tabs
     currentTab: null as any, // 当前Tab
     activeTabValue: null as any, // 当前激活页面
   });
@@ -40,7 +40,7 @@ export default forwardRef((props: Props, ref) => {
 
   // 刷新表格
   const refreshList = () => {
-    // utils.until(() => listRef.current, () => listRef.current.refreshList());
+    utils.until(() => listRef.current, () => listRef.current.refreshList());
   }
 
   // 如果是数字的需要转化为数字
@@ -66,22 +66,28 @@ export default forwardRef((props: Props, ref) => {
     state.activeTabValue = list[0]?.value;
     state.currentTab = list[0];
     state.tabs = list;
-    console.log('=================list', list);
-    refreshList();
+    setState({ ...state });
   }
   const onTabChange = (value: any, item: any) => {
     state.activeTabValue = value;
     state.currentTab = item;
+    setState({ ...state });
   }
+
   // 暴露出刷新表格的方法
   pageData.refreshTabTable = refreshList;
 
-  useEffect(() => {
+  useWatch(() => {
     getTabs();
-  }, [pageData]);
+  }, [pageData], true);
+
+  useWatch(() => {
+    refreshList();
+  }, [state.activeTabValue], false);
 
   useImperativeHandle(ref, () => { refreshList }); // 暴露函数组件内部方法
 
+  if (!state.tabs) return null
   return (
     <Div s='_full _fx_cc _pt_20'>
       <Tabs tabs={state.tabs} valueKey='value' labelKey='label' onChange={onTabChange}></Tabs>

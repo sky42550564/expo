@@ -144,13 +144,13 @@
 		],
 		"description": "computed缩写"
 	},
-	"watch($xx, (cur, pre) => {})": {
+	"useWatch($xx, () => {})": {
 		"prefix": "vwatch",
 		"scope": "javascript,javascriptreact,typescriptreact",
 		"body": [
-			"watch($1, (cur, pre) => {",
+			"useWatch(() => {",
 			"\t$2",
-			"}, { immediate: true, deep: true });",
+			"}, [$1], false);",
 		],
 		"description": "watch缩写"
 	},

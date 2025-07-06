@@ -34,12 +34,12 @@ type Props = PropsWithChildren<{
   renderHeader?: any, // 显示头部
   renderFooter?: any, // 显示尾部
 }>;
-
 export default forwardRef((props: Props, ref) => {
   // 普通全局变量
   let searchOptions = {}; // 搜索的参数
   let refreshParams: any; // 刷新列表的时候传过来的参数
   const other = props.other;
+console.log('=================params', props.params);
 
   const pageData = useComputed(() => { // 页面配置
     searchOptions = {}; // pageData变化的时候需要重置searchOptions

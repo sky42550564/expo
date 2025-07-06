@@ -32,7 +32,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <TabsPage pageData={pageData} ref={listRef}>
+    <TabsPage pageData={pageData} ref={listRef} renderItem={({item})=><Div s=''>{item}</Div>}>
     </TabsPage >
   );
 }
