@@ -85,7 +85,7 @@ export default forwardRef((props: Props, ref) => {
     refreshList();
   }, [state.activeTabValue], false);
 
-  useImperativeHandle(ref, () => { refreshList }); // 暴露函数组件内部方法
+  useImperativeHandle(ref, () => ({ refreshList })); // 暴露函数组件内部方法
 
   if (!state.tabs) return null
   return (

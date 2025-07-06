@@ -28,11 +28,11 @@ export default function HomeScreen() {
   };
   const refreshList = async () => {
     // 刷新
-    listRef.value && listRef.value.refreshList();
+    listRef.current && listRef.current.refreshList();
   };
 
   return (
-    <TabsPage pageData={pageData} ref={listRef} renderItem={({item})=><Div s=''>{item}</Div>}>
+    <TabsPage pageData={pageData} ref={listRef} renderItem={({item})=><Div s='' onPress={refreshList}>{item}</Div>}>
     </TabsPage >
   );
 }
