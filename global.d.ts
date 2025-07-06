@@ -42,7 +42,8 @@ declare global {
   const MenuGrid: any; // 网格菜单
   const MenuItem: any; // 列表菜单
   const MenuTitle: any; // 菜单标题
-  const List: any; // 列表
+  const ListPage: any; // 列表页面
+  const TabsPage: any; // tabs页面
   const Detail: any; // 详情
   const Tabs: any; // tab卡片
   const Banners: any; // 轮播图

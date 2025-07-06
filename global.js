@@ -73,8 +73,10 @@ import MenuItem from '@/components/menu/MenuItem';
 global.MenuItem = MenuItem; // 列表菜单
 import MenuTitle from '@/components/menu/MenuTitle';
 global.MenuTitle = MenuTitle; // 菜单标题
-import List from '@/components/page/crud/List';
-global.List = List; // 列表
+import ListPage from '@/components/page/crud/ListPage';
+global.ListPage = ListPage; // 列表页面
+import TabsPage from '@/components/page/crud/TabsPage';
+global.TabsPage = TabsPage; // tabs页面
 import Detail from '@/components/page/crud/Detail';
 global.Detail = Detail; // 详情
 import Tabs  from '@/components/layout/Tabs';

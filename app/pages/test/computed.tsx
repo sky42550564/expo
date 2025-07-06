@@ -14,7 +14,7 @@ export default function Home() {
   }, [firstName, lastName]);
   return (
     <ScrollView style={_u(`_fx_1 _pb_120`)}>
-      {/* <List pageData={pageData}></List> */}
+      {/* <ListPage pageData={pageData}></ListPage> */}
       <FormTextItem label='姓：' model={[lastName, setLastName]} />
       <FormTextItem label='名：' model={[firstName, setFirstName]} />
       <FormPlainItem label='全名：'>{fullName}</FormPlainItem>

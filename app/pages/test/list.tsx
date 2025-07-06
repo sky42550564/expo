@@ -41,7 +41,7 @@ export default function Home() {
 
 
   return (
-    <List pageData={pageData}></List>
+    <ListPage pageData={pageData}></ListPage>
    
   );
 }

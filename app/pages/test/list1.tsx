@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <View style={_u(`_fx_1 _pt_50`)}>
-      <List pageData={pageData}></List>
+      <ListPage pageData={pageData}></ListPage>
     </View>
   );
 }

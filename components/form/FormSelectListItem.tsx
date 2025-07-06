@@ -66,7 +66,7 @@ export default ({
   const renderList = () => {
     return (
       <Div style={_u(`_s_${width}_${height} _por`)} onPress={(event: any) => event.stopPropagation()}>
-        <List pageData={pageData} onSelect={onSelect} hideTop={!hasSearch}></List>
+        <ListPage pageData={pageData} onSelect={onSelect} hideTop={!hasSearch}></ListPage>
       </Div>
     )
   }
