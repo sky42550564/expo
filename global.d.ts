@@ -17,6 +17,7 @@ declare global {
   const api: any;
   const CO: any;
   const useRedux: any;  // 全局属性
+  const useWatch: any; // 属性监听
   const useComputed: any; // 计算属性
   const useForm: any; // 表单操作
   const Page: any;
@@ -43,8 +44,8 @@ declare global {
   const MenuItem: any; // 列表菜单
   const MenuTitle: any; // 菜单标题
   const ListPage: any; // 列表页面
-  const TabsPage: any; // tabs页面
   const Detail: any; // 详情
+  const TabsPage: any; // tabs页面
   const Tabs: any; // tab卡片
   const Banners: any; // 轮播图
   const TimeCountDown: any; // 倒计时

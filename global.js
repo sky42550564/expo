@@ -32,6 +32,8 @@ global.CO = CO; // 常量定义
 // 常用封装
 import useRedux from './utils/react-native/useRedux.js';
 global.useRedux = useRedux; // 全局属性
+import useWatch from './utils/react-native/useWatch.js';
+global.useWatch = useWatch; // 属性监听
 import useComputed from './utils/react-native/useComputed.js';
 global.useComputed = useComputed; // 计算属性
 import useForm from './utils/react-native/useForm.js';
@@ -75,10 +77,10 @@ import MenuTitle from '@/components/menu/MenuTitle';
 global.MenuTitle = MenuTitle; // 菜单标题
 import ListPage from '@/components/page/crud/ListPage';
 global.ListPage = ListPage; // 列表页面
-import TabsPage from '@/components/page/crud/TabsPage';
-global.TabsPage = TabsPage; // tabs页面
 import Detail from '@/components/page/crud/Detail';
 global.Detail = Detail; // 详情
+import TabsPage from '@/components/page/tabs/TabsPage';
+global.TabsPage = TabsPage; // tabs页面
 import Tabs  from '@/components/layout/Tabs';
 global.Tabs  = Tabs ; // tab卡片
 import Banners  from '@/components/layout/Banners';

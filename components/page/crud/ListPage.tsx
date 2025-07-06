@@ -7,7 +7,6 @@ import Item from './Item';
 
 type Props = PropsWithChildren<{
   label?: any, // tab页面传过来的label
-  pageStyle?: any, // 容器样式
   list?: any, // 传入的数据
   filterFields?: any, // 过滤的字段，如['name', 'phone']
   showDetail?: any, // 显示详情
@@ -26,7 +25,6 @@ type Props = PropsWithChildren<{
   onSelectChange?: any, // 选择的时候发生变化
   emptyText?: any, // 列表为空时的文字提示
   readonly?: boolean, // 是否是只读
-  listeners?: any, // 中央消息总线的消息，格式形如: {BUS_NEW_MESSAGE_NF: ()=>...}
   callback?: any, // 详情页面的回调函数，会返回参数
   other?: any, // 附加属性
   initSearchKeyword?: any, // 初始搜索关键字
@@ -36,7 +34,6 @@ type Props = PropsWithChildren<{
   renderHeader?: any, // 显示头部
   renderFooter?: any, // 显示尾部
 }>;
-
 
 export default forwardRef((props: Props, ref) => {
   // 普通全局变量
@@ -346,8 +343,20 @@ export default forwardRef((props: Props, ref) => {
   }
 
   useEffect(() => {
-    refreshList();
-  }, []);
+    if (pageData.list) {
+      setDataList(pageData.list);
+      setTotalCount(pageData.list.length);
+    } else if (!pageData.tabs && !(pageData.list || props.list)) { // 如果是tabs 或者给定了list，不需要拉取数据
+      refreshList();
+    }
+  }, [pageData]);
+
+  useWatch(() => {
+    if (props.list) {
+      setDataList(props.list);
+      setTotalCount(props.list.length);
+    }
+  }, [props]);
 
   useImperativeHandle(ref, () => page); // 暴露函数组件内部方法
 
