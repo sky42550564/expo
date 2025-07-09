@@ -21,6 +21,7 @@ type Props = PropsWithChildren<{
   initParams?: any, // 传递过来的创建的附加参数
   params?: any, // 传递过来的获取列表的请求附加参数
   hideTop?: boolean, // 隐藏顶部
+  searchPlaceholder?: string, // 搜索的placeholder
   bottomSlotHeight?: number, // 多选的底部的高度，默认是50
   onSelectChange?: any, // 选择的时候发生变化
   emptyText?: any, // 列表为空时的文字提示
@@ -39,7 +40,6 @@ export default forwardRef((props: Props, ref) => {
   let searchOptions = {}; // 搜索的参数
   let refreshParams: any; // 刷新列表的时候传过来的参数
   const other = props.other;
-console.log('=================params', props.params);
 
   const pageData = useComputed(() => { // 页面配置
     searchOptions = {}; // pageData变化的时候需要重置searchOptions
@@ -72,6 +72,7 @@ console.log('=================params', props.params);
   const removeButtonVisible = useComputed(() => hasCUD && pageData.removeButtonVisible, [props]); // 创建按钮是否显示
   const hasInitialList = useComputed(() => pageData.list || props.list, [props]); // 是否有初始的列表
   const emptyText = useComputed(() => pageData.emptyText || props.emptyText, [props]); // 空列表的提示语
+  const searchPlaceholder = useComputed(() => pageData.searchPlaceholder || props.searchPlaceholder, [props]); // 搜索的placeholder
   const showList = useComputed(() => { // 显示列表
     if (!_.size(filterOptions)) { // 格式：{ 'name|phone': '/123/', 'age': '/123/' }
       return [...dataList];
@@ -268,12 +269,16 @@ console.log('=================params', props.params);
     }
   }
 
-  const getShowList = () => { // 获取或者更新可见列表
+  const getShowList = () => { // 获取可见列表
     return showList;
   }
 
+  const getDataList = () => { // 获取列表
+    return dataList;
+  }
+
   // 定义一个page传递给函数或者插槽
-  const page = useComputed(() => ({ list: dataList, totalCount, hasCUD, showCreate, showDetail, removeItem, refreshList, setFilterOptions, updateList, getShowList, onMultiSelect }), [dataList, totalCount, hasCUD]);
+  const page = useComputed(() => ({ list: dataList, totalCount, hasCUD, showCreate, showDetail, removeItem, refreshList, setFilterOptions, updateList,  getShowList, getDataList, onMultiSelect }), [dataList, totalCount, hasCUD]);
 
   const Row = ({ item, index, separators }: any) => {
     return (
@@ -324,7 +329,7 @@ console.log('=================params', props.params);
     if (props.hideTop) return null;
     const _renderHeader = pageData.renderHeader || props.renderHeader;
     return _renderHeader ? _renderHeader(scope) : (
-      pageData.search && <Search {...{ pageData, filterFields: props.filterFields, initSearchKeyword, setSearchOptions }}></Search>
+      pageData.search && <Search {...{ pageData, filterFields: props.filterFields, initSearchKeyword, setSearchOptions, searchPlaceholder }}></Search>
     );
   }
   // 显示尾部

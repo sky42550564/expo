@@ -1,8 +1,6 @@
 import { View } from 'react-native';
 
 export default function Home() {
-  const form = useForm({ name: '方运江' }, { needShowRequired: false, labelWidth: 100, hasSpace: true });
-
   return (
     <View style={_u(`_pt_50`)}>
       <View style={_u(`_fs_40_red`)}>{_t('方运江')}</View>

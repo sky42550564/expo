@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { Tooltip } from '@ant-design/react-native'
 
 export default ({
@@ -12,12 +12,16 @@ export default ({
   required, // 必选
   disabled = false, // 是否禁用
   placeholder, // 默认显示
-  options, // 默认是数组，如: ['汉族', '苗族']：值为：0，1；也可以为集合：[{ id: 1, name: '汉族' }]
-  valueKey, // 获取的字段，默认为数字下标 ([0,1])，$s: 字符串下标(['0','1'])，$: 直接使用label为值 如: ['汉族', '苗族']：值为：汉族，苗族，'，如果[{ id: 1, name: '汉族' }]，可设置为id
-  labelKey, // 显示的字段，默认为数组的一项，如'汉族'，如果[{ id: 1, name: '汉族' }]，可设置为name
+  table, // 指定获取对应的页面的数据的数据库
+  api, // 指定获取对应的页面的数据的接口，和table二选一
+  sortOptions, // 排序参数
+  searchOptions, // 搜索参数
+  valueKey = 'id', // 获取的字段
+  labelKey = 'name', // 显示的字段
+  dependParams, // 选择的时候的附加参数，会生成附加参数在form里面
   width = 150, // 宽度
   height = 200, // 高度
-  hasSearch = false, // 是否有搜索
+  search, // 搜索
   onChange, // 监听变化时的回调
 }: any) => {
   // 验证规则
@@ -27,46 +31,43 @@ export default ({
   }
 
   const tooltipRef = useRef(null);
+  const listRef = useRef(null);
 
-  const getValue = (v: any, k: any) => {
-    if (valueKey === '$') {
-      return v; // 返回值
-    }
-    if (valueKey === '$s') {
-      return k + ''; // 返回字符串
-    }
-    if (valueKey) {
-      return v[valueKey];
-    }
-    return +k;
+  const getLabel = (value: any) => {
+    const list = listRef.current.getDataList();
+    return _.findGet(list, (o: any) => o[valueKey] === value, labelKey);
   }
-
-  const showLabel = useComputed(() => {
-    if (form.data[prop] == undefined) return undefined;
-    const item = _.find(options, (v: any, k: any) => getValue(v, k) === form.data[prop]);
-    return labelKey ? item[labelKey] : item;
-  }, [form.data[prop]]);
 
   const pageData = useComputed(() => {
     return {
-      list: options,
+      search,
+      searchPlaceholder: '关键字',
+      table,
+      params: searchOptions,
+      sort: sortOptions,
+      ...(api ? { apis: { list: api } } : {}),
       renderItem: ({ item }: any) => {
         return <Text style={_u(`_fx_1 _tc`)}>{labelKey ? item[labelKey] : item}</Text>
       }
     }
   }, []);
 
-  const onSelect = (v: any, k: any) => {
-    const value = getValue(v, k);
+  const onSelect = (item: any, index: any) => {
+    const value = item[valueKey];
     onChange && onChange(value);
     form.set(prop, value);
+    if (dependParams) { // 如果有附加参数，设置附加参数，比如要获取的时id，同时需要获取parentId的时候就使用附加参数
+      for (const param of dependParams) {
+        form.set(param.name, _.isFunction(param.valueKey) ? param.valueKey(item) : _.get(item, param.valueKey));
+      }
+    }
     tooltipRef.current.hide();
   }
 
   const renderList = () => {
     return (
       <Div style={_u(`_s_${width}_${height} _por`)} onPress={(event: any) => event.stopPropagation()}>
-        <ListPage pageData={pageData} onSelect={onSelect} hideTop={!hasSearch}></ListPage>
+        <ListPage ref={listRef} pageData={pageData} onSelect={onSelect} hideTop={!search} renderFooter={() => null}></ListPage>
       </Div>
     )
   }
@@ -75,7 +76,7 @@ export default ({
     <FormLabel {...{ form, prop, label, labelLeft, labelWidth, labelRight, noLabel, rules, required, disabled }}>
       <Tooltip ref={tooltipRef} content={renderList()} trigger='onPress'>
         <TouchableOpacity style={_u(`_fx_1 _h_30 _fx_rb`)}>
-          <Div s={`_fs_14 _ml_8px ${showLabel ? `` : `_c_c0c4cc`}`}>{showLabel ? showLabel : (placeholder || `请选择${label}`)}</Div>
+          <Div s={`_fs_14 _ml_8px ${form.data[prop] === undefined ? `` : `_c_c0c4cc`}`}>{form.data[prop] !== undefined ? getLabel(form.data[prop]) : (placeholder || `请选择${label}`)}</Div>
           {!disabled && <Div s='_arrow'></Div>}
         </TouchableOpacity>
       </Tooltip>

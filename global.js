@@ -14,13 +14,15 @@ global._ = _; // 数据处理
 import moment from './utils/libs/moment.js';
 global.moment = moment; // 时间处理
 import * as utils from './utils/index.js';
-global.utils = utils;
+global.utils = utils; // 工具类
 global.lc = utils.lc; // 本地存储
-global.$alert = utils.$alert;
-global.$confirm = utils.$confirm;
-global.$prompt = utils.$prompt;
-global.$success = utils.$success;
-global.$error = utils.$error;
+global.$alert = utils.$alert; // 提示弹窗
+global.$confirm = utils.$confirm; // 确认弹窗
+global.$prompt = utils.$prompt; // 输入弹窗
+global.$success = utils.$success; // 正确提示
+global.$error = utils.$error; // 错误提示
+import _t from './utils/i18n/index.js';
+global._t = _t; // 国际化字符串转化
 import uno from './utils/libs/uno.js';
 const u = uno(sr.w);
 global._u = u._u; // uno处理css样式
@@ -110,6 +112,8 @@ import FormSwitchItem from '@/components/form/FormSwitchItem';
 global.FormSwitchItem = FormSwitchItem; // 开关选择器
 import FormSelectItem from '@/components/form/FormSelectItem';
 global.FormSelectItem = FormSelectItem; // 列表选择器
+import FormSelectListItem from '@/components/form/FormSelectListItem';
+global.FormSelectListItem = FormSelectListItem; // 表格列表选择器
 import FormRadioItem from '@/components/form/FormRadioItem';
 global.FormRadioItem = FormRadioItem; // 单选选择器
 import FormCheckboxItem from '@/components/form/FormCheckboxItem';

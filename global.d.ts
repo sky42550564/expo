@@ -7,30 +7,31 @@ declare global {
   const useMemo: any;
   const useCallback: any;
   // 常用方法
-  const sr: any;
-  const _: any;
-  const moment: any;
-  const utils: any;
-  const lc: any;
-  const _u: any;
-  const _us: any;
-  const api: any;
-  const CO: any;
+  const sr: any; // 窗口信息
+  const _: any; // 数据处理
+  const moment: any; // 时间处理
+  const utils: any; // 工具类
+  const lc: any; // 本地存储
+  const _t: any; // 国际化字符串转化
+  const _u: any; // uno严格转化
+  const _us: any;  // uno渐变转化
+  const api: any; // 访问api
+  const CO: any; // 常量
   const useRedux: any;  // 全局属性
   const useWatch: any; // 属性监听
   const useComputed: any; // 计算属性
   const useMounted: any; // 生命周期加载
   const useWillUnmount: any; // 生命周期卸载
   const useForm: any; // 表单操作
-  const Page: any;
+  const Page: any; // 页面封装
   // 路由操作
   const router: any;
   // 交互
-  const $alert: any;
-  const $confirm: any;
-  const $prompt: any;
-  const $success: any;
-  const $error: any;
+  const $alert: any; // 提示弹窗
+  const $confirm: any; // 确认弹窗
+  const $prompt: any; // 输入弹窗
+  const $success: any; // 正确提示
+  const $error: any; // 错误提示
   // 图片路径
   const _url: any;
   const _img: any;
@@ -61,6 +62,7 @@ declare global {
   const FormSwitchItem: any;  // 开关选择器
   const FormBoolItem: any;  // 是否选择器
   const FormSelectItem: any;  // 列表选择器
+  const FormSelectListItem: any;  // 表格列表选择器
   const FormRadioItem: any; // 单选选择器
   const FormCheckboxItem: any; // 多选选择器
   const FormDateItem: any; // 日期选择器

@@ -95,4 +95,5 @@ export default {
   gaodeKey: '4111037ceebbbd85d95f36bd271b5817', // 高德地图的key
   noNotifyLog: setting.noNotifyLog,
   server: setting.server, // 服务器地址
+  language: 'cn', // 语言
 }
